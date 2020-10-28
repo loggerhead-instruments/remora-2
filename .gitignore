@@ -1,0 +1,7 @@
+
+*.Zip
+altium/__Previews/teensyPlayback.SchDocPreview
+altium/__Previews/openTag.SchDocPreview
+*.SchDocPreview
+*.PcbDocPreview
+*.LOG
