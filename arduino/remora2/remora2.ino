@@ -5,6 +5,14 @@
 // ATMEGA328p: low-power motion datalogging
 // Dual Teensy 3.2: Audio playback and record
 
+// To Do: 
+// - MPU
+// - GPS
+// - DS3231
+// - Deep sensor
+// - Teensy wake and record
+
+
 #include <SPI.h>
 #include <SdFat.h>
 #include <MsTimer2.h> 
@@ -21,16 +29,17 @@
 #define I2C_TIMEOUT 100
 #define I2C_FASTMODE 1
 
-#include <SoftWire.h>
+#include <Wire.h>
+//#include <SoftWire.h>
 #include <avr/io.h>
 #include <avr/boot.h>
 
-SoftWire Wire = SoftWire();
+//SoftWire Wire = SoftWire();
 
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2020-04-27";
+char codeVer[12] = "2020-12-03";
 int printDiags = 1;
 
 int recDur = 3600; // 3600 seconds per hour
@@ -46,8 +55,8 @@ float MS58xx_constant = 8192.0; // for 30 bar sensor
 
 // pin assignments
 #define chipSelect  10
-#define LED_GRN A3  // PD4
-#define LED_RED 4 // PC3
+#define LED_RED A3 
+#define LED_GRN 4 
 #define BURN 8     // PB0
 #define TEENSY_ST 9   // PB1
 #define BUTTON1 A2 // PC2
@@ -132,7 +141,7 @@ void setup() {
   digitalWrite(LED_RED,LOW);
   digitalWrite(LED_GRN,HIGH);
   digitalWrite(BURN, LOW);
-  digitalWrite(GPS_EN, LOW);
+  digitalWrite(GPS_EN, HIGH);
   digitalWrite(TEENSY_POW, LOW);
 
   Serial.println("Remora 2");
@@ -145,6 +154,8 @@ void setup() {
   speriod = 1000 / imuSrate;
 
   initSensors();
+  while(1);
+  
   readRTC();
   Serial.print(year); Serial.print("-");
   Serial.print(month);Serial.print("-");
@@ -167,8 +178,8 @@ void setup() {
   digitalWrite(LED_GRN, LOW);
   digitalWrite(LED_RED, LOW);
 
-  setClockPrescaler(clockprescaler); // set clockprescaler from script file
-  wdtInit();
+  //setClockPrescaler(clockprescaler); // set clockprescaler from script file
+  //wdtInit();
 
 }
 
@@ -248,27 +259,18 @@ void spinCount(){
 
 void initSensors(){
   digitalWrite(BURN, HIGH);
+  
   readVoltage();
   Serial.print(voltage);
   Serial.println(" V");
+//  if(voltage < 3.5){
+//    showFail(50); //battery voltage read fail
+//  }
+//  reset_alarm();
 
-  if(voltage < 3.5){
-    showFail(50); //battery voltage read fail
-  }
-  
-  reset_alarm();
-
+  setTime2(12,0,0,5,12,20); 
   readRTC();
   int oldSecond = second;
-
-  // flash LED with current hour
-  readRTC();
-  Serial.print(year); Serial.print("-");
-  Serial.print(month); Serial.print("-");
-  Serial.print(day); Serial.print(" ");
-  Serial.print(hour); Serial.print(":");
-  Serial.print(minute); Serial.print(":");
-  Serial.println(second);
 
   digitalWrite(LED_RED, HIGH);
   delay(1000);
@@ -284,10 +286,10 @@ void initSensors(){
   Serial.print(hour); Serial.print(":");
   Serial.print(minute); Serial.print(":");
   Serial.println(second);
-  if(second==oldSecond){
-    showFail(100); // clock not ticking
-    Serial.println("Clock fail");
-  }
+//  if(second==oldSecond){
+//    showFail(100); // clock not ticking
+//    Serial.println("Clock fail");
+//  }
 
   // Pressure/Temperature
   if (pressInit()==0){
@@ -295,7 +297,7 @@ void initSensors(){
     showFail(200); // pressure sensor fail
   }
   Serial.println("P D T");
-  for(int x=0; x<5; x++){
+  for(int x=0; x<20; x++){
     updatePress();
     delay(100);
     readPress();
@@ -319,17 +321,19 @@ void initSensors(){
 
   Serial.print("MPU");
   int eCode = mpuInit(1);
-  if(eCode!=0) {
+   if (eCode) {
     Serial.print("MPU fail ");
     Serial.println(eCode);
     showFail(300);
   }
+
   for(int i=0; i<10; i++){
       readImu();
       calcImu();
       printImu();
       delay(100);
   }
+
 
   // sensor out of spec warning
   if(depth<-1.0 | depth>1.0 | accelX==-1 | magX==-1 | gyroX==-1) {

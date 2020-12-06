@@ -1,5 +1,5 @@
-int CompassAddress = 0x0C;  //0x0C internal compass on 9150
-int GyroAddress = 0x69;
+#define CompassAddress 0x0C
+#define GyroAddress 0x69
 
 #define AKM_REG_WHOAMI      (0x00)
 
@@ -215,4 +215,3 @@ int intStatus(){
   }
  return intStatus; 
 }
-
