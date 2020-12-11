@@ -6,11 +6,13 @@
 // Dual Teensy 3.2: Audio playback and record
 
 // To Do: 
-// - MPU
+// - Build board without GPS
 // - Deep sensor
 // - Teensy wake and record
-// Enough memory to trigger record/playback?
 // Enought memory to talk to Teensy?
+
+// Current consumption
+// 20 Hz on motion sensors; clock prescaler = 2;
 
 #include <SPI.h>
 #include <SdFat.h>
@@ -87,13 +89,13 @@ File dataFile;
 int fileCount; 
 
 int ssCounter; // used to get different sample rates from one timer based on imu_srate
-byte clockprescaler=0;  //clock prescaler
+byte clockprescaler=1;  //clock prescaler
 
 //
 // SENSORS
 //
 byte imuTempBuffer[20];
-int imuSrate = 50; // must be integer for timer
+int imuSrate = 20; // must be integer for timer
 int sensorSrate = 1; // must divide into imuSrate
 int slowRateMultiple = imuSrate / sensorSrate;
 int speriod = 1000 / imuSrate;
@@ -185,14 +187,14 @@ void setup() {
   digitalWrite(LED_GRN, LOW);
   digitalWrite(LED_RED, LOW);
 
-  //setClockPrescaler(clockprescaler); // set clockprescaler from script file
-  //wdtInit();
+  setClockPrescaler(clockprescaler); // set clockprescaler from script file
+  wdtInit();  // used to wake from sleep
 
 }
 
 void loop() {
 while(mode==0){
-    // resetWdt();
+   // resetWdt();
     readRTC();
     checkBurn();
     Serial.print(t); Serial.print(" "); Serial.println(startTime);
@@ -204,7 +206,7 @@ while(mode==0){
     }
     digitalWrite(LED_GRN, LOW);
     digitalWrite(LED_RED, LOW);
-  //  enterSleep();
+    enterSleep();
 
     if(t >= startTime){
       endTime = startTime + recDur;
@@ -219,7 +221,7 @@ while(mode==0){
 
 
   while(mode==1){
-    // resetWdt();
+   // resetWdt();
     
     // check if time to close
     if(t>=endTime){
@@ -234,7 +236,7 @@ while(mode==0){
       }
       else{
         mode = 0;
-      //  wdtInit(); // start wdt
+        wdtInit(); // start wdt
       }
     }
 
@@ -407,7 +409,7 @@ void fileWriteSlowSensors(){
   if(second < 10) dataFile.print('0');
   dataFile.print(second);
   dataFile.print("Z,");
-  dataFile.print(','); dataFile.print(pressure_mbar);
+  dataFile.print(pressure_mbar);
   dataFile.print(','); dataFile.print(depth);
   dataFile.print(','); dataFile.print(temperature);
   dataFile.print(','); dataFile.print(voltage);
