@@ -1,4 +1,4 @@
-// Copyright Loggerhead Instruments, 2020
+  // Copyright Loggerhead Instruments, 2020
 // David Mann
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
@@ -7,11 +7,10 @@
 
 // To Do: 
 // - MPU
-// - GPS
-// - DS3231
 // - Deep sensor
 // - Teensy wake and record
-
+// Enough memory to trigger record/playback?
+// Enought memory to talk to Teensy?
 
 #include <SPI.h>
 #include <SdFat.h>
@@ -20,6 +19,7 @@
 #include <avr/power.h>
 #include <avr/wdt.h>
 #include <prescaler.h>
+#include "ICM_20948.h"  // Click here to get the library: http://librarymanager/All#SparkFun_ICM_20948_IMU
 
 #define SDA_PORT PORTC
 #define SDA_PIN 4
@@ -34,13 +34,13 @@
 #include <avr/io.h>
 #include <avr/boot.h>
 
+ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //SoftWire Wire = SoftWire();
 
 //
 // DEV SETTINGS
 //
 char codeVer[12] = "2020-12-03";
-int printDiags = 1;
 
 int recDur = 3600; // 3600 seconds per hour
 int recInt = 0;
@@ -53,6 +53,18 @@ boolean HALL_LED_EN = 1; //flash red LED for Hall sensor
 float MS58xx_constant = 8192.0; // for 30 bar sensor
 // float MS58xx_constant = 327680.0; // for 2 bar sensor; will switch to this if 30 bar fails to give good depth
 
+// Playback
+float playBackDepthThreshold = 10.0; // tag must go deeper than this depth to trigger threshold
+float ascentDepthTrigger = 5.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
+float playBackResetDepth = 2.0; // tag needs to come back above this depth before next playback can happen
+int maxPlayBacks = 20; // maximum number of times to play
+float maxDepth;  
+byte playNow = 0;
+boolean playBackDepthExceeded = 0;
+int minPlayBackInterval = 120; // keep playbacks from being closer than x seconds
+int longestPlayback = 30; // longest file for playback, used to power down playback board
+int nPlayed = 0;
+
 // pin assignments
 #define chipSelect  10
 #define LED_RED A3 
@@ -62,7 +74,7 @@ float MS58xx_constant = 8192.0; // for 30 bar sensor
 #define BUTTON1 A2 // PC2
 #define BAT_VOLTAGE A7// ADC7
 #define HALL 3 // PD3 (INT1)
-#define GPS_EN 11 //PD5
+#define GPS_EN 5 //PD5
 #define TEENSY_POW 6 // PD6
 #define IMU_INT 7 // PD7
 #define RXD2 A0 // PC0
@@ -81,7 +93,7 @@ byte clockprescaler=0;  //clock prescaler
 // SENSORS
 //
 byte imuTempBuffer[20];
-int imuSrate = 100; // must be integer for timer
+int imuSrate = 50; // must be integer for timer
 int sensorSrate = 1; // must divide into imuSrate
 int slowRateMultiple = imuSrate / sensorSrate;
 int speriod = 1000 / imuSrate;
@@ -98,9 +110,9 @@ byte Pbuff[3];
 volatile float depth, temperature, pressure_mbar;
 boolean togglePress = 0; // flag to toggle conversion of temperature and pressure
 
-int16_t accelX, accelY, accelZ;
-int16_t magX, magY, magZ;
-int16_t gyroX, gyroY, gyroZ;
+//int16_t accelX, accelY, accelZ;
+//int16_t magX, magY, magZ;
+//int16_t gyroX, gyroY, gyroZ;
 
 int accel_scale = 16;
 
@@ -119,11 +131,12 @@ volatile byte day = 1;
 volatile byte month = 1;
 volatile byte year = 17;
 
-unsigned long t, startTime, endTime, burnTime, startUnixTime;
+unsigned long t, startTime, endTime, burnTime, startUnixTime, playTime;
 int burnFlag = 0;
 long burnSeconds;
 void setup() {
   Serial.begin(115200);
+
   pinMode(LED_GRN, OUTPUT);
   pinMode(LED_RED, OUTPUT);
   pinMode(BURN, OUTPUT);
@@ -144,8 +157,9 @@ void setup() {
   digitalWrite(GPS_EN, HIGH);
   digitalWrite(TEENSY_POW, LOW);
 
-  Serial.println("Remora 2");
+//  Serial.println("Remora 2");
   Wire.begin();
+  Wire.setClock(100000);
   sd.begin(chipSelect, SPI_FULL_SPEED);
 
   loadScript(); // do this early to set time
@@ -154,27 +168,20 @@ void setup() {
   speriod = 1000 / imuSrate;
 
   initSensors();
-  while(1);
   
   readRTC();
-  Serial.print(year); Serial.print("-");
-  Serial.print(month);Serial.print("-");
-  Serial.print(day);Serial.print(" ");
-  Serial.print(hour);Serial.print(":");
-  Serial.print(minute);Serial.print(":");
-  Serial.println(second);
-
   startUnixTime = t;
   logFileWrite();
   
   if(burnFlag==2){
   burnTime = t + burnSeconds;
-  Serial.print("Burn set");
-  Serial.println(burnTime);
+//  Serial.print("Burn set");
+//  Serial.println(burnTime);
   }
 
-  Serial.print("Time:"); Serial.println(t);
-  Serial.print("Start Time:"); Serial.println(startTime);
+  if(startTime==0) startTime = t + 3;
+//  Serial.print("Time:"); Serial.println(t);
+//  Serial.print("Start Time:"); Serial.println(startTime);
   digitalWrite(LED_GRN, LOW);
   digitalWrite(LED_RED, LOW);
 
@@ -197,12 +204,11 @@ while(mode==0){
     }
     digitalWrite(LED_GRN, LOW);
     digitalWrite(LED_RED, LOW);
-    enterSleep();
+  //  enterSleep();
 
     if(t >= startTime){
       endTime = startTime + recDur;
-      startTime += recDur + recInt;  // this will be next start time for interval record
-      mpuInit(1);
+      startTime += recDur + recInt;  // this will be next start time for interval record      mpuInit(1);
       fileInit();
       updateTemp();  // get first reading ready
       mode = 1;
@@ -228,7 +234,6 @@ while(mode==0){
       }
       else{
         mode = 0;
-        mpuInit(0); // MPU to sleep
       //  wdtInit(); // start wdt
       }
     }
@@ -262,7 +267,7 @@ void initSensors(){
   
   readVoltage();
   Serial.print(voltage);
-  Serial.println(" V");
+  Serial.println("V");
 //  if(voltage < 3.5){
 //    showFail(50); //battery voltage read fail
 //  }
@@ -272,7 +277,7 @@ void initSensors(){
   readRTC();
   int oldSecond = second;
 
-  digitalWrite(LED_RED, HIGH);
+//  digitalWrite(LED_RED, HIGH);
   delay(1000);
   for(int i=0; i<hour; i++){
     delay(300);
@@ -286,15 +291,15 @@ void initSensors(){
   Serial.print(hour); Serial.print(":");
   Serial.print(minute); Serial.print(":");
   Serial.println(second);
-//  if(second==oldSecond){
-//    showFail(100); // clock not ticking
-//    Serial.println("Clock fail");
-//  }
+  if(second==oldSecond){
+    // showFail(100); // clock not ticking
+    Serial.println("CF");
+  }
 
   // Pressure/Temperature
   if (pressInit()==0){
-    Serial.println("Pressure fail");
-    showFail(200); // pressure sensor fail
+    Serial.println("PF");
+   // showFail(200); // pressure sensor fail
   }
   Serial.println("P D T");
   for(int x=0; x<20; x++){
@@ -310,39 +315,23 @@ void initSensors(){
     Serial.println(temperature);
   }
 
-  if(depth<-1.0 | depth>1.0){
-    // out of range, try settings for 2 bar sensor
-    MS58xx_constant = 327680.0;
-    calcPressTemp();
-    Serial.print(pressure_mbar); Serial.print(" ");
-    Serial.print(depth); Serial.print(" ");
-    Serial.println(temperature);
+  myICM.begin( Wire, 1 );
+  if( myICM.status != ICM_20948_Stat_Ok ){
+      Serial.println( "ICM fail" );
+      delay(500);
   }
-
-  Serial.print("MPU");
-  int eCode = mpuInit(1);
-   if (eCode) {
-    Serial.print("MPU fail ");
-    Serial.println(eCode);
-    showFail(300);
-  }
+  //icmSetup();
 
   for(int i=0; i<10; i++){
-      readImu();
-      calcImu();
-      printImu();
-      delay(100);
+   if( myICM.dataReady() ){
+    myICM.getAGMT();                // The values are only updated when you call 'getAGMT'
+//    printRawAGMT( myICM.agmt );     // Uncomment this to see the raw values, taken directly from the agmt structure
+    printImu();   // This function takes into account the scale settings from when the measurement was made to calculate the values with units
+    delay(30);
+    }else{
+    Serial.println("ICM");
+    delay(500);
   }
-
-
-  // sensor out of spec warning
-  if(depth<-1.0 | depth>1.0 | accelX==-1 | magX==-1 | gyroX==-1) {
-    for(int i=0; i<300; i++){ //flash fast for  seconds
-      digitalWrite(LED_RED, HIGH);
-      delay(20);
-      digitalWrite(LED_RED, LOW);
-      delay(30);
-    }
   }
   digitalWrite(BURN, LOW);
 }
@@ -359,45 +348,45 @@ void showFail(int blinkInterval){
   }
 }
 
-void calcImu(){
-  accelX = (int16_t) ((int16_t)imuTempBuffer[0] << 8 | imuTempBuffer[1]);    
-  accelY = (int16_t) ((int16_t)imuTempBuffer[2] << 8 | imuTempBuffer[3]);   
-  accelZ = (int16_t) ((int16_t)imuTempBuffer[4] << 8 | imuTempBuffer[5]);    
-  
- // gyroTemp = (int16_t) (((int16_t)imuTempBuffer[6]) << 8 | imuTempBuffer[7]);   
- 
-  gyroX = (int16_t)  (((int16_t)imuTempBuffer[8] << 8) | imuTempBuffer[9]);   
-  gyroY = (int16_t)  (((int16_t)imuTempBuffer[10] << 8) | imuTempBuffer[11]); 
-  gyroZ = (int16_t)  (((int16_t)imuTempBuffer[12] << 8) | imuTempBuffer[13]);   
-  
-  magX = (int16_t)  (((int16_t)imuTempBuffer[14] << 8) | imuTempBuffer[15]);   
-  magY = (int16_t)  (((int16_t)imuTempBuffer[16] << 8) | imuTempBuffer[17]);   
-  magZ = (int16_t)  (((int16_t)imuTempBuffer[18] << 8) | imuTempBuffer[19]);  
-}
+//void calcImu(){
+//  accelX = (int16_t) ((int16_t)imuTempBuffer[0] << 8 | imuTempBuffer[1]);    
+//  accelY = (int16_t) ((int16_t)imuTempBuffer[2] << 8 | imuTempBuffer[3]);   
+//  accelZ = (int16_t) ((int16_t)imuTempBuffer[4] << 8 | imuTempBuffer[5]);    
+//  
+// // gyroTemp = (int16_t) (((int16_t)imuTempBuffer[6]) << 8 | imuTempBuffer[7]);   
+// 
+//  gyroX = (int16_t)  (((int16_t)imuTempBuffer[8] << 8) | imuTempBuffer[9]);   
+//  gyroY = (int16_t)  (((int16_t)imuTempBuffer[10] << 8) | imuTempBuffer[11]); 
+//  gyroZ = (int16_t)  (((int16_t)imuTempBuffer[12] << 8) | imuTempBuffer[13]);   
+//  
+//  magX = (int16_t)  (((int16_t)imuTempBuffer[14] << 8) | imuTempBuffer[15]);   
+//  magY = (int16_t)  (((int16_t)imuTempBuffer[16] << 8) | imuTempBuffer[17]);   
+//  magZ = (int16_t)  (((int16_t)imuTempBuffer[18] << 8) | imuTempBuffer[19]);  
+//}
 
 void printImu(){
   Serial.print("a/m/g:\t");
-  Serial.print(accelX); Serial.print("\t");
-  Serial.print(accelY); Serial.print("\t");
-  Serial.print(accelZ); Serial.print("\t");
-  Serial.print(magX); Serial.print("\t");
-  Serial.print(magY); Serial.print("\t");
-  Serial.print(magZ); Serial.print("\t");
-  Serial.print(gyroX); Serial.print("\t");
-  Serial.print(gyroY); Serial.print("\t");
-  Serial.println(gyroZ);
+  Serial.print(myICM.accX()); Serial.print("\t");
+  Serial.print(myICM.accY()); Serial.print("\t");
+  Serial.print(myICM.accZ()); Serial.print("\t");
+  Serial.print(myICM.magX()); Serial.print("\t");
+  Serial.print(myICM.magY()); Serial.print("\t");
+  Serial.print(myICM.magZ()); Serial.print("\t");
+  Serial.print(myICM.gyrX()); Serial.print("\t");
+  Serial.print(myICM.gyrY()); Serial.print("\t");
+  Serial.println(myICM.gyrZ());
 }
 
 void fileWriteImu(){
-  dataFile.print(accelX); dataFile.print(",");
-  dataFile.print(accelY); dataFile.print(",");
-  dataFile.print(accelZ); dataFile.print(",");
-  dataFile.print(magX); dataFile.print(",");
-  dataFile.print(magY); dataFile.print(",");
-  dataFile.print(magZ); dataFile.print(",");
-  dataFile.print(gyroX); dataFile.print(",");
-  dataFile.print(gyroY); dataFile.print(",");
-  dataFile.print(gyroZ);
+  dataFile.print(myICM.accX()); dataFile.print(",");
+  dataFile.print(myICM.accY()); dataFile.print(",");
+  dataFile.print(myICM.accZ()); dataFile.print(",");
+  dataFile.print(myICM.magX()); dataFile.print(",");
+  dataFile.print(myICM.magY()); dataFile.print(",");
+  dataFile.print(myICM.magZ()); dataFile.print(",");
+  dataFile.print(myICM.gyrX()); dataFile.print(",");
+  dataFile.print(myICM.gyrY()); dataFile.print(",");
+  dataFile.print(myICM.gyrZ());
 }
 
 void fileWriteSlowSensors(){
@@ -455,16 +444,6 @@ void logFileWrite()
    logFile.close();
 }
 
-
-void flatFileOpen()
-{
-   readRTC();
-   
-   dataFile = sd.open("flat.csv", O_WRITE | O_CREAT);
-   dataFile.println("accelX,accelY,accelZ,magX,magY,magZ");
-   SdFile::dateTimeCallback(file_date_time);
-}
-
 void fileInit()
 {
    char filename[60];
@@ -473,9 +452,9 @@ void fileInit()
    while (!dataFile){
     digitalWrite(LED_RED, HIGH);
     fileCount += 1;
-    sprintf(filename,"F%06d.txt",fileCount); //if can't open just use count
+    //sprintf(filename,"F%06d.txt",fileCount); //if can't open just use count
     dataFile = sd.open(filename, O_WRITE | O_CREAT | O_EXCL);
-    Serial.println(filename);
+   // Serial.println(filename);
     delay(100);
    }
    digitalWrite(LED_RED, LOW);
@@ -483,7 +462,7 @@ void fileInit()
    if(HALL_EN) dataFile.print(",spin");
    dataFile.println();
    SdFile::dateTimeCallback(file_date_time);
-   Serial.println(filename);
+  // Serial.println(filename);
 }
 
 /********************************************************************
@@ -491,8 +470,9 @@ void fileInit()
 ********************************************************************/
 void sampleSensors(void){  
     ssCounter++;
-    readImu();
-    calcImu();
+
+   // calcImu();
+    myICM.getAGMT();
     fileWriteImu();
 
   // MS58xx start temperature conversion half-way through
@@ -514,6 +494,7 @@ void sampleSensors(void){
     calcPressTemp(); // MS58xx pressure and temperature
     readVoltage();
     fileWriteSlowSensors();
+    checkPlay();
     ssCounter = 0;
     spin = 0; //reset spin counter
     digitalWrite(LED_GRN, LOW);

@@ -18,7 +18,7 @@ void setTime2(int thour,int tminute,int tsecond,int tday,int tmonth,int tyear)
   Wire.write((tmonth/10)<<4 | ((tmonth%10)&0x0F)); //  month
   Wire.write((tyear/10)<<4 | ((tyear%10)&0x0F)); //  year 2010=0x0A
   int ecode=Wire.endTransmission(); //end transmission
-  Serial.println(ecode);
+//  Serial.println(ecode);
 }
 
 void set_alarm(int thour, int tminute)
@@ -122,4 +122,3 @@ int rtcStatus(){
 
   return val[0];
 }
-

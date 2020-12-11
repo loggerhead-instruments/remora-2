@@ -16,7 +16,6 @@ int pressInit()
   byte buff[2];
   int bytesread;
 
-  if (printDiags) Serial.println("MS58xx Init");
   // Reset so PROM is loaded
   Wire.beginTransmission(pressAddress);
   Wire.write(0x1E);  //Reset Command
@@ -178,4 +177,3 @@ void calcPressTemp(){
   depth = -(1010.0 -  pressure_mbar) / mbar_per_m;
   temperature = T16 / 100.0;
 }
-

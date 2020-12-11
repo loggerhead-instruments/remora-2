@@ -35,7 +35,7 @@ int ProcCmd(char *pCmd)
     case ('T' + ('M'<<8)):
     {
          //set time
-         Serial.print("Time ");
+//         Serial.print("Time ");
          sscanf(&pCmd[3],"%d-%d-%d %d:%d:%d",&tyear,&tmonth,&tday,&thour,&tmin,&tsec);
 //         Serial.print(tyear); Serial.print(" ");
 //         Serial.print(tmonth);Serial.print(" ");
@@ -44,7 +44,7 @@ int ProcCmd(char *pCmd)
 //         Serial.print(tmin);Serial.print(" ");
 //         Serial.print(tsec);
          setTime2(thour,tmin,tsec,tday,tmonth,tyear); 
-         Serial.println(" set");
+ //        Serial.println(" set");
          break;
      }
 
@@ -178,8 +178,8 @@ boolean loadScript()
       // comment out TM line if it exists
       if (comment_TM)
       {
-        Serial.print("Comment TM ");
-        Serial.println(TM_byte);
+//        Serial.print("Comment TM ");
+//        Serial.println(TM_byte);
         file = sd.open("setup.txt", FILE_WRITE);
         file.seek(TM_byte);
         file.print("//");
@@ -189,7 +189,7 @@ boolean loadScript()
   }
   else
   {   
-    Serial.println("no setup");
+  //  Serial.println("no file");
 
    // // display.println("no setup file");
     return 0;

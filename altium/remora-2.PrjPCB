@@ -279,10 +279,6 @@ GenerateClassCluster=0
 DocumentPath=Project Outputs for remora-2\Design Rule Check - remora-2.html
 DItemRevisionGUID=
 
-[GeneratedDocument2]
-DocumentPath=Project Outputs for remora-2\Pick Place for remora-2.csv
-DItemRevisionGUID=
-
 [Configuration1]
 Name=Default Configuration
 ParameterCount=0
