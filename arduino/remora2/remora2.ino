@@ -6,10 +6,9 @@
 // Dual Teensy 3.2: Audio playback and record
 
 // To Do: 
-// - Build board without GPS
-// - Deep sensor
+// - Deep sensor (separate code base because running out of memory) 
 // - Teensy wake and record
-// Enought memory to talk to Teensy?
+// Enough memory to talk to Teensy?
 
 // Current consumption
 // 20 Hz on motion sensors; clock prescaler = 2;
@@ -138,6 +137,7 @@ int burnFlag = 0;
 long burnSeconds;
 void setup() {
   Serial.begin(115200);
+  delay(5000);
 
   pinMode(LED_GRN, OUTPUT);
   pinMode(LED_RED, OUTPUT);
@@ -148,20 +148,29 @@ void setup() {
   pinMode(GPS_EN, OUTPUT); //PD5
   pinMode(TEENSY_POW, OUTPUT); // PD6
   pinMode(IMU_INT, INPUT_PULLUP); // PD7
-  pinMode(RXD2, INPUT); // PC0
-  pinMode(TXD2, OUTPUT); // PC1
+  pinMode(TEENSY_ST, OUTPUT); // trigger for Record Teensy
+  //pinMode(RXD2, INPUT); // PC0
+  //pinMode(TXD2, OUTPUT); // PC1
   pinMode(TEENSY_ST, INPUT_PULLUP);   // PB1
   
   digitalWrite(BURN,LOW);
   digitalWrite(LED_RED,LOW);
   digitalWrite(LED_GRN,HIGH);
   digitalWrite(BURN, LOW);
-  digitalWrite(GPS_EN, HIGH);
-  digitalWrite(TEENSY_POW, LOW);
+  digitalWrite(GPS_EN, LOW);
+  digitalWrite(TEENSY_ST, LOW);
+  digitalWrite(TEENSY_POW, HIGH);
+
+  // test trigger recording
+  delay(5000);
+  digitalWrite(TEENSY_ST, HIGH);
+  delay(100);
+  digitalWrite(TEENSY_ST, LOW);
+  
 
 //  Serial.println("Remora 2");
   Wire.begin();
-  Wire.setClock(100000);
+  Wire.setClock(400000);
   sd.begin(chipSelect, SPI_FULL_SPEED);
 
   loadScript(); // do this early to set time
@@ -187,7 +196,7 @@ void setup() {
   digitalWrite(LED_GRN, LOW);
   digitalWrite(LED_RED, LOW);
 
-  setClockPrescaler(clockprescaler); // set clockprescaler from script file
+ // setClockPrescaler(clockprescaler); // set clockprescaler from script file
   wdtInit();  // used to wake from sleep
 
 }
@@ -265,8 +274,6 @@ void spinCount(){
 }
 
 void initSensors(){
-  digitalWrite(BURN, HIGH);
-  
   readVoltage();
   Serial.print(voltage);
   Serial.println("V");
@@ -275,48 +282,48 @@ void initSensors(){
 //  }
 //  reset_alarm();
 
-  setTime2(12,0,0,5,12,20); 
-  readRTC();
-  int oldSecond = second;
+//  setTime2(12,0,0,5,12,20); 
+//  readRTC();
+//  int oldSecond = second;
 
 //  digitalWrite(LED_RED, HIGH);
-  delay(1000);
-  for(int i=0; i<hour; i++){
-    delay(300);
-    digitalWrite(LED_GRN, HIGH);
-    delay(80);
-    digitalWrite(LED_GRN, LOW);
-  }
-  delay(400);
-  digitalWrite(LED_RED, LOW);
-  readRTC();
-  Serial.print(hour); Serial.print(":");
-  Serial.print(minute); Serial.print(":");
-  Serial.println(second);
-  if(second==oldSecond){
-    // showFail(100); // clock not ticking
-    Serial.println("CF");
-  }
+//  delay(1000);
+//  for(int i=0; i<hour; i++){
+//    delay(300);
+//    digitalWrite(LED_GRN, HIGH);
+//    delay(80);
+//    digitalWrite(LED_GRN, LOW);
+//  }
+//  delay(400);
+//  digitalWrite(LED_RED, LOW);
+//  readRTC();
+//  Serial.print(hour); Serial.print(":");
+//  Serial.print(minute); Serial.print(":");
+//  Serial.println(second);
+//  if(second==oldSecond){
+//    // showFail(100); // clock not ticking
+//    Serial.println("CF");
+//  }
 
   // Pressure/Temperature
-  if (pressInit()==0){
-    Serial.println("PF");
-   // showFail(200); // pressure sensor fail
-  }
-  Serial.println("P D T");
-  for(int x=0; x<20; x++){
-    updatePress();
-    delay(100);
-    readPress();
-    updateTemp();
-    delay(100);
-    readTemp();
-    calcPressTemp();
-    Serial.print(pressure_mbar); Serial.print(" ");
-    Serial.print(depth); Serial.print(" ");
-    Serial.println(temperature);
-  }
-
+//  if (pressInit()==0){
+//    Serial.println("PF");
+//   // showFail(200); // pressure sensor fail
+//  }
+//  Serial.println("P D T");
+//  for(int x=0; x<20; x++){
+//    updatePress();
+//    delay(100);
+//    readPress();
+//    updateTemp();
+//    delay(100);
+//    readTemp();
+//    calcPressTemp();
+//    Serial.print(pressure_mbar); Serial.print(" ");
+//    Serial.print(depth); Serial.print(" ");
+//    Serial.println(temperature);
+//  }
+  Serial.print("i");
   myICM.begin( Wire, 1 );
   if( myICM.status != ICM_20948_Stat_Ok ){
       Serial.println( "ICM fail" );
@@ -335,7 +342,6 @@ void initSensors(){
     delay(500);
   }
   }
-  digitalWrite(BURN, LOW);
 }
 
 void showFail(int blinkInterval){
