@@ -223,6 +223,9 @@ void setup() {
   digitalWrite(ledGreen, HIGH);
   pinMode(TEENSY_ST, INPUT);
 
+  pinMode(PLAY_POW, OUTPUT);
+  digitalWrite(PLAY_POW, HIGH);
+
   cDisplay();
   display.println("Loggerhead");
   display.display();
