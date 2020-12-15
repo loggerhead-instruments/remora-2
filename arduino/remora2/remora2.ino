@@ -50,8 +50,9 @@ int LED_EN = 1; //enable green LEDs flash 1x per pressure read. Can be disabled 
 boolean HALL_EN = 1; 
 boolean HALL_LED_EN = 1; //flash red LED for Hall sensor
 
-#define pressAddress 0x76
-float MS58xx_constant = 8192.0; // for 30 bar sensor
+//#define pressAddress 0x76
+//float MS58xx_constant = 8192.0; // for 30 bar sensor
+float pressureOffset_mbar;
 // float MS58xx_constant = 327680.0; // for 2 bar sensor; will switch to this if 30 bar fails to give good depth
 
 // Playback
@@ -99,13 +100,13 @@ int sensorSrate = 1; // must divide into imuSrate
 int slowRateMultiple = imuSrate / sensorSrate;
 int speriod = 1000 / imuSrate;
 
-//Pressure and temp calibration coefficients
-uint16_t PSENS; //pressure sensitivity
-uint16_t POFF;  //Pressure offset
-uint16_t TCSENS; //Temp coefficient of pressure sensitivity
-uint16_t TCOFF; //Temp coefficient of pressure offset
-uint16_t TREF;  //Ref temperature
-uint16_t TEMPSENS; //Temperature sensitivity coefficient
+////Pressure and temp calibration coefficients
+//uint16_t PSENS; //pressure sensitivity
+//uint16_t POFF;  //Pressure offset
+//uint16_t TCSENS; //Temp coefficient of pressure sensitivity
+//uint16_t TCOFF; //Temp coefficient of pressure offset
+//uint16_t TREF;  //Ref temperature
+//uint16_t TEMPSENS; //Temperature sensitivity coefficient
 byte Tbuff[3];
 byte Pbuff[3];
 volatile float depth, temperature, pressure_mbar;
@@ -221,7 +222,7 @@ while(mode==0){
       endTime = startTime + recDur;
       startTime += recDur + recInt;  // this will be next start time for interval record      mpuInit(1);
       fileInit();
-      updateTemp();  // get first reading ready
+     // updateTemp();  // get first reading ready
       mode = 1;
       startInterruptTimer(speriod, clockprescaler);
       attachInterrupt(digitalPinToInterrupt(HALL), spinCount, RISING);
@@ -323,7 +324,35 @@ void initSensors(){
 //    Serial.print(depth); Serial.print(" ");
 //    Serial.println(temperature);
 //  }
-  Serial.print("i");
+
+  float pressureSum = 0;
+
+  if(!kellerInit()) Serial.println("KF");
+      kellerConvert();
+    delay(20);
+    kellerRead();
+    for(int n=1; n<10; n++){
+      kellerConvert();
+      delay(20);
+      kellerRead();
+      delay(100);
+      
+      pressureSum+= pressure_mbar;
+      pressureOffset_mbar = pressureSum / n;
+
+//      cDisplay();
+//      display.println("Press Deep");
+//      display.print("Offset mBar:"); display.println(pressureOffset_mbar);
+//      display.print("Depth:"); display.println(depth);
+//      display.print("Temp:"); display.println(temperature);
+//      display.display();
+    }
+
+  Serial.print("mBar "); Serial.println(pressure_mbar);
+  Serial.print("Off "); Serial.println(pressureOffset_mbar);
+  Serial.print("Depth "); Serial.println(depth);
+  Serial.print("Temp "); Serial.println(temperature);
+
   myICM.begin( Wire, 1 );
   if( myICM.status != ICM_20948_Stat_Ok ){
       Serial.println( "ICM fail" );
@@ -435,12 +464,12 @@ void logFileWrite()
        logFile.print(boot_signature_byte_get(i), HEX);
    }
    logFile.println();
-   if(MS58xx_constant == 8192.0) {
-    logFile.println("30 Bar");
-   }
-   else{
-    logFile.println("2 Bar");
-   }
+//   if(MS58xx_constant == 8192.0) {
+//    logFile.println("30 Bar");
+//   }
+//   else{
+//    logFile.println("2 Bar");
+//   }
    
    logFile.print(year);  logFile.print("-");
    logFile.print(month); logFile.print("-");
@@ -483,23 +512,25 @@ void sampleSensors(void){
     myICM.getAGMT();
     fileWriteImu();
 
-  // MS58xx start temperature conversion half-way through
+//  // MS58xx start temperature conversion half-way through
   if((ssCounter>=(0.5 * slowRateMultiple))  & togglePress){ 
-    readPress();   
-    updateTemp();
+//    readPress();   
+//    updateTemp();
     togglePress = 0;
-  }
+    kellerConvert();
+}
     
   if(ssCounter>=slowRateMultiple){
-    // MS58xx pressure and temperature
-    readTemp();
-    updatePress();  
+//    // MS58xx pressure and temperature
+//    readTemp();
+//    updatePress();  
+    kellerRead();
     togglePress = 1;
     
     if(LED_EN) digitalWrite(LED_GRN, HIGH);
     readRTC();
     checkBurn();
-    calcPressTemp(); // MS58xx pressure and temperature
+    //calcPressTemp(); // MS58xx pressure and temperature
     readVoltage();
     fileWriteSlowSensors();
     checkPlay();
