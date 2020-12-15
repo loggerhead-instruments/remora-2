@@ -235,7 +235,7 @@ void setup() {
     Serial.println("Unable to access the SD card");
     
     while (1) {
-      cDisplay();
+      cDisplay(); 
       display.println("SD error. Restart.");
       displayClock(getTeensy3Time(), BOTTOM);
       display.display();
@@ -263,7 +263,7 @@ void setup() {
 
   nbufs_per_file = (long) (ceil(((rec_dur * audio_srate / 256.0) / (float) NREC)) * (float) NREC);                 
   mode = 0;
-
+  Serial.print("Bufs:"); Serial.println(nbufs_per_file);
   // create first folder to hold data
   folderMonth = -1;  //set to -1 so when first file made will create directory
 }
@@ -278,9 +278,10 @@ void loop() {
   // Standby mode
   if(mode == 0)
   {
+      delay(10);
       t = getTeensy3Time();
       digitalWrite(ledGreen, LOW);
-      if(digitalRead(TEENSY_ST==HIGH)){      // time to start?
+      if(digitalRead(TEENSY_ST)==HIGH){      // time to start?
         if(noDC==0) {
           audio_freeze_adc_hp(); // this will lower the DC offset voltage, and reduce noise
           noDC = -1;
