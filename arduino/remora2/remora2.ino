@@ -76,12 +76,12 @@ int nPlayed = 0;
 #define BUTTON1 A2 // PC2
 #define BAT_VOLTAGE A7// ADC7
 #define HALL 3 // PD3 (INT1)
-#define GPS_EN 5 //PD5
 #define TEENSY_POW 6 // PD6
 #define IMU_INT 7 // PD7
-#define RXD2 A0 // PC0
-#define TXD2 A1 // PC1
-
+#define PLAY_POW 5 // PD5 Rev 2 of board
+#define PLAY_ST A1 // PC1 Rev 2 of board
+#define REC_STATUS A0 // Rev 2 of board
+#define PLAY_STAUTUS A6 // Rev 2 of board
 
 // SD file system
 SdFat sd;
@@ -142,32 +142,24 @@ void setup() {
 
   pinMode(LED_GRN, OUTPUT);
   pinMode(LED_RED, OUTPUT);
-  pinMode(BURN, OUTPUT);
+  pinMode(BURN, INPUT);  // not using
   pinMode(BUTTON1, INPUT_PULLUP);
   pinMode(HALL, INPUT);
   pinMode(BAT_VOLTAGE, INPUT);
-  pinMode(GPS_EN, OUTPUT); //PD5
+  pinMode(GPS_EN, OUTPUT); //PD5 
   pinMode(TEENSY_POW, OUTPUT); // PD6
   pinMode(IMU_INT, INPUT_PULLUP); // PD7
   pinMode(TEENSY_ST, OUTPUT); // trigger for Record Teensy
   //pinMode(RXD2, INPUT); // PC0
   //pinMode(TXD2, OUTPUT); // PC1
-  pinMode(TEENSY_ST, INPUT_PULLUP);   // PB1
   
-  digitalWrite(BURN,LOW);
+  //digitalWrite(BURN,LOW);
   digitalWrite(LED_RED,LOW);
   digitalWrite(LED_GRN,HIGH);
   digitalWrite(BURN, LOW);
   digitalWrite(GPS_EN, LOW);
   digitalWrite(TEENSY_ST, LOW);
   digitalWrite(TEENSY_POW, HIGH);
-
-  // test trigger recording
-  delay(5000);
-  digitalWrite(TEENSY_ST, HIGH);
-  delay(100);
-  digitalWrite(TEENSY_ST, LOW);
-  
 
 //  Serial.println("Remora 2");
   Wire.begin();
@@ -187,17 +179,25 @@ void setup() {
   
   if(burnFlag==2){
   burnTime = t + burnSeconds;
+
+  // test trigger recording
+  delay(500);
+  digitalWrite(TEENSY_ST, HIGH);
+  delay(100);
+  digitalWrite(TEENSY_ST, LOW);
+
+
 //  Serial.print("Burn set");
 //  Serial.println(burnTime);
   }
 
-  if(startTime==0) startTime = t + 3;
+  if(startTime==0) startTime = t + 30;
 //  Serial.print("Time:"); Serial.println(t);
 //  Serial.print("Start Time:"); Serial.println(startTime);
   digitalWrite(LED_GRN, LOW);
   digitalWrite(LED_RED, LOW);
 
- // setClockPrescaler(clockprescaler); // set clockprescaler from script file
+  setClockPrescaler(clockprescaler); // set clockprescaler from script file
   wdtInit();  // used to wake from sleep
 
 }
@@ -207,7 +207,7 @@ while(mode==0){
    // resetWdt();
     readRTC();
     checkBurn();
-    Serial.print(t); Serial.print(" "); Serial.println(startTime);
+    Serial.print(t);
 
     if(LED_EN){
       digitalWrite(LED_GRN, HIGH);
@@ -224,6 +224,11 @@ while(mode==0){
       fileInit();
      // updateTemp();  // get first reading ready
       mode = 1;
+      digitalWrite(TEENSY_POW, LOW);
+      pinMode(TEENSY_ST, INPUT); 
+      pinMode(3, INPUT);
+      pinMode(4, INPUT);
+  
       startInterruptTimer(speriod, clockprescaler);
       attachInterrupt(digitalPinToInterrupt(HALL), spinCount, RISING);
     }
@@ -283,12 +288,12 @@ void initSensors(){
 //  }
 //  reset_alarm();
 
-//  setTime2(12,0,0,5,12,20); 
-//  readRTC();
-//  int oldSecond = second;
+  setTime2(12,0,0,5,12,20); 
+  readRTC();
+  int oldSecond = second;
 
 //  digitalWrite(LED_RED, HIGH);
-//  delay(1000);
+  delay(1000);
 //  for(int i=0; i<hour; i++){
 //    delay(300);
 //    digitalWrite(LED_GRN, HIGH);
@@ -297,14 +302,14 @@ void initSensors(){
 //  }
 //  delay(400);
 //  digitalWrite(LED_RED, LOW);
-//  readRTC();
+  readRTC();
 //  Serial.print(hour); Serial.print(":");
 //  Serial.print(minute); Serial.print(":");
 //  Serial.println(second);
-//  if(second==oldSecond){
-//    // showFail(100); // clock not ticking
-//    Serial.println("CF");
-//  }
+  if(second==oldSecond){
+    // showFail(100); // clock not ticking
+    Serial.println("CF");
+  }
 
   // Pressure/Temperature
 //  if (pressInit()==0){
@@ -328,10 +333,10 @@ void initSensors(){
   float pressureSum = 0;
 
   if(!kellerInit()) Serial.println("KF");
-      kellerConvert();
-    delay(20);
-    kellerRead();
-    for(int n=1; n<10; n++){
+  kellerConvert();
+  delay(20);
+  kellerRead();
+  for(int n=1; n<10; n++){
       kellerConvert();
       delay(20);
       kellerRead();
