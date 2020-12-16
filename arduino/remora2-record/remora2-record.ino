@@ -186,6 +186,7 @@ unsigned char prev_dtr = 0;
 void setup() {
   Serial.begin(baud);
   delay(500);
+  Serial1.begin(baud); // talk to Atmega
 
   Serial.println(RTC_TSR);
   Serial.println(RTC_TSR);
@@ -282,6 +283,9 @@ void loop() {
   if(mode == 0)
   {
       delay(10);
+      while(Serial1.available()>0){
+        Serial.print(Serial1.read());
+      }
       t = getTeensy3Time();
       digitalWrite(ledGreen, LOW);
       if(digitalRead(TEENSY_ST)==HIGH){      // time to start?
