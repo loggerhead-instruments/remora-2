@@ -1,172 +1,174 @@
 Protel Design System Design Rule Check
 PCB File : C:\w\remora-2\altium\remora-2.PcbDoc
-Date     : 11/6/2020
-Time     : 12:10:50 PM
+Date     : 12/16/2020
+Time     : 7:04:24 PM
 
-Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
-   Violation between Track (2979.37mil,20mil)(3075mil,20mil)  Bottom Layer and 
-                     Pad P11-1(3079.37mil,20mil)  Multi-Layer
-   Violation between Track (2979.37mil,20mil)(3075mil,20mil)  Bottom Layer and 
-                     Pad P11-2(2979.37mil,20mil)  Multi-Layer
+Processing Rule : Net Antennae (Tolerance=0mil) (All)
+   Violation between Net Antennae: Via (4478mil,-771mil) Top Layer to Bottom Layer
+   Violation between Net Antennae: Via (2903.63mil,-1515.15mil) Top Layer to Bottom Layer
 Rule Violations :2
+
+Processing Rule : Silk primitive without silk layer
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "C0603" (4471.13mil,-1661.5mil)  Top Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "USB" (2185.5mil,-1674.5mil)  Top Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "microSD-Molex" (1636.5mil,-1947.5mil)  Top Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "PIEZO" (4159.13mil,-1710.5mil)  Top Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "USB" (3500.5mil,-1674.5mil)  Top Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "microSD-Molex" (928.13mil,-1637.5mil)  Top Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "P27" (1461.63mil,266mil)  Top Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "P22" (4486mil,139mil)  Top Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "P24" (-99mil,119mil)  Top Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "10X" (4355.13mil,-1700.5mil)  Top Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "1.0uF" (5463.232mil,-678.287mil)  Bottom Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "100pF" (1919.909mil,877.602mil)  Bottom Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "100pF" (1996.374mil,1071.098mil)  Bottom Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "0.1uF" (2672.531mil,344.35mil)  Bottom Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "0.1uF" (918.531mil,781.35mil)  Bottom Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "C0603" (756.185mil,-1679.327mil)  Bottom Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "4.7k" (3839.5mil,246.5mil)  Bottom Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "10k" (81.004mil,205.791mil)  Bottom Overlay
+   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "TPS62740" (604.823mil,-1685.941mil)  Bottom Overlay
+Rule Violations :19
+
+Processing Rule : Silk to Silk (Clearance=0mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=0mil) (IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=2mil) (All),(All)
+   Violation between Via (1747.48mil,-1422mil) Top Layer to Bottom Layer and 
+                     Pad R16-1(1712.166mil,-1459.37mil)  Top Layer
+   Violation between Via (4610.63mil,-1299mil) Top Layer to Bottom Layer and 
+                     Pad C10-2(4645mil,-1309.409mil)  Top Layer
+   Violation between Via (1655mil,-104.37mil) Top Layer to Bottom Layer and 
+                     Pad P27-1(1605.63mil,-65mil)  Multi-Layer
+   Violation between Pad U20-2(1260.787mil,-124.606mil)  Bottom Layer and 
+                     Pad U20-1(1241.102mil,-124.606mil)  Bottom Layer
+   Violation between Pad U20-3(1280.472mil,-124.606mil)  Bottom Layer and 
+                     Pad U20-2(1260.787mil,-124.606mil)  Bottom Layer
+   Violation between Pad U20-4(1300.158mil,-124.606mil)  Bottom Layer and 
+                     Pad U20-3(1280.472mil,-124.606mil)  Bottom Layer
+   Violation between Pad U20-5(1319.842mil,-124.606mil)  Bottom Layer and 
+                     Pad U20-4(1300.158mil,-124.606mil)  Bottom Layer
+   Violation between Pad U20-6(1339.528mil,-124.606mil)  Bottom Layer and 
+                     Pad U20-5(1319.842mil,-124.606mil)  Bottom Layer
+   Violation between Pad U20-7(1359.213mil,-124.606mil)  Bottom Layer and 
+                     Pad U20-6(1339.528mil,-124.606mil)  Bottom Layer
+   Violation between Pad U20-8(1378.898mil,-124.606mil)  Bottom Layer and 
+                     Pad U20-7(1359.213mil,-124.606mil)  Bottom Layer
+   Violation between Pad U20-10(1410.394mil,-175.787mil)  Bottom Layer and 
+                     Pad U20-9(1410.394mil,-156.102mil)  Bottom Layer
+   Violation between Pad U20-11(1410.394mil,-195.472mil)  Bottom Layer and 
+                     Pad U20-10(1410.394mil,-175.787mil)  Bottom Layer
+   Violation between Pad U20-12(1410.394mil,-215.157mil)  Bottom Layer and 
+                     Pad U20-11(1410.394mil,-195.472mil)  Bottom Layer
+   Violation between Pad U20-13(1410.394mil,-234.843mil)  Bottom Layer and 
+                     Pad U20-12(1410.394mil,-215.157mil)  Bottom Layer
+   Violation between Pad U20-14(1410.394mil,-254.528mil)  Bottom Layer and 
+                     Pad U20-13(1410.394mil,-234.843mil)  Bottom Layer
+   Violation between Pad U20-15(1410.394mil,-274.213mil)  Bottom Layer and 
+                     Pad U20-14(1410.394mil,-254.528mil)  Bottom Layer
+   Violation between Pad U20-16(1410.394mil,-293.898mil)  Bottom Layer and 
+                     Pad U20-15(1410.394mil,-274.213mil)  Bottom Layer
+   Violation between Pad U20-18(1359.213mil,-325.394mil)  Bottom Layer and 
+                     Pad U20-17(1378.898mil,-325.394mil)  Bottom Layer
+   Violation between Pad U20-19(1339.528mil,-325.394mil)  Bottom Layer and 
+                     Pad U20-18(1359.213mil,-325.394mil)  Bottom Layer
+   Violation between Pad U20-20(1319.842mil,-325.394mil)  Bottom Layer and 
+                     Pad U20-19(1339.528mil,-325.394mil)  Bottom Layer
+   Violation between Pad U20-21(1300.158mil,-325.394mil)  Bottom Layer and 
+                     Pad U20-20(1319.842mil,-325.394mil)  Bottom Layer
+   Violation between Pad U20-22(1280.472mil,-325.394mil)  Bottom Layer and 
+                     Pad U20-21(1300.158mil,-325.394mil)  Bottom Layer
+   Violation between Pad U20-23(1260.787mil,-325.394mil)  Bottom Layer and 
+                     Pad U20-22(1280.472mil,-325.394mil)  Bottom Layer
+   Violation between Pad U20-24(1241.102mil,-325.394mil)  Bottom Layer and 
+                     Pad U20-23(1260.787mil,-325.394mil)  Bottom Layer
+   Violation between Pad U20-26(1209.606mil,-274.213mil)  Bottom Layer and 
+                     Pad U20-25(1209.606mil,-293.898mil)  Bottom Layer
+   Violation between Pad U20-27(1209.606mil,-254.528mil)  Bottom Layer and 
+                     Pad U20-26(1209.606mil,-274.213mil)  Bottom Layer
+   Violation between Pad U20-28(1209.606mil,-234.843mil)  Bottom Layer and 
+                     Pad U20-27(1209.606mil,-254.528mil)  Bottom Layer
+   Violation between Pad U20-29(1209.606mil,-215.157mil)  Bottom Layer and 
+                     Pad U20-28(1209.606mil,-234.843mil)  Bottom Layer
+   Violation between Pad U20-30(1209.606mil,-195.472mil)  Bottom Layer and 
+                     Pad U20-29(1209.606mil,-215.157mil)  Bottom Layer
+   Violation between Pad U20-31(1209.606mil,-175.787mil)  Bottom Layer and 
+                     Pad U20-30(1209.606mil,-195.472mil)  Bottom Layer
+   Violation between Pad U20-32(1209.606mil,-156.102mil)  Bottom Layer and 
+                     Pad U20-31(1209.606mil,-175.787mil)  Bottom Layer
+   Violation between Pad U13-2(768.874mil,-1287.323mil)  Bottom Layer and 
+                     Pad U13-1(788.559mil,-1287.323mil)  Bottom Layer
+   Violation between Pad U13-3(749.189mil,-1287.323mil)  Bottom Layer and 
+                     Pad U13-2(768.874mil,-1287.323mil)  Bottom Layer
+   Violation between Pad U13-4(729.504mil,-1287.323mil)  Bottom Layer and 
+                     Pad U13-3(749.189mil,-1287.323mil)  Bottom Layer
+   Violation between Pad U13-5(709.819mil,-1287.323mil)  Bottom Layer and 
+                     Pad U13-4(729.504mil,-1287.323mil)  Bottom Layer
+   Violation between Pad U13-6(690.134mil,-1287.323mil)  Bottom Layer and 
+                     Pad U13-5(709.819mil,-1287.323mil)  Bottom Layer
+   Violation between Pad U13-8(709.819mil,-1202.677mil)  Bottom Layer and 
+                     Pad U13-7(690.134mil,-1202.677mil)  Bottom Layer
+   Violation between Pad U13-9(729.504mil,-1202.677mil)  Bottom Layer and 
+                     Pad U13-8(709.819mil,-1202.677mil)  Bottom Layer
+   Violation between Pad U13-10(749.189mil,-1202.677mil)  Bottom Layer and 
+                     Pad U13-9(729.504mil,-1202.677mil)  Bottom Layer
+   Violation between Pad U13-11(768.874mil,-1202.677mil)  Bottom Layer and 
+                     Pad U13-10(749.189mil,-1202.677mil)  Bottom Layer
+   Violation between Pad U13-12(788.559mil,-1202.677mil)  Bottom Layer and 
+                     Pad U13-11(768.874mil,-1202.677mil)  Bottom Layer
+   Violation between Via (4385.63mil,-385mil) Top Layer to Bottom Layer and 
+                     Pad U5-29(4416.575mil,-371.89mil)  Bottom Layer
+   Violation between Via (4385.63mil,-385mil) Top Layer to Bottom Layer and 
+                     Pad C17-1(4368.63mil,-346.591mil)  Bottom Layer
+   Violation between Via (4670.63mil,-781mil) Top Layer to Bottom Layer and 
+                     Pad C24-1(4705mil,-805.591mil)  Bottom Layer
+   Violation between Pad U9-2(4240mil,-326.693mil)  Bottom Layer and 
+                     Pad U9-3(4265.591mil,-326.693mil)  Bottom Layer
+   Violation between Pad U9-1(4214.409mil,-326.693mil)  Bottom Layer and 
+                     Pad U9-2(4240mil,-326.693mil)  Bottom Layer
+Rule Violations :46
+
+Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=1mil) (Max=100mil) (All)
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=6mil) (Max=50mil) (Preferred=8mil) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=6mil) (All),(All)
+   Violation between Track (4035mil,0mil)(4130.63mil,0mil)  Bottom Layer and 
+                     Pad P11-2(4035mil,0mil)  Multi-Layer
+   Violation between Track (4035mil,0mil)(4130.63mil,0mil)  Bottom Layer and 
+                     Pad P11-1(4135mil,0mil)  Multi-Layer
+   Violation between Track (4035mil,0mil)(4130.63mil,0mil)  Bottom Layer and 
+                     Track (4035mil,0mil)(4035mil,14mil)  Bottom Layer
+Rule Violations :3
 
 Processing Rule : Un-Routed Net Constraint ( (All) )
    Violation between Isolated copper: Split Plane  (AGND)  on GND. Dead copper detected. Copper area is : 1E2 sq. mils
    Violation between Isolated copper: Split Plane  (VA)  on VCC. Dead copper detected. Copper area is : 2E2 sq. mils
 Rule Violations :2
 
-Processing Rule : Clearance Constraint (Gap=6mil) (All),(All)
-   Violation between Track (-143.886mil,-1018.213mil)(-56.787mil,-1018.213mil)  Top Layer and 
-                     Pad P25-0(-89mil,-965mil)  Top Layer
-   Violation between Track (-56.787mil,-1018.213mil)(289.37mil,-1364.37mil)  Top Layer and 
-                     Pad P25-0(-89mil,-965mil)  Top Layer
-   Violation between Track (2979.37mil,20mil)(3075mil,20mil)  Bottom Layer and 
-                     Pad P11-1(3079.37mil,20mil)  Multi-Layer
-   Violation between Track (2979.37mil,20mil)(3075mil,20mil)  Bottom Layer and 
-                     Pad P11-2(2979.37mil,20mil)  Multi-Layer
-Rule Violations :4
-
-Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
-Rule Violations :0
-
-Processing Rule : Width Constraint (Min=6mil) (Max=50mil) (Preferred=8mil) (All)
-Rule Violations :0
-
-Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
-Rule Violations :0
-
-Processing Rule : Hole Size Constraint (Min=1mil) (Max=100mil) (All)
-Rule Violations :0
-
-Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
-Rule Violations :0
-
-Processing Rule : Minimum Solder Mask Sliver (Gap=2mil) (All),(All)
-   Violation between Via (3555mil,-1279mil) Top Layer to Bottom Layer and 
-                     Pad C10-2(3589.37mil,-1289.409mil)  Top Layer
-   Violation between Via (691.85mil,-1402mil) Top Layer to Bottom Layer and 
-                     Pad R16-1(656.535mil,-1439.37mil)  Top Layer
-   Violation between Via (599.37mil,-84.37mil) Top Layer to Bottom Layer and 
-                     Pad P27-1(550mil,-45mil)  Multi-Layer
-   Violation between Pad U9-2(3184.37mil,-306.693mil)  Bottom Layer and 
-                     Pad U9-1(3158.779mil,-306.693mil)  Bottom Layer
-   Violation between Pad U9-3(3209.961mil,-306.693mil)  Bottom Layer and 
-                     Pad U9-2(3184.37mil,-306.693mil)  Bottom Layer
-   Violation between Via (3615mil,-761mil) Top Layer to Bottom Layer and 
-                     Pad C24-1(3649.37mil,-785.591mil)  Bottom Layer
-   Violation between Via (3330mil,-365mil) Top Layer to Bottom Layer and 
-                     Pad C17-1(3313mil,-326.591mil)  Bottom Layer
-   Violation between Via (3330mil,-365mil) Top Layer to Bottom Layer and 
-                     Pad U5-29(3360.945mil,-351.89mil)  Bottom Layer
-   Violation between Pad U13-11(447.244mil,-1237.677mil)  Bottom Layer and 
-                     Pad U13-12(466.929mil,-1237.677mil)  Bottom Layer
-   Violation between Pad U13-10(427.559mil,-1237.677mil)  Bottom Layer and 
-                     Pad U13-11(447.244mil,-1237.677mil)  Bottom Layer
-   Violation between Pad U13-9(407.874mil,-1237.677mil)  Bottom Layer and 
-                     Pad U13-10(427.559mil,-1237.677mil)  Bottom Layer
-   Violation between Pad U13-8(388.189mil,-1237.677mil)  Bottom Layer and 
-                     Pad U13-9(407.874mil,-1237.677mil)  Bottom Layer
-   Violation between Pad U13-7(368.504mil,-1237.677mil)  Bottom Layer and 
-                     Pad U13-8(388.189mil,-1237.677mil)  Bottom Layer
-   Violation between Pad U13-5(388.189mil,-1322.323mil)  Bottom Layer and 
-                     Pad U13-6(368.504mil,-1322.323mil)  Bottom Layer
-   Violation between Pad U13-4(407.874mil,-1322.323mil)  Bottom Layer and 
-                     Pad U13-5(388.189mil,-1322.323mil)  Bottom Layer
-   Violation between Pad U13-3(427.559mil,-1322.323mil)  Bottom Layer and 
-                     Pad U13-4(407.874mil,-1322.323mil)  Bottom Layer
-   Violation between Pad U13-2(447.244mil,-1322.323mil)  Bottom Layer and 
-                     Pad U13-3(427.559mil,-1322.323mil)  Bottom Layer
-   Violation between Pad U13-1(466.929mil,-1322.323mil)  Bottom Layer and 
-                     Pad U13-2(447.244mil,-1322.323mil)  Bottom Layer
-   Violation between Pad U20-31(153.976mil,-155.787mil)  Bottom Layer and 
-                     Pad U20-32(153.976mil,-136.102mil)  Bottom Layer
-   Violation between Pad U20-30(153.976mil,-175.472mil)  Bottom Layer and 
-                     Pad U20-31(153.976mil,-155.787mil)  Bottom Layer
-   Violation between Pad U20-29(153.976mil,-195.157mil)  Bottom Layer and 
-                     Pad U20-30(153.976mil,-175.472mil)  Bottom Layer
-   Violation between Pad U20-28(153.976mil,-214.843mil)  Bottom Layer and 
-                     Pad U20-29(153.976mil,-195.157mil)  Bottom Layer
-   Violation between Pad U20-27(153.976mil,-234.528mil)  Bottom Layer and 
-                     Pad U20-28(153.976mil,-214.843mil)  Bottom Layer
-   Violation between Pad U20-26(153.976mil,-254.213mil)  Bottom Layer and 
-                     Pad U20-27(153.976mil,-234.528mil)  Bottom Layer
-   Violation between Pad U20-25(153.976mil,-273.898mil)  Bottom Layer and 
-                     Pad U20-26(153.976mil,-254.213mil)  Bottom Layer
-   Violation between Pad U20-23(205.157mil,-305.394mil)  Bottom Layer and 
-                     Pad U20-24(185.472mil,-305.394mil)  Bottom Layer
-   Violation between Pad U20-22(224.842mil,-305.394mil)  Bottom Layer and 
-                     Pad U20-23(205.157mil,-305.394mil)  Bottom Layer
-   Violation between Pad U20-21(244.528mil,-305.394mil)  Bottom Layer and 
-                     Pad U20-22(224.842mil,-305.394mil)  Bottom Layer
-   Violation between Pad U20-20(264.212mil,-305.394mil)  Bottom Layer and 
-                     Pad U20-21(244.528mil,-305.394mil)  Bottom Layer
-   Violation between Pad U20-19(283.898mil,-305.394mil)  Bottom Layer and 
-                     Pad U20-20(264.212mil,-305.394mil)  Bottom Layer
-   Violation between Pad U20-18(303.583mil,-305.394mil)  Bottom Layer and 
-                     Pad U20-19(283.898mil,-305.394mil)  Bottom Layer
-   Violation between Pad U20-17(323.268mil,-305.394mil)  Bottom Layer and 
-                     Pad U20-18(303.583mil,-305.394mil)  Bottom Layer
-   Violation between Pad U20-15(354.764mil,-254.213mil)  Bottom Layer and 
-                     Pad U20-16(354.764mil,-273.898mil)  Bottom Layer
-   Violation between Pad U20-14(354.764mil,-234.528mil)  Bottom Layer and 
-                     Pad U20-15(354.764mil,-254.213mil)  Bottom Layer
-   Violation between Pad U20-13(354.764mil,-214.843mil)  Bottom Layer and 
-                     Pad U20-14(354.764mil,-234.528mil)  Bottom Layer
-   Violation between Pad U20-12(354.764mil,-195.157mil)  Bottom Layer and 
-                     Pad U20-13(354.764mil,-214.843mil)  Bottom Layer
-   Violation between Pad U20-11(354.764mil,-175.472mil)  Bottom Layer and 
-                     Pad U20-12(354.764mil,-195.157mil)  Bottom Layer
-   Violation between Pad U20-10(354.764mil,-155.787mil)  Bottom Layer and 
-                     Pad U20-11(354.764mil,-175.472mil)  Bottom Layer
-   Violation between Pad U20-9(354.764mil,-136.102mil)  Bottom Layer and 
-                     Pad U20-10(354.764mil,-155.787mil)  Bottom Layer
-   Violation between Pad U20-7(303.583mil,-104.606mil)  Bottom Layer and 
-                     Pad U20-8(323.268mil,-104.606mil)  Bottom Layer
-   Violation between Pad U20-6(283.898mil,-104.606mil)  Bottom Layer and 
-                     Pad U20-7(303.583mil,-104.606mil)  Bottom Layer
-   Violation between Pad U20-5(264.212mil,-104.606mil)  Bottom Layer and 
-                     Pad U20-6(283.898mil,-104.606mil)  Bottom Layer
-   Violation between Pad U20-4(244.528mil,-104.606mil)  Bottom Layer and 
-                     Pad U20-5(264.212mil,-104.606mil)  Bottom Layer
-   Violation between Pad U20-3(224.842mil,-104.606mil)  Bottom Layer and 
-                     Pad U20-4(244.528mil,-104.606mil)  Bottom Layer
-   Violation between Pad U20-2(205.157mil,-104.606mil)  Bottom Layer and 
-                     Pad U20-3(224.842mil,-104.606mil)  Bottom Layer
-   Violation between Pad U20-1(185.472mil,-104.606mil)  Bottom Layer and 
-                     Pad U20-2(205.157mil,-104.606mil)  Bottom Layer
-Rule Violations :46
-
-Processing Rule : Silk To Solder Mask (Clearance=0mil) (IsPad),(All)
-Rule Violations :0
-
-Processing Rule : Silk to Silk (Clearance=0mil) (All),(All)
-Rule Violations :0
-
-Processing Rule : Silk primitive without silk layer
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "10X" (3299.5mil,-1680.5mil)  Top Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "P24" (-1154.63mil,139mil)  Top Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "P22" (3430.37mil,159mil)  Top Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "P27" (406mil,286mil)  Top Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "microSD-Molex" (-127.5mil,-1617.5mil)  Top Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "USB" (2444.87mil,-1654.5mil)  Top Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "PIEZO" (3103.5mil,-1690.5mil)  Top Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "microSD-Molex" (580.87mil,-1927.5mil)  Top Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "USB" (1129.87mil,-1654.5mil)  Top Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "C0603" (3415.5mil,-1641.5mil)  Top Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "TPS62740" (283.193mil,-1720.941mil)  Bottom Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "10k" (-972.996mil,248.791mil)  Bottom Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "4.7k" (2783.87mil,266.5mil)  Bottom Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "C0603" (434.555mil,-1714.327mil)  Bottom Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "0.1uF" (-132.469mil,829.35mil)  Bottom Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "0.1uF" (1616.901mil,364.35mil)  Bottom Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "100pF" (940.744mil,1091.098mil)  Bottom Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "100pF" (864.279mil,897.602mil)  Bottom Overlay
-   Violation between Silk To Board Region Clearance (Out of silkscreen region) : Text "1.0uF" (4407.602mil,-658.287mil)  Bottom Overlay
-Rule Violations :19
-
-Processing Rule : Net Antennae (Tolerance=0mil) (All)
-Rule Violations :0
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+   Violation between Track (4035mil,0mil)(4130.63mil,0mil)  Bottom Layer and 
+                     Pad P11-2(4035mil,0mil)  Multi-Layer
+   Violation between Track (4035mil,0mil)(4130.63mil,0mil)  Bottom Layer and 
+                     Pad P11-1(4135mil,0mil)  Multi-Layer
+   Violation between Track (4035mil,0mil)(4130.63mil,0mil)  Bottom Layer and 
+                     Track (4035mil,0mil)(4035mil,14mil)  Bottom Layer
+Rule Violations :3
 
 
-Violations Detected : 73
+Violations Detected : 75
 Time Elapsed        : 00:00:03
