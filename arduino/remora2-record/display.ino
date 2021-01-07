@@ -7,7 +7,16 @@ uint32_t freeMB;
 uint32_t filesPerCard;
 csd_t m_csd;
 
- 
+void displayOn(){
+  //display.ssd1306_command(SSD1306_DISPLAYON);
+  display.init();
+  display.setBatteryVisible(true);
+} 
+
+void displayOff(){
+  display.ssd1306_command(SSD1306_DISPLAYOFF);
+}
+
 void printDigits(int digits){
   // utility function for digital clock display: prints preceding colon and leading 0
   display.print(":");
@@ -35,7 +44,7 @@ void setTeensyTime(int hr, int mn, int sc, int dy, int mh, int yr){
 void cDisplay(){
     display.clearDisplay();
     display.setTextColor(WHITE);
-    display.setTextSize(2);
+    display.setTextSize(1);
     display.setCursor(0,0);
 }
 

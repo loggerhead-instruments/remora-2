@@ -13,7 +13,7 @@
 // Modified by WMXZ 15-05-2018 for SdFS anf multiple sampling frequencies
 // Optionally uses SdFS from Bill Greiman https://github.com/greiman/SdFs; but has higher current draw in sleep
 
-char codeVersion[12] = "2020-12-14";
+char codeVersion[12] = "2020-01-06";
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics
 
 #define USE_SDFS 0  // to be used for exFAT but works also for FAT16/32
@@ -45,6 +45,7 @@ static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostic
 #include <TimeLib.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include <Adafruit_FeatherOLED.h>
 #include <EEPROM.h>
 //#include <TimerOne.h>
 
@@ -52,9 +53,17 @@ static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostic
 #define CPU_RESTART_VAL 0x5FA0004
 #define CPU_RESTART (*CPU_RESTART_ADDR = CPU_RESTART_VAL);
 
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h> // modify so calls i2c_t3 not Wire.h
+#include <Adafruit_FeatherOLED.h>
+
 #define OLED_RESET -1
-Adafruit_SSD1306 display(OLED_RESET);
-#define BOTTOM 55
+#define displayLine1 0
+#define displayLine2 8
+#define displayLine3 16
+#define displayLine4 25
+Adafruit_FeatherOLED display = Adafruit_FeatherOLED();
+#define BOTTOM 25
 
 // set this to the hardware serial port you wish to use
 #define HWSERIAL Serial1
@@ -86,10 +95,11 @@ unsigned int gainSetting = 4; //default gain setting; can be overridden in setup
 int noDC = 0; // 0 = freezeDC offset; 1 = remove DC offset
 
 // Pin Assignments
-#define PLAY_POW 2
 #define BURN_REC 5
-#define TEENSY_ST 8
+#define REC_ST 8
 #define ledGreen 17
+#define SGTL_EN_R 6
+#define REC_STATUS 2
 const int SDSW = 0;
 
 // Pins used by audio shield
@@ -132,8 +142,8 @@ int isf = I_SAMP;
 float gainDb;
 
 int recMode = MODE_NORMAL;
-long rec_dur = 10;
-long rec_int = 30;
+long rec_dur = 600;
+long rec_int = 0;
 int wakeahead = 5;  //wake from snooze to give hydrophone and camera time to power up
 int snooze_hour;
 int snooze_minute;
@@ -185,7 +195,12 @@ unsigned char prev_dtr = 0;
 
 void setup() {
   Serial.begin(baud);
-  delay(500);
+  pinMode(ledGreen, OUTPUT);
+  digitalWrite(ledGreen, HIGH);
+  pinMode(REC_ST, INPUT);
+  pinMode(SGTL_EN_R, OUTPUT);
+  pinMode(REC_STATUS, OUTPUT);
+  digitalWrite(REC_STATUS, LOW);
   Serial1.begin(baud); // talk to Atmega
 
   Serial.println(RTC_TSR);
@@ -199,38 +214,25 @@ void setup() {
   RTC_CR = RTC_CR_SC16P | RTC_CR_SC8P | RTC_CR_SC2P; 
   delay(100);
   RTC_CR = RTC_CR_SC16P | RTC_CR_SC8P | RTC_CR_SC2P | RTC_CR_OSCE;
-  delay(100);
-  Serial.println(RTC_TSR);
-  delay(1000);
-  Serial.println(RTC_TSR);
-  delay(1000);
-  Serial.println(RTC_TSR);
+
+  displayOn();
+  cDisplay();
+  display.println("Loggerhead Remora");
+  display.display();
+  while(digitalRead(REC_ST)==LOW){
+    // display text from Atmega
+    while(Serial1.available()>0){
+      byte incomingText = Serial1.read();
+      Serial.print(incomingText);
+      display.print(incomingText);
+    }
+    display.display();
+  }
 
   read_myID();
   
   Wire.begin();  
 
-  //setSyncProvider(getTeensy3Time); //use Teensy RTC to keep time
-  t = getTeensy3Time();
-  if (t < 1451606400) Teensy3Clock.set(1451606400);
-
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  //initialize display
-  delay(140);
-  cDisplay();
-  display.println("Loggerhead");
-  display.display();
-
-  pinMode(ledGreen, OUTPUT);
-  digitalWrite(ledGreen, HIGH);
-  pinMode(TEENSY_ST, INPUT);
-
-  pinMode(PLAY_POW, OUTPUT);
-  digitalWrite(PLAY_POW, HIGH);
-
-  cDisplay();
-  display.println("Loggerhead");
-  display.display();
-  
   // Initialize the SD card
   SPI.setMOSI(7);
   SPI.setSCK(14);
@@ -270,6 +272,8 @@ void setup() {
   Serial.print("Bufs:"); Serial.println(nbufs_per_file);
   // create first folder to hold data
   folderMonth = -1;  //set to -1 so when first file made will create directory
+
+
 }
 
 //
@@ -279,25 +283,22 @@ void setup() {
 int recLoopCount;  //for debugging when does not start record
   
 void loop() {
-  // Standby mode
+
+
+
+  // Standby
   if(mode == 0)
   {
-      delay(10);
-      while(Serial1.available()>0){
-        Serial.print(Serial1.read());
-      }
       t = getTeensy3Time();
       digitalWrite(ledGreen, LOW);
-      if(digitalRead(TEENSY_ST)==HIGH){      // time to start?
-        if(noDC==0) {
-          audio_freeze_adc_hp(); // this will lower the DC offset voltage, and reduce noise
-          noDC = -1;
-        }
-        Serial.println("Record Start.");
-        mode = 1;
-        display.ssd1306_command(SSD1306_DISPLAYOFF); // turn off display during recording
-        startRecording();
+      if(noDC==0) {
+        audio_freeze_adc_hp(); // this will lower the DC offset voltage, and reduce noise
+        noDC = -1;
       }
+      Serial.println("Record Start.");
+      mode = 1;
+      
+      startRecording();
   }
 
   // Record mode
@@ -305,18 +306,20 @@ void loop() {
     continueRecording();  // download data  
     digitalWrite(ledGreen, HIGH);
     
-    if(buf_count >= nbufs_per_file){       // time to stop?
+    if(buf_count >= nbufs_per_file){       // time for new file?
+        frec.close();
+        FileInit();
+    }
+
+    // stop when trigger detected
+    if(digitalRead(REC_ST)==1){
+      delay(1);
+      if(digitalRead(REC_ST)==1){
         stopRecording();
         mode = 2;
+      }
     }
   }
-
-  if (mode == 2){
-    digitalWrite(ledGreen, LOW);
-    while(1);
-    // wait to get powered down
-  }
-
   
   asm("wfi"); // reduce power between interrupts
 }
@@ -326,6 +329,7 @@ void startRecording() {
   FileInit();
   buf_count = 0;
   queue1.begin();
+  digitalWrite(REC_STATUS, HIGH);
   if (printDiags)  Serial.println("Queue Begin");
 }
 
@@ -364,6 +368,7 @@ void stopRecording() {
   //frec.timestamp(T_WRITE,(uint16_t) year(t),month(t),day(t),hour(t),minute(t),second);
   frec.close();
   delay(100);
+  digitalWrite(REC_STATUS, LOW);
 }
 
 
