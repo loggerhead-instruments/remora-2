@@ -1,14 +1,39 @@
-  // Copyright Loggerhead Instruments, 2020
+// Copyright Loggerhead Instruments, 2020
 // David Mann
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
 // ATMEGA328p: low-power motion datalogging
 // Dual Teensy 3.2: Audio playback and record
 
+// Operation
+// 1. Motion(ATMEGA328) controls power to playback and record Teensy booards.
+// 2. Record and playback start automatically when power is turned on to Play and Rec boards from Motion Atmega.
+// 3. Record stops when it receives a trigger from motion Atmega.
+// 4. Play stops when file (SDTEST1.wav) finished. Play board sets PLAY_STATUS pin high when playing, low when done.
+// 5. Settings file on Record card can be used to set sample rate and file length
+
 // To Do: 
-// - Deep sensor (separate code base because running out of memory) 
-// - Teensy wake and record
-// Enough memory to talk to Teensy?
+// We plan to only have one sound per deployment.
+// Plan is to have play sound on ascent - think will pick threshold of about 400m and play after ascend ~ 50 m, but still finalizing.
+// Ideally would like to only expose animal once every 8 - 12 hours (still finalizing)
+// Record/Playback delay: Would like an ~ 2 week delay so should be transitioning more to foraging and then record and play playback for 5 weeks. 
+// We would like to set the time to be a duration that all the tags should last for so all the animals are exposed for the same amount of time (i.e. we don't want some seals exposed for 4 weeks and others 7). 
+// end record x minutes after playback started): Ideally we would like to record for a few minutes before and after the playback so we know the background sound.  
+// Maybe  start recording on the playback dive as soon as it depth is reached and stop recording 1-2 minutes after the playback.
+// 
+// Test
+// - startRecordTrigger (e.g. start record if >400 m and exposure timeout has been exceeded; 
+// - startPlayback
+// - turn off playback teensy when done
+// - delay playback for x days.
+// - maximum time window for record and playbacks; e.g. 28 days
+// - trigger record when depth exceeded
+// - send time to Teensy
+
+// To do
+// - simulate depth for testing
+// - settings file of playback variables
+
 
 // Current consumption
 // 20 Hz on motion sensors; clock prescaler = 2;
@@ -31,19 +56,17 @@
 #define I2C_FASTMODE 1
 
 #include <Wire.h>
-//#include <SoftWire.h>
 #include <avr/io.h>
 #include <avr/boot.h>
 
 ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
-//SoftWire Wire = SoftWire();
 
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2020-12-03";
+char codeVer[12] = "2020-01-07";
 
-int recDur = 3600; // 3600 seconds per hour
+unsigned int recDur = 1440; // minutes 1140 = 24 hours
 int recInt = 0;
 int LED_EN = 1; //enable green LEDs flash 1x per pressure read. Can be disabled from script.
 
@@ -56,15 +79,17 @@ float pressureOffset_mbar;
 // float MS58xx_constant = 327680.0; // for 2 bar sensor; will switch to this if 30 bar fails to give good depth
 
 // Playback
-float playBackDepthThreshold = 10.0; // tag must go deeper than this depth to trigger threshold
-float ascentDepthTrigger = 5.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
+float playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold
+float ascentDepthTrigger = 50.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
 float playBackResetDepth = 2.0; // tag needs to come back above this depth before next playback can happen
 int maxPlayBacks = 20; // maximum number of times to play
 float maxDepth;  
 byte playNow = 0;
 boolean playBackDepthExceeded = 0;
-int minPlayBackInterval = 120; // keep playbacks from being closer than x seconds
-int longestPlayback = 30; // longest file for playback, used to power down playback board
+unsigned int minPlayBackInterval = 480; // keep playbacks from being closer than x minutes
+float delayRecPlayDays = 0.0; // delay record/playback for x days.
+float maxPlayDays = 28.0; // maximum time window for playbacks from tag on; e.g. 28 days
+byte recMinutesAfterPlay = 2;
 int nPlayed = 0;
 
 // pin assignments
@@ -72,16 +97,16 @@ int nPlayed = 0;
 #define LED_RED A3 
 #define LED_GRN 4 
 #define BURN 8     // PB0
-#define TEENSY_ST 9   // PB1
+#define REC_ST 9   // PB1 REC Start/Stop
 #define BUTTON1 A2 // PC2
 #define BAT_VOLTAGE A7// ADC7
 #define HALL 3 // PD3 (INT1)
-#define TEENSY_POW 6 // PD6
+#define REC_POW 6 // PD6
 #define IMU_INT 7 // PD7
 #define PLAY_POW 5 // PD5 Rev 2 of board
-#define PLAY_ST A1 // PC1 Rev 2 of board
+#define PLAY_ST A1 // PC1 Rev 2 of board Play Start/Stop
 #define REC_STATUS A0 // Rev 2 of board
-#define PLAY_STAUTUS A6 // Rev 2 of board
+#define PLAY_STATUS A6 // Rev 2 of board
 
 // SD file system
 SdFat sd;
@@ -94,7 +119,7 @@ byte clockprescaler=1;  //clock prescaler
 //
 // SENSORS
 //
-byte imuTempBuffer[20];
+//byte imuTempBuffer[20];
 int imuSrate = 20; // must be integer for timer
 int sensorSrate = 1; // must divide into imuSrate
 int slowRateMultiple = imuSrate / sensorSrate;
@@ -107,8 +132,8 @@ int speriod = 1000 / imuSrate;
 //uint16_t TCOFF; //Temp coefficient of pressure offset
 //uint16_t TREF;  //Ref temperature
 //uint16_t TEMPSENS; //Temperature sensitivity coefficient
-byte Tbuff[3];
-byte Pbuff[3];
+// byte Tbuff[3];
+// byte Pbuff[3];
 volatile float depth, temperature, pressure_mbar;
 boolean togglePress = 0; // flag to toggle conversion of temperature and pressure
 
@@ -138,30 +163,27 @@ int burnFlag = 0;
 long burnSeconds;
 void setup() {
   Serial.begin(115200);
-  delay(5000);
-
   pinMode(LED_GRN, OUTPUT);
   pinMode(LED_RED, OUTPUT);
   pinMode(BURN, INPUT);  // not using
   pinMode(BUTTON1, INPUT_PULLUP);
   pinMode(HALL, INPUT);
-  pinMode(BAT_VOLTAGE, INPUT);
-  pinMode(GPS_EN, OUTPUT); //PD5 
-  pinMode(TEENSY_POW, OUTPUT); // PD6
+  pinMode(BAT_VOLTAGE, INPUT); 
   pinMode(IMU_INT, INPUT_PULLUP); // PD7
-  pinMode(TEENSY_ST, OUTPUT); // trigger for Record Teensy
-  //pinMode(RXD2, INPUT); // PC0
-  //pinMode(TXD2, OUTPUT); // PC1
-  
-  //digitalWrite(BURN,LOW);
+  pinMode(PLAY_ST, OUTPUT); // trigger for Play Teensy
+  pinMode(REC_ST, OUTPUT); // trigger for Record Teensy
+  pinMode(REC_STATUS, INPUT);
+  pinMode(PLAY_STATUS, INPUT);
+  pinMode(REC_POW, OUTPUT);
+  pinMode(PLAY_POW, OUTPUT); // PD6
+  digitalWrite(PLAY_ST, LOW);
+  digitalWrite(REC_ST, LOW);
+  digitalWrite(REC_POW, HIGH);  // turn on Teensy so can reprogram
+  digitalWrite(PLAY_POW, HIGH);
   digitalWrite(LED_RED,LOW);
   digitalWrite(LED_GRN,HIGH);
   digitalWrite(BURN, LOW);
-  digitalWrite(GPS_EN, LOW);
-  digitalWrite(TEENSY_ST, LOW);
-  digitalWrite(TEENSY_POW, HIGH);
 
-//  Serial.println("Remora 2");
   Wire.begin();
   Wire.setClock(400000);
   sd.begin(chipSelect, SPI_FULL_SPEED);
@@ -180,13 +202,6 @@ void setup() {
   if(burnFlag==2){
   burnTime = t + burnSeconds;
 
-  // test trigger recording
-  delay(500);
-  digitalWrite(TEENSY_ST, HIGH);
-  delay(100);
-  digitalWrite(TEENSY_ST, LOW);
-
-
 //  Serial.print("Burn set");
 //  Serial.println(burnTime);
   }
@@ -194,12 +209,9 @@ void setup() {
   if(startTime==0) startTime = t + 30;
 //  Serial.print("Time:"); Serial.println(t);
 //  Serial.print("Start Time:"); Serial.println(startTime);
-  digitalWrite(LED_GRN, LOW);
-  digitalWrite(LED_RED, LOW);
 
-  setClockPrescaler(clockprescaler); // set clockprescaler from script file
+  //setClockPrescaler(clockprescaler); // set clockprescaler from script file
   wdtInit();  // used to wake from sleep
-
 }
 
 void loop() {
@@ -207,7 +219,7 @@ while(mode==0){
    // resetWdt();
     readRTC();
     checkBurn();
-    Serial.print(t);
+   // Serial.println(t);
 
     if(LED_EN){
       digitalWrite(LED_GRN, HIGH);
@@ -219,16 +231,11 @@ while(mode==0){
     enterSleep();
 
     if(t >= startTime){
-      endTime = startTime + recDur;
-      startTime += recDur + recInt;  // this will be next start time for interval record      mpuInit(1);
+      endTime = startTime + (recDur * 60);
+      startTime += (recDur * 60) + recInt;  // this will be next start time for interval record      mpuInit(1);
       fileInit();
      // updateTemp();  // get first reading ready
       mode = 1;
-      digitalWrite(TEENSY_POW, LOW);
-      pinMode(TEENSY_ST, INPUT); 
-      pinMode(3, INPUT);
-      pinMode(4, INPUT);
-  
       startInterruptTimer(speriod, clockprescaler);
       attachInterrupt(digitalPinToInterrupt(HALL), spinCount, RISING);
     }
@@ -245,7 +252,7 @@ while(mode==0){
       if(t - startUnixTime > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
       
       if(recInt==0){  // no interval between files
-        endTime += recDur;  // update end time
+        endTime += (recDur * 60);  // update end time
         fileInit();
         startInterruptTimer(speriod, clockprescaler);
       }
@@ -270,6 +277,8 @@ while(mode==0){
       }
     }
   } // mode = 1
+  float daysFromStart = (t - startTime) / 86400.0;
+  if((daysFromStart > delayRecPlayDays) & (daysFromStart < maxPlayDays)) checkPlay();
 }
 
 boolean ledState;
@@ -283,17 +292,12 @@ void initSensors(){
   readVoltage();
   Serial.print(voltage);
   Serial.println("V");
-//  if(voltage < 3.5){
-//    showFail(50); //battery voltage read fail
-//  }
-//  reset_alarm();
 
-  setTime2(12,0,0,5,12,20); 
   readRTC();
   int oldSecond = second;
+  delay(1000);
 
 //  digitalWrite(LED_RED, HIGH);
-  delay(1000);
 //  for(int i=0; i<hour; i++){
 //    delay(300);
 //    digitalWrite(LED_GRN, HIGH);
@@ -310,6 +314,7 @@ void initSensors(){
     // showFail(100); // clock not ticking
     Serial.println("CF");
   }
+ while(digitalRead(REC_STATUS)==HIGH); // wait to finish record
 
   // Pressure/Temperature
 //  if (pressInit()==0){
@@ -333,26 +338,20 @@ void initSensors(){
   float pressureSum = 0;
 
   if(!kellerInit()) Serial.println("KF");
-  kellerConvert();
-  delay(20);
-  kellerRead();
-  for(int n=1; n<10; n++){
-      kellerConvert();
-      delay(20);
-      kellerRead();
-      delay(100);
-      
-      pressureSum+= pressure_mbar;
-      pressureOffset_mbar = pressureSum / n;
-
-//      cDisplay();
-//      display.println("Press Deep");
-//      display.print("Offset mBar:"); display.println(pressureOffset_mbar);
-//      display.print("Depth:"); display.println(depth);
-//      display.print("Temp:"); display.println(temperature);
-//      display.display();
+  else{
+    kellerConvert();
+    delay(20);
+    kellerRead();
+    for(int n=1; n<10; n++){
+        kellerConvert();
+        delay(20);
+        kellerRead();
+        delay(100);
+        
+        pressureSum+= pressure_mbar;
+        pressureOffset_mbar = pressureSum / n;
     }
-
+  }
   Serial.print("mBar "); Serial.println(pressure_mbar);
   Serial.print("Off "); Serial.println(pressureOffset_mbar);
   Serial.print("Depth "); Serial.println(depth);
@@ -364,18 +363,30 @@ void initSensors(){
       delay(500);
   }
   //icmSetup();
+  readRTC();
+  Serial.write(t);
 
   for(int i=0; i<10; i++){
    if( myICM.dataReady() ){
     myICM.getAGMT();                // The values are only updated when you call 'getAGMT'
 //    printRawAGMT( myICM.agmt );     // Uncomment this to see the raw values, taken directly from the agmt structure
-    printImu();   // This function takes into account the scale settings from when the measurement was made to calculate the values with units
+//    printImu();   // This function takes into account the scale settings from when the measurement was made to calculate the values with units
     delay(30);
     }else{
-    Serial.println("ICM");
-    delay(500);
+ //   Serial.println("ICM");
+      delay(500);
+    }
   }
+
+  startStopRec();  // start recording
+  for (int i=0; i<30; i++){
+    Serial.print(digitalRead(REC_STATUS));
+    Serial.print(" "); Serial.println(analogRead(PLAY_STATUS));
+    delay(1000);
+    if(i==10) startStopRec();
   }
+  digitalWrite(REC_POW, LOW);
+  digitalWrite(PLAY_POW, LOW);
 }
 
 void showFail(int blinkInterval){
@@ -406,18 +417,18 @@ void showFail(int blinkInterval){
 //  magZ = (int16_t)  (((int16_t)imuTempBuffer[18] << 8) | imuTempBuffer[19]);  
 //}
 
-void printImu(){
-  Serial.print("a/m/g:\t");
-  Serial.print(myICM.accX()); Serial.print("\t");
-  Serial.print(myICM.accY()); Serial.print("\t");
-  Serial.print(myICM.accZ()); Serial.print("\t");
-  Serial.print(myICM.magX()); Serial.print("\t");
-  Serial.print(myICM.magY()); Serial.print("\t");
-  Serial.print(myICM.magZ()); Serial.print("\t");
-  Serial.print(myICM.gyrX()); Serial.print("\t");
-  Serial.print(myICM.gyrY()); Serial.print("\t");
-  Serial.println(myICM.gyrZ());
-}
+//void printImu(){
+//  Serial.print("a/m/g:\t");
+//  Serial.print(myICM.accX()); Serial.print("\t");
+//  Serial.print(myICM.accY()); Serial.print("\t");
+//  Serial.print(myICM.accZ()); Serial.print("\t");
+//  Serial.print(myICM.magX()); Serial.print("\t");
+//  Serial.print(myICM.magY()); Serial.print("\t");
+//  Serial.print(myICM.magZ()); Serial.print("\t");
+//  Serial.print(myICM.gyrX()); Serial.print("\t");
+//  Serial.print(myICM.gyrY()); Serial.print("\t");
+//  Serial.println(myICM.gyrZ());
+//}
 
 void fileWriteImu(){
   dataFile.print(myICM.accX()); dataFile.print(",");
@@ -576,7 +587,6 @@ ISR(WDT_vect)
 {
     // do nothing
 }
-
 
 void enterSleep(void)
 {

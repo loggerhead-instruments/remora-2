@@ -81,9 +81,8 @@ int ProcCmd(char *pCmd)
          startTime = RTCToUNIXTime(tyear, tmonth, tday, thour, tmin, tsec);
          break;
       } 
-      
 
-      
+    // RD: Record duration in minutes  
     case ('R' + ('D'<<8)):
     {
       sscanf(&pCmd[3],"%d",&lv1);
@@ -92,7 +91,8 @@ int ProcCmd(char *pCmd)
 //      Serial.println(recDur);
       break;
     }
-    
+
+    // RI: Record interval in seconds
     case ('R' + ('I'<<8)):
     {
       sscanf(&pCmd[3],"%d",&lv1);
@@ -190,8 +190,6 @@ boolean loadScript()
   else
   {   
   //  Serial.println("no file");
-
-   // // display.println("no setup file");
     return 0;
   }
  return 1;  

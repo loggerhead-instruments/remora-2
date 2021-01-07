@@ -4,57 +4,64 @@ void checkPlay(){
   }
 
   // waiting for playback algorithm to be satisfied to trigger playback
-  // prevent from playing back more than once per x seconds
+  // prevent from playing back more than once per x minutes
   if(playNow==0){
-      if((depth > playBackDepthThreshold) & (playBackDepthExceeded==0) & (t - playTime > minPlayBackInterval)) {
+    if((depth > playBackDepthThreshold) & (playBackDepthExceeded==0) & (((t - playTime)/60) > minPlayBackInterval)) {
       playBackDepthExceeded = 1;  // check if went deeper than a certain depth
-//      if(printDiags){
-//        Serial.print("Playback depth exceeded: ");
-//        Serial.println(playBackDepthThreshold);
-//      } 
+      digitalWrite(REC_POW, HIGH); // turn on recorder -- autostart recording
     }
-  
-    // check if after exceeding playback depth, came shallow enough to allow another playback
-    if(playBackDepthExceeded==2){
-      if(depth < playBackResetDepth){
-        maxDepth = depth;
-        playBackDepthExceeded = 0;
-//        if(printDiags){
-//          Serial.print("Reset depth: ");
-//          Serial.println(playBackResetDepth);
-//        }
-      }
-    }
-  
+
     // Trigger playback if on ascent came up enough
     if ((playBackDepthExceeded==1) & (maxDepth - depth > ascentDepthTrigger) & (nPlayed < maxPlayBacks)) {
- //       playBackOn();
         playNow = 1;
-        playTime = t + 2; // wait 2 seconds for playback board to power up
+        digitalWrite(PLAY_POW, HIGH);  // play will start automatically
+        playTime = t;
         playBackDepthExceeded = 2;
-//        if(printDiags) {
-//          Serial.print("Ascent trigger");
-//          Serial.println(ascentDepthTrigger);
-//          Serial.print("Trigger playback ");
-//          Serial.println(nPlayed);
-//        } 
     }
   }
 
-  // trigger playback after delay
-  if((playNow==1) & (t >= playTime)) {
-     playNow = 2;
-//      playTrackNumber(trackNumber);
-//      trackNumber += 1;
-//      if(trackNumber >= nPlayBackFiles) trackNumber = 0;
-//      nPlayed++;
+  // check if after exceeding playback depth, came shallow enough to allow another playback
+  if(playBackDepthExceeded==2){
+    if(depth < playBackResetDepth){
+      maxDepth = depth;
+      playBackDepthExceeded = 0;
+    }
   }
 
-  // turn off playback board
-  if(playNow==2){
-      if (t-playTime > longestPlayback){
-//        playBackOff();
-        playNow = 0;
-      }
+  // turn off playback board when playing done
+  if(playNow==1){
+    int playStatusPin = analogRead(PLAY_STATUS);
+   // Serial.println(playStatusPin);
+    if(playStatusPin < 200){
+      digitalWrite(PLAY_POW, LOW);
+      readRTC();  // update RTC on Teensy
+      Serial.write(t);
+      playNow = 2;
+    }
   }
+
+  if(playNow==2){
+    // wait to turn off record recMinutesAfterPlay started
+    byte minutesAfterPlay = (t - playTime) / 60;
+    if(minutesAfterPlay > recMinutesAfterPlay){
+      startStopRec();
+      // wait for file to close
+      for (int i=0; i<20; i++){
+        if(digitalRead(REC_STATUS)==0){
+          digitalWrite(REC_POW, LOW);
+          playNow = 0;
+          break;
+        }
+        delay(200);
+      }
+      digitalWrite(REC_POW, LOW);  // power off record even if file didn't close
+      playNow = 0;
+    }
+  }
+}
+
+void startStopRec(){
+  digitalWrite(REC_ST, HIGH);
+  delay(50);
+  digitalWrite(REC_ST, LOW);
 }
