@@ -13,8 +13,6 @@
 // Modified by WMXZ 15-05-2018 for SdFS anf multiple sampling frequencies
 // Optionally uses SdFS from Bill Greiman https://github.com/greiman/SdFs; but has higher current draw in sleep
 
-// To do:
-// 1- get time from Atmega
 
 char codeVersion[12] = "2020-01-06";
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics
