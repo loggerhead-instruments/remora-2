@@ -25,7 +25,7 @@
 //
 // This example code is in the public domain.
 
-#include <Audio.h>
+#include <Audio.h> // Do not use Loggerhead Audio; use original audio
 #include <Wire.h>
 #include <SPI.h>
 #include <SD.h>
