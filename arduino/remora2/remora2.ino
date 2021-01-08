@@ -85,13 +85,13 @@ float playBackResetDepth = 10.0; // tag needs to come back above this depth befo
 int maxPlayBacks = 200; // maximum number of times to play
 float maxDepth;  
 byte playNow = 0;
-boolean playBackDepthExceeded = 0;
+byte playBackDepthExceeded = 0;
 unsigned int minPlayBackInterval = 480; // keep playbacks from being closer than x minutes
 float delayRecPlayDays = 0.0; // delay record/playback for x days.
 float maxPlayDays = 28.0; // maximum time window for playbacks from tag on; e.g. 28 days
-byte recMinutesAfterPlay = 2;
+byte recMinutesAfterPlay = 1;
 int nPlayed = 0;
-boolean REC_STATE, PLAY_STATE;
+volatile boolean REC_STATE, PLAY_STATE;
 float daysFromStart;
 
 boolean simulateDepth = 1;
@@ -380,9 +380,15 @@ void initSensors(){
   }
 
   digitalWrite(REC_ST, HIGH);  // start recording
-  delay(5000);
+  for(int i = 0; i<5; i++){
+    Serial.print(digitalRead(REC_STATUS));
+    delay(500);
+  }
   digitalWrite(REC_ST, LOW); // stop recording
-  delay(500);
+  for(int i = 0; i<10; i++){
+    Serial.print(digitalRead(REC_STATUS));
+    delay(500);
+  }
   digitalWrite(REC_POW, LOW);
   digitalWrite(PLAY_POW, LOW);
 }
@@ -429,7 +435,7 @@ void fileWriteImu(){
 }
 
 void fileWriteSlowSensors(){
-  Serial.println(daysFromStart, 5); Serial.println(depth);
+  Serial.println(depth);
   dataFile.print(','); dataFile.print(year);  
   dataFile.print('-');
   if(month < 10) dataFile.print('0');

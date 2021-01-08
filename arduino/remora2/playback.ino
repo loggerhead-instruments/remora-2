@@ -9,13 +9,9 @@ void checkPlay(){
     if((depth > playBackDepthThreshold) & (playBackDepthExceeded==0) & (((t - playTime)/60) > minPlayBackInterval)) {
       playBackDepthExceeded = 1;  // check if went deeper than a certain depth
       digitalWrite(REC_POW, HIGH); // turn on recorder
-//      delay(10);
-//      readRTC();  // update RTC on Teensy-- issues with clockprescaler and baud rate
-//      Serial.println(t);
-//      Serial.flush();
-//      delay(2);
       digitalWrite(REC_ST, HIGH);  // start recording
       REC_STATE = 1;
+      Serial.println("R");
     }
 
     // Trigger playback if on ascent came up enough
@@ -25,6 +21,7 @@ void checkPlay(){
         PLAY_STATE = 1;
         playTime = t;
         playBackDepthExceeded = 2;
+        Serial.println("P");
     }
   }
 
@@ -33,6 +30,7 @@ void checkPlay(){
     if(depth < playBackResetDepth){
       maxDepth = depth;
       playBackDepthExceeded = 0;
+      Serial.println("D");
     }
   }
 
@@ -51,7 +49,7 @@ void checkPlay(){
   if(playNow==2){
     // wait to turn off record recMinutesAfterPlay started
     byte minutesAfterPlay = (t - playTime) / 60;
-    if(minutesAfterPlay > recMinutesAfterPlay){
+    if(minutesAfterPlay >= recMinutesAfterPlay){
       digitalWrite(REC_ST, LOW); // stop recording
       // wait for file to close
       if(digitalRead(REC_STATUS)==0){
