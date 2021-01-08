@@ -8,13 +8,21 @@ void checkPlay(){
   if(playNow==0){
     if((depth > playBackDepthThreshold) & (playBackDepthExceeded==0) & (((t - playTime)/60) > minPlayBackInterval)) {
       playBackDepthExceeded = 1;  // check if went deeper than a certain depth
-      digitalWrite(REC_POW, HIGH); // turn on recorder -- autostart recording
+      digitalWrite(REC_POW, HIGH); // turn on recorder
+      delay(10);
+      readRTC();  // update RTC on Teensy
+      Serial.println(t);
+      Serial.flush();
+      delay(2);
+      digitalWrite(REC_ST, HIGH);  // start recording
+      REC_STATE = 1;
     }
 
     // Trigger playback if on ascent came up enough
     if ((playBackDepthExceeded==1) & (maxDepth - depth > ascentDepthTrigger) & (nPlayed < maxPlayBacks)) {
         playNow = 1;
         digitalWrite(PLAY_POW, HIGH);  // play will start automatically
+        PLAY_STATE = 1;
         playTime = t;
         playBackDepthExceeded = 2;
     }
@@ -34,8 +42,7 @@ void checkPlay(){
    // Serial.println(playStatusPin);
     if(playStatusPin < 200){
       digitalWrite(PLAY_POW, LOW);
-      readRTC();  // update RTC on Teensy
-      Serial.write(t);
+      PLAY_STATE = 0;
       playNow = 2;
     }
   }
@@ -44,24 +51,14 @@ void checkPlay(){
     // wait to turn off record recMinutesAfterPlay started
     byte minutesAfterPlay = (t - playTime) / 60;
     if(minutesAfterPlay > recMinutesAfterPlay){
-      startStopRec();
+      digitalWrite(REC_ST, LOW); // stop recording
       // wait for file to close
-      for (int i=0; i<20; i++){
-        if(digitalRead(REC_STATUS)==0){
-          digitalWrite(REC_POW, LOW);
-          playNow = 0;
-          break;
-        }
-        delay(200);
+      if(digitalRead(REC_STATUS)==0){
+        digitalWrite(REC_POW, LOW);
+        REC_STATE = 0;
+        playNow = 0;
+        break;
       }
-      digitalWrite(REC_POW, LOW);  // power off record even if file didn't close
-      playNow = 0;
     }
   }
-}
-
-void startStopRec(){
-  digitalWrite(REC_ST, HIGH);
-  delay(50);
-  digitalWrite(REC_ST, LOW);
 }
