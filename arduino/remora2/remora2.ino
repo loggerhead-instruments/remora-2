@@ -11,6 +11,7 @@
 // 3. Record stops when it receives a trigger from motion Atmega.
 // 4. Play stops when file (SDTEST1.wav) finished. Play board sets PLAY_STATUS pin high when playing, low when done.
 // 5. Settings file on Record card can be used to set sample rate and file length
+// 6. Realtime clock is set from Atmega. The Atmega will send the time to REC Teensy over serial. Atmega has a temperature compenstated real-time clock that is more accurate than Teensy clock.
 
 // To Do: 
 // We plan to only have one sound per deployment.
@@ -31,6 +32,7 @@
 // - send time to Teensy
 
 // To do
+// - log record and play status with one second records.
 // - simulate depth for testing
 // - settings file of playback variables
 
@@ -91,6 +93,7 @@ float delayRecPlayDays = 0.0; // delay record/playback for x days.
 float maxPlayDays = 28.0; // maximum time window for playbacks from tag on; e.g. 28 days
 byte recMinutesAfterPlay = 2;
 int nPlayed = 0;
+boolean REC_STATE, PLAY_STATE;
 
 // pin assignments
 #define chipSelect  10
@@ -289,32 +292,18 @@ void spinCount(){
 }
 
 void initSensors(){
+  delay(2000);
   readVoltage();
   Serial.print(voltage);
   Serial.println("V");
 
   readRTC();
-  int oldSecond = second;
-  delay(1000);
-
-//  digitalWrite(LED_RED, HIGH);
-//  for(int i=0; i<hour; i++){
-//    delay(300);
-//    digitalWrite(LED_GRN, HIGH);
-//    delay(80);
-//    digitalWrite(LED_GRN, LOW);
-//  }
-//  delay(400);
-//  digitalWrite(LED_RED, LOW);
-  readRTC();
-//  Serial.print(hour); Serial.print(":");
-//  Serial.print(minute); Serial.print(":");
-//  Serial.println(second);
-  if(second==oldSecond){
-    // showFail(100); // clock not ticking
-    Serial.println("CF");
-  }
- while(digitalRead(REC_STATUS)==HIGH); // wait to finish record
+  Serial.print("DT "); Serial.println(t);
+  Serial.print("T "); Serial.print(hour); Serial.print(":");
+  Serial.print(minute); Serial.print(":");
+  Serial.println(second);
+  Serial.flush();
+  delay(5000);
 
   // Pressure/Temperature
 //  if (pressInit()==0){
@@ -337,8 +326,7 @@ void initSensors(){
 
   float pressureSum = 0;
 
-  if(!kellerInit()) Serial.println("KF");
-  else{
+  if(kellerInit()){
     kellerConvert();
     delay(20);
     kellerRead();
@@ -353,9 +341,11 @@ void initSensors(){
     }
   }
   Serial.print("mBar "); Serial.println(pressure_mbar);
-  Serial.print("Off "); Serial.println(pressureOffset_mbar);
+ // Serial.print("Off "); Serial.println(pressureOffset_mbar);
   Serial.print("Depth "); Serial.println(depth);
   Serial.print("Temp "); Serial.println(temperature);
+  Serial.flush();
+  delay(5000);
 
   myICM.begin( Wire, 1 );
   if( myICM.status != ICM_20948_Stat_Ok ){
@@ -363,8 +353,6 @@ void initSensors(){
       delay(500);
   }
   //icmSetup();
-  readRTC();
-  Serial.write(t);
 
   for(int i=0; i<10; i++){
    if( myICM.dataReady() ){
@@ -378,27 +366,12 @@ void initSensors(){
     }
   }
 
-  startStopRec();  // start recording
-  for (int i=0; i<30; i++){
-    Serial.print(digitalRead(REC_STATUS));
-    Serial.print(" "); Serial.println(analogRead(PLAY_STATUS));
-    delay(1000);
-    if(i==10) startStopRec();
-  }
+  digitalWrite(REC_ST, HIGH);  // start recording
+  delay(5000);
+  digitalWrite(REC_ST, LOW); // stop recording
+  delay(500);
   digitalWrite(REC_POW, LOW);
   digitalWrite(PLAY_POW, LOW);
-}
-
-void showFail(int blinkInterval){
-  digitalWrite(LED_GRN, LOW);
-  int count = 5000 / blinkInterval;
-  if(count < 100) count = 100;
-  for(int n=0; n<count; n++){
-    digitalWrite(LED_RED, HIGH);
-    delay(blinkInterval);
-    digitalWrite(LED_RED, LOW);
-    delay(blinkInterval);
-  }
 }
 
 //void calcImu(){
@@ -464,6 +437,7 @@ void fileWriteSlowSensors(){
   dataFile.print(','); dataFile.print(depth);
   dataFile.print(','); dataFile.print(temperature);
   dataFile.print(','); dataFile.print(voltage);
+  dataFile.print(','); dataFile.print(
   if(HALL_EN){
       dataFile.print(','); dataFile.print(spin);
   }
@@ -511,7 +485,7 @@ void fileInit()
     delay(100);
    }
    digitalWrite(LED_RED, LOW);
-   dataFile.print("accelX,accelY,accelZ,magX,magY,magZ,gyroX,gyroY,gyroZ,date,mBar,depth,temperature,V");
+   dataFile.print("accelX,accelY,accelZ,magX,magY,magZ,gyroX,gyroY,gyroZ,date,mBar,depth,temp,V,rec,play");
    if(HALL_EN) dataFile.print(",spin");
    dataFile.println();
    SdFile::dateTimeCallback(file_date_time);
