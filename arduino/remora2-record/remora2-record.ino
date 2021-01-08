@@ -13,6 +13,9 @@
 // Modified by WMXZ 15-05-2018 for SdFS anf multiple sampling frequencies
 // Optionally uses SdFS from Bill Greiman https://github.com/greiman/SdFs; but has higher current draw in sleep
 
+// To do:
+// 1- get time from Atmega
+
 char codeVersion[12] = "2020-01-06";
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics
 
@@ -219,14 +222,47 @@ void setup() {
   cDisplay();
   display.println("Loggerhead Remora");
   display.display();
+
+  int curLine = 0;  
+  char incomingText[100];
+  int i = 0;
   while(digitalRead(REC_ST)==LOW){
     // display text from Atmega
     while(Serial1.available()>0){
-      byte incomingText = Serial1.read();
-      Serial.print(incomingText);
-      display.print(incomingText);
+      incomingText[i] = Serial1.read();
+      Serial.print(i); Serial.print(':'); Serial.println(incomingText[i]);
+//      Serial.write(incomingText);
+//      display.write(incomingText);
+      if(incomingText[i] == '\r') {
+        Serial.println(incomingText);
+        display.print(incomingText);
+        display.display();
+        i = 0;
+        curLine += 1;
+        if(incomingText[1] == 'D' and incomingText[2] == 'T'){   
+          time_t newTime ;
+          //incomingText[14] = '\0'; // null character
+          char str[10];
+          sscanf(incomingText, "%s %u", str, &newTime);
+          Serial.print("New Time: ");
+          Serial.print(str); 
+          Serial.println(newTime);
+          Teensy3Clock.set(newTime); 
+          displayClock(newTime, BOTTOM);
+        }
+      }
+      else{
+        i++;
+        if(i == 100) i = 0;
+      }
+      
     }
     display.display();
+//    if(curLine > 4){
+//        delay(500);
+//        cDisplay();
+//        curLine = 0;
+//    }
   }
 
   read_myID();
@@ -272,8 +308,6 @@ void setup() {
   Serial.print("Bufs:"); Serial.println(nbufs_per_file);
   // create first folder to hold data
   folderMonth = -1;  //set to -1 so when first file made will create directory
-
-
 }
 
 //
@@ -283,9 +317,6 @@ void setup() {
 int recLoopCount;  //for debugging when does not start record
   
 void loop() {
-
-
-
   // Standby
   if(mode == 0)
   {
@@ -311,8 +342,8 @@ void loop() {
         FileInit();
     }
 
-    // stop when trigger detected
-    if(digitalRead(REC_ST)==1){
+    // stop when low detected
+    if(digitalRead(REC_ST)==0){
       delay(1);
       if(digitalRead(REC_ST)==1){
         stopRecording();
