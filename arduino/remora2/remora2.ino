@@ -32,10 +32,8 @@
 // - send time to Teensy
 
 // To do
-// - log record and play status with one second records.
-// - simulate depth for testing
 // - settings file of playback variables
-
+// - measure and optimize power consumption
 
 // Current consumption
 // 20 Hz on motion sensors; clock prescaler = 2;
@@ -83,8 +81,8 @@ float pressureOffset_mbar;
 // Playback
 float playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold
 float ascentDepthTrigger = 50.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
-float playBackResetDepth = 2.0; // tag needs to come back above this depth before next playback can happen
-int maxPlayBacks = 20; // maximum number of times to play
+float playBackResetDepth = 10.0; // tag needs to come back above this depth before next playback can happen
+int maxPlayBacks = 200; // maximum number of times to play
 float maxDepth;  
 byte playNow = 0;
 boolean playBackDepthExceeded = 0;
@@ -94,6 +92,12 @@ float maxPlayDays = 28.0; // maximum time window for playbacks from tag on; e.g.
 byte recMinutesAfterPlay = 2;
 int nPlayed = 0;
 boolean REC_STATE, PLAY_STATE;
+float daysFromStart;
+
+boolean simulateDepth = 1;
+float depthProfile[] = {0.1, 500.0, 400.0, 0.0, 420.0, 10.0, 5.0, 50.0, 600.0, 700.0
+                      }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
+byte depthIndex = 0;
 
 // pin assignments
 #define chipSelect  10
@@ -117,7 +121,7 @@ File dataFile;
 int fileCount; 
 
 int ssCounter; // used to get different sample rates from one timer based on imu_srate
-byte clockprescaler=1;  //clock prescaler
+byte clockprescaler=0;  //clock prescaler
 
 //
 // SENSORS
@@ -161,7 +165,7 @@ volatile byte day = 1;
 volatile byte month = 1;
 volatile byte year = 17;
 
-unsigned long t, startTime, endTime, burnTime, startUnixTime, playTime;
+unsigned long t, startTime, endTime, burnTime, startUnixTime, playTime, originalStartTime;
 int burnFlag = 0;
 long burnSeconds;
 void setup() {
@@ -209,11 +213,12 @@ void setup() {
 //  Serial.println(burnTime);
   }
 
-  if(startTime==0) startTime = t + 30;
+  if(startTime==0) startTime = t + 5;
+  originalStartTime = startTime;
 //  Serial.print("Time:"); Serial.println(t);
 //  Serial.print("Start Time:"); Serial.println(startTime);
 
-  //setClockPrescaler(clockprescaler); // set clockprescaler from script file
+  setClockPrescaler(clockprescaler); // set clockprescaler from script file
   wdtInit();  // used to wake from sleep
 }
 
@@ -279,9 +284,17 @@ while(mode==0){
         digitalWrite(LED_RED, LOW);
       }
     }
+  
+    daysFromStart = (float) (t - originalStartTime) / 86400.0;
+    if((daysFromStart >= delayRecPlayDays) & (daysFromStart < maxPlayDays)) {
+      if(simulateDepth){
+        depthIndex = (byte) (t - originalStartTime) / 60.0;
+        if (depthIndex > 9) depthIndex = 0;
+        depth = depthProfile[depthIndex];
+      }
+      checkPlay();
+    }
   } // mode = 1
-  float daysFromStart = (t - startTime) / 86400.0;
-  if((daysFromStart > delayRecPlayDays) & (daysFromStart < maxPlayDays)) checkPlay();
 }
 
 boolean ledState;
@@ -416,6 +429,7 @@ void fileWriteImu(){
 }
 
 void fileWriteSlowSensors(){
+  Serial.println(daysFromStart, 5); Serial.println(depth);
   dataFile.print(','); dataFile.print(year);  
   dataFile.print('-');
   if(month < 10) dataFile.print('0');
@@ -437,7 +451,8 @@ void fileWriteSlowSensors(){
   dataFile.print(','); dataFile.print(depth);
   dataFile.print(','); dataFile.print(temperature);
   dataFile.print(','); dataFile.print(voltage);
-  dataFile.print(','); dataFile.print(
+  dataFile.print(','); dataFile.print(REC_STATE);
+  dataFile.print(','); dataFile.print(PLAY_STATE);
   if(HALL_EN){
       dataFile.print(','); dataFile.print(spin);
   }
@@ -507,14 +522,14 @@ void sampleSensors(void){
 //    readPress();   
 //    updateTemp();
     togglePress = 0;
-    kellerConvert();
+    if(simulateDepth==0) kellerConvert();
 }
     
   if(ssCounter>=slowRateMultiple){
 //    // MS58xx pressure and temperature
 //    readTemp();
 //    updatePress();  
-    kellerRead();
+    if(simulateDepth==0) kellerRead();
     togglePress = 1;
     
     if(LED_EN) digitalWrite(LED_GRN, HIGH);

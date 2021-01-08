@@ -9,11 +9,11 @@ void checkPlay(){
     if((depth > playBackDepthThreshold) & (playBackDepthExceeded==0) & (((t - playTime)/60) > minPlayBackInterval)) {
       playBackDepthExceeded = 1;  // check if went deeper than a certain depth
       digitalWrite(REC_POW, HIGH); // turn on recorder
-      delay(10);
-      readRTC();  // update RTC on Teensy
-      Serial.println(t);
-      Serial.flush();
-      delay(2);
+//      delay(10);
+//      readRTC();  // update RTC on Teensy-- issues with clockprescaler and baud rate
+//      Serial.println(t);
+//      Serial.flush();
+//      delay(2);
       digitalWrite(REC_ST, HIGH);  // start recording
       REC_STATE = 1;
     }
@@ -37,7 +37,8 @@ void checkPlay(){
   }
 
   // turn off playback board when playing done
-  if(playNow==1){
+  // give 10 seconds before checking this because takes some time for play board to wake
+  if((playNow==1) & (t > playTime + 10)){
     int playStatusPin = analogRead(PLAY_STATUS);
    // Serial.println(playStatusPin);
     if(playStatusPin < 200){
@@ -57,7 +58,6 @@ void checkPlay(){
         digitalWrite(REC_POW, LOW);
         REC_STATE = 0;
         playNow = 0;
-        break;
       }
     }
   }
