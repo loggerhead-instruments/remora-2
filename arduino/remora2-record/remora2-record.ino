@@ -216,10 +216,13 @@ void setup() {
   delay(100);
   RTC_CR = RTC_CR_SC16P | RTC_CR_SC8P | RTC_CR_SC2P | RTC_CR_OSCE;
 
-  displayOn();
-  cDisplay();
-  display.println("Loggerhead Remora");
-  display.display();
+ if((digitalRead(REC_ST)==LOW)){
+    displayOn();
+    cDisplay();
+    display.println("Loggerhead Remora");
+    display.display();
+ }
+
 
   int curLine = 0;  
   char incomingText[100];
@@ -297,7 +300,7 @@ void setup() {
   AudioInit(isf); // this calls Wire.begin() in control_sgtl5000.cpp
 
   logFileHeader();
-  cDisplay();
+  displayOff();
 
   t = getTeensy3Time();
 
@@ -343,7 +346,7 @@ void loop() {
     // stop when low detected
     if(digitalRead(REC_ST)==0){
       delay(1);
-      if(digitalRead(REC_ST)==1){
+      if(digitalRead(REC_ST)==0){
         stopRecording();
         mode = 2;
       }
