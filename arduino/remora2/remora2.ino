@@ -66,7 +66,7 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 char codeVer[12] = "2020-01-07";
 
-unsigned int recDur = 1440; // minutes 1140 = 24 hours
+unsigned long recDur = 1440; // minutes 1140 = 24 hours
 int recInt = 0;
 int LED_EN = 1; //enable green LEDs flash 1x per pressure read. Can be disabled from script.
 
@@ -78,23 +78,25 @@ boolean HALL_LED_EN = 1; //flash red LED for Hall sensor
 float pressureOffset_mbar;
 // float MS58xx_constant = 327680.0; // for 2 bar sensor; will switch to this if 30 bar fails to give good depth
 
-// Playback
+// Playback Settings
 float playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold
 float ascentDepthTrigger = 50.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
 float playBackResetDepth = 10.0; // tag needs to come back above this depth before next playback can happen
 int maxPlayBacks = 200; // maximum number of times to play
-float maxDepth;  
-byte playNow = 0;
-byte playBackDepthExceeded = 0;
 unsigned int minPlayBackInterval = 480; // keep playbacks from being closer than x minutes
 float delayRecPlayDays = 0.0; // delay record/playback for x days.
 float maxPlayDays = 28.0; // maximum time window for playbacks from tag on; e.g. 28 days
-byte recMinutesAfterPlay = 1;
+byte recMinutesAfterPlay = 2;
+
+// Playback status
+float maxDepth;  
+byte playNow = 0;
+byte playBackDepthExceeded = 0;
 int nPlayed = 0;
 volatile boolean REC_STATE, PLAY_STATE;
 float daysFromStart;
 
-boolean simulateDepth = 1;
+boolean simulateDepth = 0;
 float depthProfile[] = {0.1, 500.0, 400.0, 0.0, 420.0, 10.0, 5.0, 50.0, 600.0, 700.0
                       }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
 byte depthIndex = 0;
@@ -121,7 +123,7 @@ File dataFile;
 int fileCount; 
 
 int ssCounter; // used to get different sample rates from one timer based on imu_srate
-byte clockprescaler=0;  //clock prescaler
+byte clockprescaler=2;  //clock prescaler
 
 //
 // SENSORS
@@ -452,7 +454,7 @@ void fileWriteSlowSensors(){
   dataFile.print(':');
   if(second < 10) dataFile.print('0');
   dataFile.print(second);
-  dataFile.print("Z,");
+  dataFile.print(",");
   dataFile.print(pressure_mbar);
   dataFile.print(','); dataFile.print(depth);
   dataFile.print(','); dataFile.print(temperature);

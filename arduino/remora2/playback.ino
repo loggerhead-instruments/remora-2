@@ -11,7 +11,7 @@ void checkPlay(){
       digitalWrite(REC_POW, HIGH); // turn on recorder
       digitalWrite(REC_ST, HIGH);  // start recording
       REC_STATE = 1;
-      Serial.println("R");
+      //Serial.println("R");
     }
 
     // Trigger playback if on ascent came up enough
@@ -21,7 +21,7 @@ void checkPlay(){
         PLAY_STATE = 1;
         playTime = t;
         playBackDepthExceeded = 2;
-        Serial.println("P");
+        //Serial.println("P");
     }
   }
 
@@ -30,7 +30,7 @@ void checkPlay(){
     if(depth < playBackResetDepth){
       maxDepth = depth;
       playBackDepthExceeded = 0;
-      Serial.println("D");
+      //Serial.println("D");
     }
   }
 

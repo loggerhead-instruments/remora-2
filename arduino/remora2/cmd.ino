@@ -123,6 +123,73 @@ int ProcCmd(char *pCmd)
       break;
     }
 
+    // Playback
+    //default minPlayBackInterval = 480; // keep playbacks from being closer than x seconds
+    case ('P' + ('I'<<8)):
+    {
+      sscanf(&pCmd[3],"%d",&lv1);
+      minPlayBackInterval = lv1;
+      break;
+    }
+
+    //default playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold
+    case ('P' + ('T'<<8)):
+    {
+      sscanf(&pCmd[3],"%d",&lv1);
+      playBackDepthThreshold = lv1;
+      break;
+    }
+    //default ascentDepthTrigger = 50.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
+    case ('P' + ('A'<<8)):
+    {
+      sscanf(&pCmd[3],"%d",&lv1);
+      ascentDepthTrigger = lv1;
+      break;
+    }
+    //default playBackResetDepth = 10.0; // tag needs to come back above this depth before next playback can happen
+    case ('P' + ('R'<<8)):
+    {
+      sscanf(&pCmd[3],"%d",&lv1);
+      playBackResetDepth = lv1;
+      break;
+    }
+    //default maxPlayBacks = 200;
+    case ('P' + ('M'<<8)):
+    {
+      sscanf(&pCmd[3],"%d",&lv1);
+      maxPlayBacks = lv1;
+      break;
+    }
+    // default simulateDepth = 0
+    case ('S' + ('D'<<8)):
+    {
+      simulateDepth = 1;
+      break;
+    }
+
+    //float delayRecPlayDays = 0.0; // delay record/playback for x days.
+    case ('D' + ('P'<<8)):
+    {
+      sscanf(&pCmd[3],"%d",&lv1);
+      delayRecPlayDays = (float) lv1;
+      break;
+    }
+    //float maxPlayDays = 28.0; // maximum time window for playbacks from tag on; e.g. 28 days
+    case ('M' + ('D'<<8)):
+    {
+      sscanf(&pCmd[3],"%d",&lv1);
+      maxPlayDays = (float) lv1;
+      break;
+    }
+    //byte recMinutesAfterPlay = 2;
+    case ('R' + ('M'<<8)):
+    {
+      sscanf(&pCmd[3],"%d",&lv1);
+      recMinutesAfterPlay = lv1;
+      break;
+    }
+
+
    // enable Hall
     case ('H' + ('E'<<8)):
     {
