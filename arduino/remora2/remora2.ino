@@ -25,8 +25,11 @@
 // Test
 // - delay playback for x days
 
+// Power Consumption
+// 10 mA with CP=2 and 11 Hz -3dB bandwidth on IMU
+// 3 mA if unplug IMU (so 7 mA is IMU)
+
 // To do
-// - measure and optimize power consumption
 // - Jumper wire from R18 (ClockBat) to both Teensy Clock Bat 
 
 // Current consumption
@@ -361,7 +364,7 @@ void initSensors(){
       Serial.println( "ICM fail" );
       delay(500);
   }
-  //icmSetup();
+  icmSetup();
 
 //  for(int i=0; i<10; i++){
 //   if( myICM.dataReady() ){
