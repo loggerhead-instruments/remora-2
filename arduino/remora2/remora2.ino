@@ -23,13 +23,7 @@
 // Maybe  start recording on the playback dive as soon as it depth is reached and stop recording 1-2 minutes after the playback.
 // 
 // Test
-// - startRecordTrigger (e.g. start record if >400 m and exposure timeout has been exceeded; 
-// - startPlayback
-// - turn off playback teensy when done
-// - delay playback for x days.
-// - maximum time window for record and playbacks; e.g. 28 days
-// - trigger record when depth exceeded
-// - send time to Teensy
+// - delay playback for x days
 
 // To do
 // - measure and optimize power consumption
@@ -71,7 +65,7 @@ int recInt = 0;
 int LED_EN = 1; //enable green LEDs flash 1x per pressure read. Can be disabled from script.
 
 boolean HALL_EN = 1; 
-boolean HALL_LED_EN = 1; //flash red LED for Hall sensor
+boolean HALL_LED_EN = 0; //flash red LED for Hall sensor
 
 //#define pressAddress 0x76
 //float MS58xx_constant = 8192.0; // for 30 bar sensor
@@ -96,7 +90,7 @@ int nPlayed = 0;
 volatile boolean REC_STATE, PLAY_STATE;
 float daysFromStart;
 
-boolean simulateDepth = 1;
+boolean simulateDepth = 0;
 float depthProfile[] = {0.1, 500.0, 400.0, 0.0, 420.0, 10.0, 5.0, 50.0, 600.0, 700.0
                       }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
 byte depthIndex = 0;
@@ -150,7 +144,7 @@ boolean togglePress = 0; // flag to toggle conversion of temperature and pressur
 //int16_t magX, magY, magZ;
 //int16_t gyroX, gyroY, gyroZ;
 
-int accel_scale = 16;
+//int accel_scale = 16;
 
 // impeller spin counter
 volatile int spin;
@@ -447,7 +441,7 @@ void fileWriteSlowSensors(){
   if(day < 10) dataFile.print('0');
   dataFile.print(day);
   dataFile.print('T');
-  if(hour) dataFile.print('0');
+  if(hour < 10) dataFile.print('0');
   dataFile.print(hour);
   dataFile.print(':');
   if(minute < 10) dataFile.print('0');

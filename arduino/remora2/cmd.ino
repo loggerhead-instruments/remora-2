@@ -23,13 +23,13 @@ int ProcCmd(char *pCmd)
   switch(*pCV)
   {                     
     
-  // Accelerometer full scale
-    case ('A' + ('G'<<8)):
-    {
-      sscanf(&pCmd[3],"%d",&lv1);
-      accel_scale = lv1;
-      break;
-    }
+//  // Accelerometer full scale
+//    case ('A' + ('G'<<8)):
+//    {
+//      sscanf(&pCmd[3],"%d",&lv1);
+//      accel_scale = lv1;
+//      break;
+//    }
 
     // Set Real Time Clock
     case ('T' + ('M'<<8)):
@@ -124,7 +124,7 @@ int ProcCmd(char *pCmd)
     }
 
     // Playback
-    //default minPlayBackInterval = 480; // keep playbacks from being closer than x seconds
+    //default minPlayBackInterval = 480; // keep playbacks from being closer than x minutes
     case ('P' + ('I'<<8)):
     {
       sscanf(&pCmd[3],"%d",&lv1);
