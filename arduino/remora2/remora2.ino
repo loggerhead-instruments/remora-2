@@ -13,7 +13,7 @@
 // 5. Settings file on Record card can be used to set sample rate and file length
 // 6. Realtime clock is set from Atmega. The Atmega will send the time to REC Teensy over serial. Atmega has a temperature compenstated real-time clock that is more accurate than Teensy clock.
 
-// To Do: 
+// Elephant seal 
 // We plan to only have one sound per deployment.
 // Plan is to have play sound on ascent - think will pick threshold of about 400m and play after ascend ~ 50 m, but still finalizing.
 // Ideally would like to only expose animal once every 8 - 12 hours (still finalizing)
@@ -32,8 +32,8 @@
 // - send time to Teensy
 
 // To do
-// - settings file of playback variables
 // - measure and optimize power consumption
+// - Jumper wire from R18 (ClockBat) to both Teensy Clock Bat 
 
 // Current consumption
 // 20 Hz on motion sensors; clock prescaler = 2;
@@ -64,7 +64,7 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2020-01-07";
+char codeVer[12] = "2020-01-11";
 
 unsigned long recDur = 1440; // minutes 1140 = 24 hours
 int recInt = 0;
@@ -96,7 +96,7 @@ int nPlayed = 0;
 volatile boolean REC_STATE, PLAY_STATE;
 float daysFromStart;
 
-boolean simulateDepth = 0;
+boolean simulateDepth = 1;
 float depthProfile[] = {0.1, 500.0, 400.0, 0.0, 420.0, 10.0, 5.0, 50.0, 600.0, 700.0
                       }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
 byte depthIndex = 0;
@@ -277,7 +277,7 @@ while(mode==0){
       delay(10); // simple deBounce
       if(digitalRead(BUTTON1)==0){
         stopTimer();
-        digitalWrite(LED_RED, HIGH);
+        digitalWrite(LED_RED, HIGH); 
         dataFile.close();
         delay(30000);
         // wait 30 s to stop
@@ -355,12 +355,12 @@ void initSensors(){
         pressureOffset_mbar = pressureSum / n;
     }
   }
-  Serial.print("mBar "); Serial.println(pressure_mbar);
- // Serial.print("Off "); Serial.println(pressureOffset_mbar);
-  Serial.print("Depth "); Serial.println(depth);
-  Serial.print("Temp "); Serial.println(temperature);
-  Serial.flush();
-  delay(5000);
+//  Serial.print("mBar "); Serial.println(pressure_mbar);
+//  Serial.print("Off "); Serial.println(pressureOffset_mbar);
+//  Serial.print("Depth "); Serial.println(depth);
+//  Serial.print("Temp "); Serial.println(temperature);
+//  Serial.flush();
+//  delay(5000);
 
   myICM.begin( Wire, 1 );
   if( myICM.status != ICM_20948_Stat_Ok ){
@@ -369,26 +369,27 @@ void initSensors(){
   }
   //icmSetup();
 
-  for(int i=0; i<10; i++){
-   if( myICM.dataReady() ){
-    myICM.getAGMT();                // The values are only updated when you call 'getAGMT'
-//    printRawAGMT( myICM.agmt );     // Uncomment this to see the raw values, taken directly from the agmt structure
-//    printImu();   // This function takes into account the scale settings from when the measurement was made to calculate the values with units
-    delay(30);
-    }else{
- //   Serial.println("ICM");
-      delay(500);
-    }
-  }
+//  for(int i=0; i<10; i++){
+//   if( myICM.dataReady() ){
+//    myICM.getAGMT();                // The values are only updated when you call 'getAGMT'
+////    printRawAGMT( myICM.agmt );     // Uncomment this to see the raw values, taken directly from the agmt structure
+////    printImu();   // This function takes into account the scale settings from when the measurement was made to calculate the values with units
+//    delay(30);
+//    }else{
+// //   Serial.println("ICM");
+//   //   delay(500);
+//    }
+//  }
 
   digitalWrite(REC_ST, HIGH);  // start recording
-  for(int i = 0; i<5; i++){
-    Serial.print(digitalRead(REC_STATUS));
-    delay(500);
-  }
+  delay(2500);
+//  for(int i = 0; i<5; i++){
+//    Serial.print(digitalRead(REC_STATUS));
+//    delay(500);
+//  }
   digitalWrite(REC_ST, LOW); // stop recording
   for(int i = 0; i<10; i++){
-    Serial.print(digitalRead(REC_STATUS));
+   // Serial.print(digitalRead(REC_STATUS));
     delay(500);
   }
   digitalWrite(REC_POW, LOW);
@@ -437,7 +438,7 @@ void fileWriteImu(){
 }
 
 void fileWriteSlowSensors(){
-  Serial.println(depth);
+  //Serial.println(depth);
   dataFile.print(','); dataFile.print(year);  
   dataFile.print('-');
   if(month < 10) dataFile.print('0');
