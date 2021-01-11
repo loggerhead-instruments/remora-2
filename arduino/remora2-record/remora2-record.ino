@@ -13,6 +13,13 @@
 // Modified by WMXZ 15-05-2018 for SdFS anf multiple sampling frequencies
 // Optionally uses SdFS from Bill Greiman https://github.com/greiman/SdFs; but has higher current draw in sleep
 
+// To Do
+// - set sample rate from cmd.txt ('HZ')
+// - remove commands not used from cmd.txt
+// - store sample rate to EEPROM
+// - show sample rate on display top line
+// - show error on display
+// - disable LED
 
 char codeVersion[12] = "2020-01-06";
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics
