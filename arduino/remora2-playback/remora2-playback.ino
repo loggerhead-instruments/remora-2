@@ -87,7 +87,7 @@ void setup() {
 
 void playFile(const char *filename)
 {
-  digitalWrite(LED_GREEN, HIGH);
+  // digitalWrite(LED_GREEN, HIGH);
   Serial.print("Playing file: ");
   Serial.println(filename);
   // Start playing the file.  This sketch continues to
