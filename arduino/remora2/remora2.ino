@@ -26,7 +26,8 @@
 // - delay playback for x days
 
 // Power Consumption
-// 10 mA with CP=2 and 11 Hz -3dB bandwidth on IMU
+// 140 mA during record and playback
+// 11 mA with CP=2 and 11 Hz -3dB bandwidth on IMU
 // 3 mA if unplug IMU (so 7 mA is IMU)
 
 // To do

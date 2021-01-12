@@ -12,11 +12,15 @@ void icmSetup(){
   // Set Gyro and Accelerometer to a particular sample mode
   // options: ICM_20948_Sample_Mode_Continuous
   //          ICM_20948_Sample_Mode_Cycled
-  myICM.setSampleMode( (ICM_20948_Internal_Acc | ICM_20948_Internal_Gyr), ICM_20948_Sample_Mode_Continuous ); 
+  myICM.setSampleMode( (ICM_20948_Internal_Acc | ICM_20948_Internal_Gyr), ICM_20948_Sample_Mode_Cycled ); 
 //  if( myICM.status != ICM_20948_Stat_Ok){
 //    Serial.print(F("setSampleMode returned: "));
 //    Serial.println(myICM.statusString());
 //  }
+
+  ICM_20948_smplrt_t mySmplrt;
+  mySmplrt.g = imuSrate;
+  myICM.setSampleRate( ICM_20948_Internal_Gyr, mySmplrt );
 
   // Set full scale ranges for both acc and gyr
   ICM_20948_fss_t myFSS;  // This uses a "Full Scale Settings" structure that can contain values for all configurable sensors
@@ -62,6 +66,8 @@ void icmSetup(){
                                           // gyr_d361bw4_n376bw5
                                           
   myICM.setDLPFcfg( (ICM_20948_Internal_Acc | ICM_20948_Internal_Gyr), myDLPcfg );
+  myICM.startupMagnetometer();
+
 //  if( myICM.status != ICM_20948_Stat_Ok){
 //    Serial.print(F("setDLPcfg returned: "));
 //    Serial.println(myICM.statusString());
