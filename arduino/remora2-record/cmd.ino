@@ -23,41 +23,14 @@ int ProcCmd(char *pCmd)
 
 	switch(*pCV)
 	{                     
-		// Set of Real Time Clock
-		case ('T' + ('M'<<8)):
-		{
-         //set time
-         sscanf(&pCmd[3],"%d-%d-%d %d:%d:%d",&tyear,&tmonth,&tday,&thour,&tmin,&tsec);
-         TIME_HEAD NewTime;
-         NewTime.sec = tsec;
-         NewTime.minute = tmin;
-         NewTime.hour = thour;
-         NewTime.day = tday;
-         NewTime.month = tmonth;
-         NewTime.year = tyear-2000;
-         ULONG newtime=RTCToUNIXTime(&NewTime);  //get new time in seconds
-         startTime=RTCToUNIXTime(&NewTime);
-         Teensy3Clock.set(newtime); 
-         Serial.print("Clock Set: ");
-         Serial.println(newtime);
-         break;
-      }
-      
-      case ('R' + ('D'<<8)):
-      {
-        sscanf(&pCmd[3],"%d",&lv1);
-        rec_dur = lv1;
-        break;
-      }
-      
-      case ('R' + ('I'<<8)):
-      {
-        sscanf(&pCmd[3],"%d",&lv1);
-        rec_int = lv1;
-        break;
-      } 
-
-      case ('S' + ('G'<<8)):
+    // disable LED
+    case ('L' + ('D'<<8)):
+    {
+      LEDSON = 0;
+      break;
+    }
+  
+    case ('S' + ('G'<<8)):
       {
         sscanf(&pCmd[3],"%d",&lv1);
         gainSetting = (unsigned int) lv1;
@@ -72,22 +45,22 @@ int ProcCmd(char *pCmd)
         break;
       }
       
-      case ('S' + ('R'<<8)):
-      {
-        //start time
-         sscanf(&pCmd[3],"%d-%d-%d %d:%d:%d",&tyear,&tmonth,&tday,&thour,&tmin,&tsec);
-         TIME_HEAD NewTime;
-         NewTime.sec = tsec;
-         NewTime.minute = tmin;
-         NewTime.hour = thour;
-         NewTime.day = tday;
-         NewTime.month = tmonth;
-         NewTime.year = tyear-2000;
-         startTime=RTCToUNIXTime(&NewTime);
-         Serial.print("Start Record Set: ");
-         Serial.println(startTime);
-         break;
-      } 
+    // Sample rate in Hz
+    case ('H' + ('Z'<<8)):
+    {
+      sscanf(&pCmd[3],"%d",&lv1);
+      // lhi_fsamps[9] = {8000, 16000, 32000, 44100, 48000, 96000, 200000, 250000, 300000};
+      switch(lv1){
+        case 8000: isf = 0; break;
+        case 16000: isf = 1; break;
+        case 32000: isf = 2; break;
+        case 44100: isf = 3; break;
+        case 48000: isf = 4; break;
+        case 96000: isf = 5; break;
+        case 192000: isf = 6; break;
+      }
+      break;
+    } 
 	}	
 	return TRUE;
 }
@@ -156,7 +129,3 @@ boolean LoadScript()
   }
  return 1;	
 }
-
-
-
-

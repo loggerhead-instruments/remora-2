@@ -13,14 +13,6 @@
 // Modified by WMXZ 15-05-2018 for SdFS anf multiple sampling frequencies
 // Optionally uses SdFS from Bill Greiman https://github.com/greiman/SdFs; but has higher current draw in sleep
 
-// To Do
-// - set sample rate from cmd.txt ('HZ')
-// - remove commands not used from cmd.txt
-// - store sample rate to EEPROM
-// - show sample rate on display top line
-// - show error on display
-// - disable LED
-
 char codeVersion[12] = "2020-01-06";
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics
 
@@ -136,13 +128,13 @@ byte startHour, startMinute, endHour, endMinute; //used in Diel mode
 
 boolean audioFlag = 1;
 
-boolean LEDSON=1;
+volatile boolean LEDSON=1;
 boolean introperiod=1;  //flag for introductory period; used for keeping LED on for a little while
 
 int32_t lhi_fsamps[7] = {8000, 16000, 32000, 44100, 48000, 96000, 192000};
 #define I_SAMP 5   // 0 is 8 kHz; 1 is 16 kHz; 2 is 32 kHz; 3 is 44.1 kHz; 4 is 48 kHz; 5 is 96 kHz; 6 is 192 kHz
 
-float audio_srate = lhi_fsamps[I_SAMP];//44100.0;
+float audio_srate = lhi_fsamps[I_SAMP];
 int isf = I_SAMP;
 
 //WMXZ float audioIntervalSec = 256.0 / audio_srate; //buffer interval in seconds
@@ -204,7 +196,7 @@ unsigned char prev_dtr = 0;
 void setup() {
   Serial.begin(baud);
   pinMode(ledGreen, OUTPUT);
-  digitalWrite(ledGreen, HIGH);
+  digitalWrite(ledGreen, LOW);
   pinMode(REC_ST, INPUT);
   pinMode(SGTL_EN_R, OUTPUT);
   pinMode(REC_STATUS, OUTPUT);
@@ -215,6 +207,8 @@ void setup() {
   Serial.println(RTC_TSR);
   Serial.println(RTC_TSR);
 
+  readEEPROM();
+
   RTC_CR = 0; // disable RTC
   delay(100);
   Serial.println(RTC_CR,HEX);
@@ -223,14 +217,37 @@ void setup() {
   delay(100);
   RTC_CR = RTC_CR_SC16P | RTC_CR_SC8P | RTC_CR_SC2P | RTC_CR_OSCE;
 
- if((digitalRead(REC_ST)==LOW)){
+  Wire.begin();  
+
+    // Initialize the SD card
+  SPI.setMOSI(7);
+  SPI.setSCK(14);
+  if (!(sd.begin(10))) {
+    // stop here if no SD card, but print a message
+    Serial.println("Unable to access the SD card");
+    
+    while (1) {
+      displayOn();
+      cDisplay(); 
+      display.println("SD error. Restart.");
+      display.display();
+      delay(1000);  
+      //resetFunc();
+    }
+  }
+  //SdFile::dateTimeCallback(file_date_time);
+  LoadScript(); // settings accessible from the card
+  writeEEPROM();
+  if(LEDSON) digitalWrite(ledGreen, HIGH);
+
+  if((digitalRead(REC_ST)==LOW)){
     displayOn();
     cDisplay();
-    display.println("Loggerhead Remora");
+    display.print("Remora ");
+    display.print(lhi_fsamps[isf]); 
+    display.println("Hz");
     display.display();
  }
-
-
   int curLine = 0;  
   char incomingText[100];
   int i = 0;
@@ -275,26 +292,9 @@ void setup() {
 
   read_myID();
   
-  Wire.begin();  
 
-  // Initialize the SD card
-  SPI.setMOSI(7);
-  SPI.setSCK(14);
-  if (!(sd.begin(10))) {
-    // stop here if no SD card, but print a message
-    Serial.println("Unable to access the SD card");
-    
-    while (1) {
-      cDisplay(); 
-      display.println("SD error. Restart.");
-      displayClock(getTeensy3Time(), BOTTOM);
-      display.display();
-      delay(1000);  
-      //resetFunc();
-    }
-  }
-  //SdFile::dateTimeCallback(file_date_time);
-  LoadScript(); // settings accessible from the card
+
+
   
   // Audio connections require memory, and the record queue
   // uses this memory to buffer incoming audio.
@@ -343,7 +343,7 @@ void loop() {
   // Record mode
   if (mode == 1) {
     continueRecording();  // download data  
-    digitalWrite(ledGreen, HIGH);
+    if(LEDSON) digitalWrite(ledGreen, HIGH);
     
     if(buf_count >= nbufs_per_file){       // time for new file?
         frec.close();
@@ -380,7 +380,7 @@ void continueRecording() {
     // into a 512 byte buffer.  micro SD disk access
     // is most efficient when full (or multiple of) 512 byte sector size
     // writes are used.
-    digitalWrite(ledGreen, HIGH);
+    if(LEDSON) digitalWrite(ledGreen, HIGH);
     for(int ii=0;ii<NREC;ii++)
     { byte *ptr = buffer+ii*512;
       memcpy(ptr, queue1.readBuffer(), 256);

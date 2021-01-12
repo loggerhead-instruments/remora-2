@@ -95,15 +95,10 @@ void printTime(time_t t){
 }
 
 void readEEPROM(){
-  rec_dur = readEEPROMlong(0);
-  rec_int = readEEPROMlong(4);
-  startHour = EEPROM.read(8);
-  startMinute = EEPROM.read(9);
-  endHour = EEPROM.read(10);
-  endMinute = EEPROM.read(11);
-  recMode = EEPROM.read(12);
-  isf = EEPROM.read(13);
-  gainSetting = EEPROM.read(14);
+  isf = EEPROM.read(0);
+  gainSetting = EEPROM.read(1);
+  if(isf<0 | isf>6) isf = I_SAMP;
+  if(gainSetting<0 | gainSetting>13) gainSetting = 4;
 }
 
 union {
@@ -128,13 +123,6 @@ void writeEEPROMlong(int address, long val){
 }
 
 void writeEEPROM(){
-  writeEEPROMlong(0, rec_dur);  //long
-  writeEEPROMlong(4, rec_int);  //long
-  EEPROM.write(8, startHour); //byte
-  EEPROM.write(9, startMinute); //byte
-  EEPROM.write(10, endHour); //byte
-  EEPROM.write(11, endMinute); //byte
-  EEPROM.write(12, recMode); //byte
-  EEPROM.write(13, isf); //byte
-  EEPROM.write(14, gainSetting); //byte
+  EEPROM.write(0, isf); //byte
+  EEPROM.write(1, gainSetting); //byte
 }
