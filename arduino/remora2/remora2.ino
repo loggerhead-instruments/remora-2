@@ -23,12 +23,17 @@
 // Maybe  start recording on the playback dive as soon as it depth is reached and stop recording 1-2 minutes after the playback.
 // 
 // Test
-// - delay playback for x days
+// - delay playback for x days (from tag turned on)
+// - DD Delay Days
 
 // Power Consumption
 // 140 mA during record and playback
 // 11 mA with CP=2 and 11 Hz -3dB bandwidth on IMU
-// 3 mA if unplug IMU (so 7 mA is IMU)
+// 3 mA if unplug IMU (so 8 mA is IMU)
+// 10.5  mA with CP=3  and 11 Hz -3dB bandwidth on IMU; so not much gain to use CP=3
+
+// 0.8 mA with IMU powered down; delay start
+// 2 mA recording depth sensor only with IMU board powered down
 
 // To do
 // - Jumper wire from R18 (ClockBat) to both Teensy Clock Bat 
@@ -165,14 +170,14 @@ volatile byte day = 1;
 volatile byte month = 1;
 volatile byte year = 17;
 
-unsigned long t, startTime, endTime, burnTime, startUnixTime, playTime, originalStartTime;
+unsigned long t, startTime, endTime, burnTime, startUnixTime, playTime;
 int burnFlag = 0;
 long burnSeconds;
 void setup() {
   Serial.begin(115200);
   pinMode(LED_GRN, OUTPUT);
   pinMode(LED_RED, OUTPUT);
-  pinMode(BURN, INPUT);  // not using
+  pinMode(BURN, OUTPUT);  // used to control power to IMU board
   pinMode(BUTTON1, INPUT_PULLUP);
   pinMode(HALL, INPUT);
   pinMode(BAT_VOLTAGE, INPUT); 
@@ -189,7 +194,7 @@ void setup() {
   digitalWrite(PLAY_POW, HIGH);
   digitalWrite(LED_RED,LOW);
   digitalWrite(LED_GRN,HIGH);
-  digitalWrite(BURN, LOW);
+  digitalWrite(BURN, HIGH);
 
   Wire.begin();
   Wire.setClock(400000);
@@ -203,30 +208,27 @@ void setup() {
   initSensors();
   
   readRTC();
-  startUnixTime = t;
+  startUnixTime = t; // time tag turned on
   logFileWrite();
-  
-  if(burnFlag==2){
-  burnTime = t + burnSeconds;
 
-//  Serial.print("Burn set");
-//  Serial.println(burnTime);
-  }
 
   if(startTime==0) startTime = t + 5;
-  originalStartTime = startTime;
 //  Serial.print("Time:"); Serial.println(t);
 //  Serial.print("Start Time:"); Serial.println(startTime);
 
-  setClockPrescaler(clockprescaler); // set clockprescaler from script file
   wdtInit();  // used to wake from sleep
+
+//  Serial.println(myICM.swReset( ));
+//  Serial.println(myICM.sleep( true ));
+  setClockPrescaler(clockprescaler); // set clockprescaler from script file
 }
 
 void loop() {
-while(mode==0){
+  if(t - startUnixTime > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
+  
+  while(mode==0){
    // resetWdt();
     readRTC();
-    checkBurn();
    // Serial.println(t);
 
     if(LED_EN){
@@ -242,6 +244,10 @@ while(mode==0){
       endTime = startTime + (recDur * 60);
       startTime += (recDur * 60) + recInt;  // this will be next start time for interval record      mpuInit(1);
       fileInit();
+      digitalWrite(BURN, HIGH); // power on IMU
+      delay(5);
+      myICM.begin( Wire, 1 );
+      icmSetup();
      // updateTemp();  // get first reading ready
       mode = 1;
       startInterruptTimer(speriod, clockprescaler);
@@ -249,15 +255,12 @@ while(mode==0){
     }
   } // mode = 0
 
-
   while(mode==1){
    // resetWdt();
-    
     // check if time to close
     if(t>=endTime){
       stopTimer();
       dataFile.close(); // close file
-      if(t - startUnixTime > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
       
       if(recInt==0){  // no interval between files
         endTime += (recDur * 60);  // update end time
@@ -285,10 +288,10 @@ while(mode==0){
       }
     }
   
-    daysFromStart = (float) (t - originalStartTime) / 86400.0;
+    daysFromStart = (float) (t - startUnixTime) / 86400.0;
     if((daysFromStart >= delayRecPlayDays) & (daysFromStart < maxPlayDays)) {
       if(simulateDepth){
-        depthIndex = (byte) (t - originalStartTime) / 60.0;
+        depthIndex = (byte) (t - startUnixTime) / 60.0;
         if (depthIndex > 9) depthIndex = 0;
         depth = depthProfile[depthIndex];
       }
@@ -365,19 +368,8 @@ void initSensors(){
       Serial.println( "ICM fail" );
       delay(500);
   }
-  icmSetup();
 
-//  for(int i=0; i<10; i++){
-//   if( myICM.dataReady() ){
-//    myICM.getAGMT();                // The values are only updated when you call 'getAGMT'
-////    printRawAGMT( myICM.agmt );     // Uncomment this to see the raw values, taken directly from the agmt structure
-////    printImu();   // This function takes into account the scale settings from when the measurement was made to calculate the values with units
-//    delay(30);
-//    }else{
-// //   Serial.println("ICM");
-//   //   delay(500);
-//    }
-//  }
+  digitalWrite(BURN, LOW); // power down IMU
 
   digitalWrite(REC_ST, HIGH);  // start recording
   delay(2500);
@@ -541,7 +533,6 @@ void sampleSensors(void){
     
     if(LED_EN) digitalWrite(LED_GRN, HIGH);
     readRTC();
-    checkBurn();
     //calcPressTemp(); // MS58xx pressure and temperature
     readVoltage();
     fileWriteSlowSensors();
@@ -558,12 +549,6 @@ void file_date_time(uint16_t* date, uint16_t* time)
 {
   *date=FAT_DATE(year + 2000,month,day);
   *time=FAT_TIME(hour,minute,second);
-}
-
-int checkBurn(){
-  if((t>=burnTime) & (burnFlag>0)){
-    digitalWrite(BURN, HIGH);
-  }
 }
 
 void readVoltage(){

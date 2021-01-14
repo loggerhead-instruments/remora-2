@@ -1,4 +1,4 @@
-#define CMD(a,b) ( a + (b << 8))
+ #define CMD(a,b) ( a + (b << 8))
 #define TRUE 1
 #define FALSE 0
 
@@ -80,6 +80,16 @@ int ProcCmd(char *pCmd)
          sscanf(&pCmd[3],"%d-%d-%d %d:%d:%d",&tyear,&tmonth,&tday,&thour,&tmin,&tsec);
          startTime = RTCToUNIXTime(tyear, tmonth, tday, thour, tmin, tsec);
          break;
+      } 
+
+      case ('D' + ('D'<<8)):
+      {
+        sscanf(&pCmd[3],"%d",&lv1);
+        long delaySeconds = lv1 * SECONDS_IN_DAY;
+        //start time
+        readRTC();
+        startTime = t + delaySeconds;
+        break;
       } 
 
     // RD: Record duration in minutes  
