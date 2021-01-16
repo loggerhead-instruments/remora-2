@@ -170,7 +170,7 @@ volatile byte day = 1;
 volatile byte month = 1;
 volatile byte year = 17;
 
-unsigned long t, startTime, endTime, burnTime, startUnixTime, playTime;
+volatile unsigned long t, startTime, endTime, burnTime, startUnixTime, playTime;
 int burnFlag = 0;
 long burnSeconds;
 void setup() {
@@ -318,6 +318,7 @@ void initSensors(){
   Serial.print(voltage);
   Serial.println("V");
 
+  // Sends DT to Record Teensy
   readRTC();
   Serial.print("DT "); Serial.println(t);
   Serial.print("T "); Serial.print(hour); Serial.print(":");
