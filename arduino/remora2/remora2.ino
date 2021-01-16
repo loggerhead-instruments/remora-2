@@ -23,7 +23,6 @@
 // Maybe  start recording on the playback dive as soon as it depth is reached and stop recording 1-2 minutes after the playback.
 // 
 // Test
-// - delay playback for x days (from tag turned on)
 // - DD Delay Days
 
 // Power Consumption
@@ -35,8 +34,9 @@
 // 0.8 mA with IMU powered down; delay start
 // 2 mA recording depth sensor only with IMU board powered down
 
-// To do
+// Wiring
 // - Jumper wire from R18 (ClockBat) to both Teensy Clock Bat 
+// - BURN1 GND to IMU GND to power off IMU during sleep
 
 // Current consumption
 // 20 Hz on motion sensors; clock prescaler = 2;
@@ -67,9 +67,9 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2020-01-11";
+char codeVer[12] = "2020-01-16";
 
-unsigned long recDur = 1440; // minutes 1140 = 24 hours
+unsigned long recDur = 120; // minutes 1140 = 24 hours
 int recInt = 0;
 int LED_EN = 1; //enable green LEDs flash 1x per pressure read. Can be disabled from script.
 
@@ -83,12 +83,12 @@ float pressureOffset_mbar;
 
 // Playback Settings
 float playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold
-float ascentDepthTrigger = 50.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
-float playBackResetDepth = 10.0; // tag needs to come back above this depth before next playback can happen
-int maxPlayBacks = 200; // maximum number of times to play
-unsigned int minPlayBackInterval = 480; // keep playbacks from being closer than x minutes
-float delayRecPlayDays = 0.0; // delay record/playback for x days.
-float maxPlayDays = 28.0; // maximum time window for playbacks from tag on; e.g. 28 days
+float ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
+float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen
+int maxPlayBacks = 80; // maximum number of times to play
+unsigned int minPlayBackInterval = 540; // keep playbacks from being closer than x minutes
+float delayRecPlayDays = 14.0; // delay record/playback for x days.
+float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; e.g. 28 days
 byte recMinutesAfterPlay = 2;
 
 // Playback status
@@ -198,7 +198,11 @@ void setup() {
 
   Wire.begin();
   Wire.setClock(400000);
-  sd.begin(chipSelect, SPI_FULL_SPEED);
+  while(!sd.begin(chipSelect, SPI_FULL_SPEED)){
+    digitalWrite(LED_RED, HIGH);
+    digitalWrite(LED_GRN, LOW);
+    delay(1000);
+  }
 
   loadScript(); // do this early to set time
   // recalculate sample rates in case changed from script
@@ -224,11 +228,11 @@ void setup() {
 }
 
 void loop() {
-  if(t - startUnixTime > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
   
   while(mode==0){
    // resetWdt();
     readRTC();
+    if(t - startUnixTime > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
    // Serial.println(t);
 
     if(LED_EN){
@@ -257,6 +261,7 @@ void loop() {
 
   while(mode==1){
    // resetWdt();
+   if(t - startUnixTime > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
     // check if time to close
     if(t>=endTime){
       stopTimer();
