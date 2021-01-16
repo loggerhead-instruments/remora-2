@@ -400,9 +400,12 @@ void stopRecording() {
   int maxblocks = AudioMemoryUsageMax();
   if (printDiags) Serial.print("Audio Memory Max");
   if (printDiags) Serial.println(maxblocks);
-  byte buffer[512];
   queue1.end();
-  //queue1.clear();
+  // update wav file header
+  wav_hdr.rLen = 36 + buf_count * 256 * 2;
+  wav_hdr.dLen = buf_count * 256 * 2;
+  frec.seek(0);
+  frec.write((uint8_t *)&wav_hdr, 44);
   AudioMemoryUsageMaxReset();
   //frec.timestamp(T_WRITE,(uint16_t) year(t),month(t),day(t),hour(t),minute(t),second);
   frec.close();
