@@ -45,7 +45,7 @@ void reset_alarm()
   Wire.write(0x00); //clear existing interrupts
   Wire.endTransmission();
 }
-void readRTC()
+boolean readRTC()
 {
   int i = 0;
   byte buff[7];
@@ -71,10 +71,13 @@ void readRTC()
       hour=(10*((buff[2]>>4)&0x03))+((buff[2]&0x0F));  //bits 4 and 5 are 10 hours; bit 0-3 are hour
       day=(10*(buff[4]>>4))+((buff[4]&0x0F)); 
       month=(10*(buff[5]>>4))+((buff[5]&0x0F)); 
-      year=(10*(buff[6]>>4))+((buff[6]&0x0F));   
+      year=(10*(buff[6]>>4))+((buff[6]&0x0F)); 
+      t = RTCToUNIXTime(year, month, day, hour, minute, second);  
+      return 1;
   }
+  else return 0;
 
-  t = RTCToUNIXTime(year, month, day, hour, minute, second);
+  
 }
 
 // Calculates Accurate UNIX Time Based on RTC Timestamp

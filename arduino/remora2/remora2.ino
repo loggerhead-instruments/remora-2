@@ -211,21 +211,24 @@ void setup() {
   speriod = 1000 / imuSrate;
 
   initSensors();
-  
-  readRTC();
+
+  // this sometimes fails
+  // critical to update time here
+  while(readRTC()==0){ 
+    delay(100);
+  }
   startUnixTime = t; // time tag turned on
   logFileWrite();
+  digitalWrite(BURN, LOW); // power down IMU
 
 
   if(startTime==0) startTime = t + 5;
-//  Serial.print("Time:"); Serial.println(t);
-//  Serial.print("Start Time:"); Serial.println(startTime);
+  Serial.print("Time:"); Serial.println(t);
+  Serial.print("Start Time:"); Serial.println(startTime);
+  Serial.print("UT:"); Serial.println(startUnixTime);
+  delay(10);
 
   wdtInit();  // used to wake from sleep
-
-//  Serial.println(t);
-//  Serial.println(startUnixTime);
-//  delay(10);
   setClockPrescaler(clockprescaler); // set clockprescaler from script file
 
 }
@@ -234,14 +237,13 @@ void loop() {
   
   while(mode==0){
    // resetWdt();
+   digitalWrite(BURN, HIGH); // power on IMU because may be messing with I2C
     readRTC();
-    if(t - startUnixTime > 3600){
+    digitalWrite(BURN, LOW); // power on IMU
+    if((t - startUnixTime) > 3600){
       LED_EN = 0; // disable green LED flashing after 3600 s
-      Serial.println(t);
-      Serial.println(startUnixTime);
     }
    
-
     if(LED_EN){
       digitalWrite(LED_GRN, HIGH);
       digitalWrite(LED_RED, HIGH);
@@ -268,7 +270,7 @@ void loop() {
 
   while(mode==1){
    // resetWdt();
-   if(t - startUnixTime > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
+   if((t - startUnixTime) > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
     // check if time to close
     if(t>=endTime){
       stopTimer();
@@ -382,7 +384,6 @@ void initSensors(){
 //      delay(500);
 //  }
 
-  digitalWrite(BURN, LOW); // power down IMU
 
   digitalWrite(REC_ST, HIGH);  // start recording
   delay(3000);
