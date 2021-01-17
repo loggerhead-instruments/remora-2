@@ -27,9 +27,8 @@
 
 // Power Consumption
 // 140 mA during record and playback
-// 11 mA with CP=2 and 11 Hz -3dB bandwidth on IMU
+// 11 mA with CP=2
 // 3 mA if unplug IMU (so 8 mA is IMU)
-// 10.5  mA with CP=3  and 11 Hz -3dB bandwidth on IMU; so not much gain to use CP=3
 
 // 0.8 mA with IMU powered down; delay start
 // 2 mA recording depth sensor only with IMU board powered down
