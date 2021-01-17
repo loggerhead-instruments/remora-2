@@ -170,7 +170,8 @@ volatile byte day = 1;
 volatile byte month = 1;
 volatile byte year = 17;
 
-volatile unsigned long t, startTime, endTime, burnTime, startUnixTime, playTime;
+volatile unsigned long t, endTime, startUnixTime, playTime;
+volatile unsigned long startTime = 0;
 int burnFlag = 0;
 long burnSeconds;
 void setup() {
@@ -222,9 +223,11 @@ void setup() {
 
   wdtInit();  // used to wake from sleep
 
-//  Serial.println(myICM.swReset( ));
-//  Serial.println(myICM.sleep( true ));
+//  Serial.println(t);
+//  Serial.println(startUnixTime);
+//  delay(10);
   setClockPrescaler(clockprescaler); // set clockprescaler from script file
+
 }
 
 void loop() {
@@ -232,8 +235,12 @@ void loop() {
   while(mode==0){
    // resetWdt();
     readRTC();
-    if(t - startUnixTime > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
-   // Serial.println(t);
+    if(t - startUnixTime > 3600){
+      LED_EN = 0; // disable green LED flashing after 3600 s
+      Serial.println(t);
+      Serial.println(startUnixTime);
+    }
+   
 
     if(LED_EN){
       digitalWrite(LED_GRN, HIGH);
@@ -251,7 +258,7 @@ void loop() {
       digitalWrite(BURN, HIGH); // power on IMU
       delay(5);
       myICM.begin( Wire, 1 );
-      icmSetup();
+     // icmSetup();
      // updateTemp();  // get first reading ready
       mode = 1;
       startInterruptTimer(speriod, clockprescaler);
@@ -369,16 +376,16 @@ void initSensors(){
 //  Serial.flush();
 //  delay(5000);
 
-  myICM.begin( Wire, 1 );
-  if( myICM.status != ICM_20948_Stat_Ok ){
-      Serial.println( "ICM fail" );
-      delay(500);
-  }
+//  myICM.begin( Wire, 1 );
+//  if( myICM.status != ICM_20948_Stat_Ok ){
+//      Serial.println( "ICM fail" );
+//      delay(500);
+//  }
 
   digitalWrite(BURN, LOW); // power down IMU
 
   digitalWrite(REC_ST, HIGH);  // start recording
-  delay(2500);
+  delay(3000);
 //  for(int i = 0; i<5; i++){
 //    Serial.print(digitalRead(REC_STATUS));
 //    delay(500);

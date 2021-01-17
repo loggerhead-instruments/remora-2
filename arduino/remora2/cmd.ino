@@ -48,23 +48,23 @@ int ProcCmd(char *pCmd)
          break;
      }
 
-    case ('B' + ('W'<<8)):
-    {
-         //set time
-         sscanf(&pCmd[3],"%d-%d-%d %d:%d:%d",&tyear,&tmonth,&tday,&thour,&tmin,&tsec);
-         burnTime = RTCToUNIXTime(tyear, tmonth, tday, thour, tmin, tsec);
-         burnFlag = 1;
-         break;
-      }
+//    case ('B' + ('W'<<8)):
+//    {
+//         //set time
+//         sscanf(&pCmd[3],"%d-%d-%d %d:%d:%d",&tyear,&tmonth,&tday,&thour,&tmin,&tsec);
+//         burnTime = RTCToUNIXTime(tyear, tmonth, tday, thour, tmin, tsec);
+//         burnFlag = 1;
+//         break;
+//      }
 
-     // Burn Minutes (burn set number of minutes after start)
-      case ('B' + ('M'<<8)):
-      {
-           sscanf(&pCmd[3],"%d",&lv1);
-           burnSeconds = lv1 * 60;
-           burnFlag = 2;
-           break;
-      }
+//     // Burn Minutes (burn set number of minutes after start)
+//      case ('B' + ('M'<<8)):
+//      {
+//           sscanf(&pCmd[3],"%d",&lv1);
+//           burnSeconds = lv1 * 60;
+//           burnFlag = 2;
+//           break;
+//      }
 
 
       case ('C' + ('P'<<8)):
