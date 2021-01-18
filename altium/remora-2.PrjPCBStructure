@@ -1,1 +1,5 @@
-Record=TopLevelDocument|FileName=remora-2-power.SchDoc
+Record=TopLevelDocument|FileName=remora-2.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=remora-2.SchDoc|FileName=remora-2-power.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=remora-2.SchDoc|FileName=remora-2-sensors.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=remora-2.SchDoc|FileName=teensyPlayback.SchDoc|SheetNumber= 
+Record=NoMainPathDocument|SourceDocument=remora-2.SchDoc|FileName=teensyRecord.SchDoc|SheetNumber= 
