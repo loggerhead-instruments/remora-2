@@ -149,11 +149,19 @@ int ProcCmd(char *pCmd)
       playBackDepthThreshold = lv1;
       break;
     }
-    //default ascentDepthTrigger = 50.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
+    //default ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
     case ('P' + ('A'<<8)):
     {
       sscanf(&pCmd[3],"%d",&lv1);
       ascentDepthTrigger = lv1;
+      break;
+    }
+
+    //default ascentDepthTrigger = 75.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
+    case ('R' + ('A'<<8)):
+    {
+      sscanf(&pCmd[3],"%d",&lv1);
+      ascentRecordTrigger = lv1;
       break;
     }
     //default playBackResetDepth = 10.0; // tag needs to come back above this depth before next playback can happen
@@ -196,14 +204,6 @@ int ProcCmd(char *pCmd)
     {
       sscanf(&pCmd[3],"%d",&lv1);
       recMinutesAfterPlay = lv1;
-      break;
-    }
-
-
-   // enable Hall
-    case ('H' + ('E'<<8)):
-    {
-      HALL_EN = 1;
       break;
     }
     

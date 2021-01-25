@@ -3,15 +3,29 @@ void checkPlay(){
     maxDepth = depth; // track maximum depth
   }
 
+  
+  // check if after exceeding playback depth, came shallow enough to allow another playback
+  if(playBackDepthExceeded==2){
+    if(depth < playBackResetDepth){
+      maxDepth = depth;
+      playBackDepthExceeded = 0;
+      //Serial.println("D");
+    }
+  }
+
+  // playNow State = 0
   // waiting for playback algorithm to be satisfied to trigger playback
   // prevent from playing back more than once per x minutes
   if(playNow==0){
     if((depth > playBackDepthThreshold) & (playBackDepthExceeded==0) & (((t - playTime)/60) > minPlayBackInterval)) {
       playBackDepthExceeded = 1;  // check if went deeper than a certain depth
+    }
+
+    // Trigger record if on ascent came up enough
+    if ((playBackDepthExceeded==1) & (maxDepth - depth > ascentRecordTrigger) & (nPlayed < maxPlayBacks) & (REC_STATE==0)) {
       digitalWrite(REC_POW, HIGH); // turn on recorder
       digitalWrite(REC_ST, HIGH);  // start recording
       REC_STATE = 1;
-      //Serial.println("R");
     }
 
     // Trigger playback if on ascent came up enough
@@ -25,15 +39,7 @@ void checkPlay(){
     }
   }
 
-  // check if after exceeding playback depth, came shallow enough to allow another playback
-  if(playBackDepthExceeded==2){
-    if(depth < playBackResetDepth){
-      maxDepth = depth;
-      playBackDepthExceeded = 0;
-      //Serial.println("D");
-    }
-  }
-
+  // playNow state = 1
   // turn off playback board when playing done
   // give 10 seconds before checking this because takes some time for play board to wake
   if((playNow==1) & (t > playTime + 10)){
@@ -46,6 +52,7 @@ void checkPlay(){
     }
   }
 
+  // playNow state = 2
   if(playNow==2){
     // wait to turn off record recMinutesAfterPlay started
     byte minutesAfterPlay = (t - playTime) / 60;

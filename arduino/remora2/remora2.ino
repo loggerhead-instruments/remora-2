@@ -21,9 +21,6 @@
 // We would like to set the time to be a duration that all the tags should last for so all the animals are exposed for the same amount of time (i.e. we don't want some seals exposed for 4 weeks and others 7). 
 // end record x minutes after playback started): Ideally we would like to record for a few minutes before and after the playback so we know the background sound.  
 // Maybe  start recording on the playback dive as soon as it depth is reached and stop recording 1-2 minutes after the playback.
-// 
-// Test
-// - DD Delay Days
 
 // Power Consumption
 // 140 mA during record and playback
@@ -66,7 +63,7 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2020-01-16";
+char codeVer[12] = "2020-01-24";
 
 unsigned long recDur = 120; // minutes 1140 = 24 hours
 int recInt = 0;
@@ -83,6 +80,7 @@ float pressureOffset_mbar;
 // Playback Settings
 float playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold
 float ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
+float ascentRecordTrigger = 75.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record
 float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen
 int maxPlayBacks = 80; // maximum number of times to play
 unsigned int minPlayBackInterval = 540; // keep playbacks from being closer than x minutes
@@ -99,7 +97,7 @@ volatile boolean REC_STATE, PLAY_STATE;
 float daysFromStart;
 
 boolean simulateDepth = 0;
-float depthProfile[] = {0.1, 500.0, 400.0, 0.0, 420.0, 10.0, 5.0, 50.0, 600.0, 700.0
+float depthProfile[] = {0.1, 500.0, 450.0, 420.0, 300.0, 10.0, 5.0, 50.0, 100.0, 200.0
                       }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
 byte depthIndex = 0;
 
@@ -222,9 +220,10 @@ void setup() {
 
 
   if(startTime==0) startTime = t + 5;
-  Serial.print("Time:"); Serial.println(t);
-  Serial.print("Start Time:"); Serial.println(startTime);
-  Serial.print("UT:"); Serial.println(startUnixTime);
+//  Serial.print("Time:"); Serial.println(t);
+//  Serial.print("Start Time:"); Serial.println(startTime);
+//  Serial.print("UT:"); Serial.println(startUnixTime);
+//  Serial.println(simulateDepth);
   delay(10);
 
   wdtInit();  // used to wake from sleep
