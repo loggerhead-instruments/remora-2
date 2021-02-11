@@ -70,7 +70,7 @@ void setup() {
   // pullup resistors
   sgtl5000_1.enable();
   sgtl5000_1.inputSelect(myInput);
-  sgtl5000_1.volume(0.5);
+  sgtl5000_1.volume(1.0);
 
   SPI.setMOSI(SDCARD_MOSI_PIN);
   SPI.setSCK(SDCARD_SCK_PIN);
