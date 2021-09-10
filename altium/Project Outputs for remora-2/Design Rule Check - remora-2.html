@@ -3,21 +3,31 @@
 <META http-equiv="Content-Type" content="text/html">
 <style type="text/css">
 		h1, h2, h3, h4, h5, h6 {
-			font-family : sans-serif;
-			color : white;
-			background-color : #21489e;
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
 			padding: 0.3em;
 		}
-		body {
-			font-family : verdana;
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
 		}
+
+		body {
+			font-family : segoe ui;
+		}
+
 		td, th {
 			padding: 0.5em;
-			text-align : center;
-			width : 18%;
+			text-align : left;
+			width: 10em;
 		}
 		th {
-			background-color : #A6CAF0;
+			background-color : #EEEEEE;
 
 		}
 		th.column1, td.column1 {
@@ -26,120 +36,99 @@
 		}
 		table {
 			width : 100%;
+			font-size: 0.9em;
 		}
-		
-		.DRC_summary_header {							
+
+		.DRC_summary_header {
 			padding-bottom : 0.1em;
-			border : 0px solid black;							
-			width: 100%;
-                        align: right;
-                        
-		}
-
-		.DRC_summary_header_col1, 
-		.DRC_summary_header_col2, 
-		.DRC_summary_header_col3
-		{
-			color : black;
-			font-size:150%;
-                        padding : 0em;
-			padding-top : 0.2em;
-			padding-bottom 0.2: 0em;
 			border : 0px solid black;
-			width : auto;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
 			vertical-align: top;
-			font-weight: bold;				
-		}
-		
-		.DRC_summary_header_col1 	
-		{		                       
-			text-align: right;
-                        width: auto;	
+			text-align: left;
 		}
 
-		.DRC_summary_header_col2 	
-		{		
-			text-align: center;	
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
 		}
 
-		.DRC_summary_header_col3 	
-		{		
-			text-align: left;	
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
 		}
 
 
-		
-		.header_holder
-		{
-		Width = 100%;
-		border = 0px solid green;
-		padding = 0;
-		}
-		
-		
-		
 		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
-                {
-			left:0;
-			top:0;
-			padding-top : 0.1em;			
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
 			border : 0px solid black;
 			width : 100%;
-			vertical-align: top
+			vertical-align: top;
+			text-align: left;
+		}
 
-		}
-		.front_matter {	
-			
-			margin-top: 5px;
- 			margin-left: 0px;					 			
- 			horizontal-align: left;
-		}
-				
-		
 		.front_matter_column1 {
-			width : 10em;	
-			text-align  : right;
-			padding-right:0.1em;
-			
+			width : 8em;
+			font-weight: bold;
 		}
-		
+
 		.front_matter_column2 {
-                        width: 0.1em;
-			align: center;
-			text-align : center;
-			margin-right  : 0.1em;	
-			margin-left   : 0.1em;
+			width: 0.1em;
 		}
+
 		.front_matter_column3 {
-			width         : auto;  
-			text-align    : left;	
-			margin-right  : 0.5em;				
+			width : auto;
 		}
-		
+
 		.total_column1, .total_column {
 			font-weight : bold;
 		}
 		.total_column1 {
-			text-align : right;
+			text-align : left;
 		}
 		.warning, .error {
 			color : red;
 			font-weight : bold;
 		}
 		tr.onmouseout_odd {
-			background-color : #EEEEE0 
+			background-color : #white;
 		}
 		tr.onmouseout_even { 
-			background-color : #F3F3E3   
+			background-color : #FAFAFA;
 		}
 		tr.onmouseover_odd, tr.onmouseover_even { 
-			background-color : lightYellow
+			background-color : #EEEEEE;
 		} 
 		a:link, a:visited, .q a:link,.q a:active,.q {
 			color: #21489e; 
 		}
 		a:link.callback, a:visited.callback { 
-			color: #008000 
+			color: #21489e;
 		}
 		a:link.customize, a:visited.customize {
 			color: #C0C0C0;
@@ -222,47 +211,46 @@
 	</script><title>Design Rule Verification Report</title>
 </head>
 <body onload=""><img ALT="Altium" src="
-			file://C:\Users\Public\Documents\Altium\AD14\Templates\AD-rgb_logo_223x64.gif
-		"><a href="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports" class="customize"><acronym title="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports">customize</acronym></a><h1>Design Rule Verification Report</h1>
+			file://C:\Users\Public\Documents\Altium\AD21\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
 <table class="header_holder">
-<td Style="width:70%">
+<td class="column1">
 <table class="front_matter">
 <tr class="front_matter">
-<td class="front_matter_column1">Date</td>
-<td class="front_matter_column2">:</td>
-<td class="front_matter_column3">12/16/2020</td>
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">9/10/2021</td>
 </tr>
 <tr class="front_matter">
-<td class="front_matter_column1">Time</td>
-<td class="front_matter_column2">:</td>
-<td class="front_matter_column3">7:04:24 PM</td>
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">7:02:48 PM</td>
 </tr>
 <tr class="front_matter">
-<td class="front_matter_column1">Elapsed Time</td>
-<td class="front_matter_column2">:</td>
-<td class="front_matter_column3">00:00:03</td>
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:02</td>
 </tr>
 <tr class="front_matter">
-<td class="front_matter_column1">Filename</td>
-<td class="front_matter_column2">:</td>
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
 <td class="front_matter_column3"><a href="file:///C:\w\remora-2\altium\remora-2.PcbDoc" class="file"><acronym title="C:\w\remora-2\altium\remora-2.PcbDoc">C:\w\remora-2\altium\remora-2.PcbDoc</acronym></a></td>
 </tr>
 </table>
 </td>
-<td Style="Width:30%">
+<td class="column2">
 <table class="DRC_summary_header">
 <tr>
-<td class="DRC_summary_header_col1">Warnings</td>
-<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
 <td class="DRC_summary_header_col3">0</td></tr>
 <tr>
-<td class="DRC_summary_header_col1">Rule Violations</td>
-<td class="DRC_summary_header_col2">:</td>
-<td class="DRC_summary_header_col3" style="color : red">75</td></tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">45</td></tr>
 </table>
 </td>
-</table>
-<hr><a name="ID4P4SL4NB52ANNWWIOYDXJSKWMHKUOR3HRAZDYBCJTS1ZCIG54N"><h2>Summary</h2></a><table>
+</table><a name="IDTZXTYWNE1YCEB1VY4M2L3AAUFOCXWOSOCGGYNPOZWRFGU2OTP3SE"><h2>Summary</h2></a><table>
 <tr>
 <th class="column1">Warnings</th>
 <th class="column2">Count</th>
@@ -277,361 +265,215 @@
 <th class="column2">Count</th>
 </tr>
 <tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="#IDCGO0FFZVOPDWBD2PF1ZMY4M2P3TMA01ZAQAHWNEL2LKBBPKK44D">Net Antennae (Tolerance=0mil) (All)</a></td>
-<td class="column2">2</td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="#IDSITCBWAS0MLCGAXWTNW0W2BTVOBF410VVLCXQNJQ4IIHIN3LKASO">Silk primitive without silk layer</a></td>
-<td class="column2">19</td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="#IDTJFZWSYC22FNOGRNQ5YXF5P0XMXKT0NUV5GZ3JIEW53MADSD152P">Silk to Silk (Clearance=0mil) (All),(All)</a></td>
-<td class="column2">0</td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="#ID0K1ZDNV2RMTUGOZQXNE0NB5U4B3CNOKA5MHWAFINLFJM20SAQNXM">Silk To Solder Mask (Clearance=0mil) (IsPad),(All)</a></td>
-<td class="column2">0</td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="#IDDLZENXOMYRFCB5MWMTDN32ZM2NP2PGD4HYCBGWHKMKYHQNGKXRDL">Minimum Solder Mask Sliver (Gap=2mil) (All),(All)</a></td>
-<td class="column2">46</td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="#ID2CUC4XI3KNU0GXXA5OKOXI21CNKW4TKPCEHRNNFZG24W24VVHZBI">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
-<td class="column2">0</td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="#IDD30GEARLRKBZOY0KBNOHC2W1CIP02HANX1WNPPLIYCJHAA5FYOWF">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
-<td class="column2">0</td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="#IDJWVFWYHP0FPSBOK2TLYAWNQYKGBEG3ELQSBUHKW50V2R31PNVEB">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
-<td class="column2">0</td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="#IDLMGSJUNMFQYYHU11M5K5QY1RAJIZRKWH0EDRMSGROD1NJKY2MMPB">Width Constraint (Min=6mil) (Max=50mil) (Preferred=8mil) (All)</a></td>
-<td class="column2">0</td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="#IDDI42TTD41BVMEPKW5N1NG3UDEFCWGHPD2AG3STEORZNHMK4S4NQO">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
-<td class="column2">0</td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="#ID0DABEQUHYQHKIZ5153E2M02SHLMDR0FWXUPWPHK42J0HOPTQLCMH">Clearance Constraint (Gap=6mil) (All),(All)</a></td>
+<td class="column1"><a href="#IDDEZABQIPB3NVOG35ARI4FSB25M1XTU1YW1NUEEL1ZJHAUENFCFCB">Clearance Constraint (Gap=0.152mm) (All),(All)</a></td>
 <td class="column2">3</td>
 </tr>
 <tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="#IDWC4TR43TO0VWGN5UB3KBONDADM2QXXE15OOHQSIPNFGVT4O1NIL">Un-Routed Net Constraint ( (All) )</a></td>
-<td class="column2">2</td>
+<td class="column1"><a href="#ID0HJ45THSMKY3NNIWA5IEA4TE0JMVG2KBJVI0SWB5WCMM0I5KQPDG">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">3</td>
 </tr>
 <tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="#IDNEHYHVGHZL5BGSW1I0BVCYIZEH1BBHRS4HYLCDPUS5M4WUYVEM2P">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
-<td class="column2">3</td>
+<td class="column1"><a href="#ID4OISZ4YCQXI3PUNNE0WQSX4DQH0LU0LNGX3LT5FPYP0JNFPUUHJI">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDLGCQFYUNHFWNCHOM3YXMZICUSMCJDG2NODRTIFDYQKH1MAVHVSJC">Width Constraint (Min=0.152mm) (Max=1.27mm) (Preferred=0.203mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFL1ARHH44GCREKTHZLTOPQJZHJFDR3QIK021FDJFP4HGD5SGPO4J">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDYG455S0YXK5HNZJFSCGDAWAXBF0WBBWZX5E2B3CRV50IWYMNCD0O">Hole Size Constraint (Min=0.025mm) (Max=2.54mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDT2SV4QRMFCPBL3YVUWAS4UHDXCLYM4HEHIH5P4O0QJ2X42VO05IB">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDL0FMCMYIR5MBG5HBMYQBSEBAEJ21JM0GICOKMJCFSIS4ESVDUOE">Minimum Solder Mask Sliver (Gap=0.051mm) (All),(All)</a></td>
+<td class="column2">36</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDEAXIAMKVDMSMGPICGRYJY4IWUGKWTJO0EG1BUFDQ05VZXTK0LVI">Silk To Solder Mask (Clearance=0mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDHPI1JQXRWWDGGAC2ZUURHFQSNCOU2TWB31420LE0XQHAPA1RLXKN">Silk to Silk (Clearance=0mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDR4HGF0RC2PCBPJLT1S4YYWJYLOVIFXRHP102A3CW2BJG31MIJPIG">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDJIBAAKK51BNECEJXYOAKKJ5UQC2RZ03ELVUTQGP0Z3F4USJRF0X">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDKI0LBUOVB2IJK0CF34D1TB4LSL2ISZTESMMNIKKMY120XDWFKPUC">Silk primitive without silk layer</a></td>
+<td class="column2">0</td>
 </tr>
 <tr>
 <td style="font-weight : bold; text-align : right" class="column1">Total</td>
-<td style="font-weight : bold" class="column2">75</td>
+<td style="font-weight : bold" class="column2">45</td>
 </tr>
-</table><br><hr><a name="IDCGO0FFZVOPDWBD2PF1ZMY4M2P3TMA01ZAQAHWNEL2LKBBPKK44D"><table>
+</table><br><a name="IDDEZABQIPB3NVOG35ARI4FSB25M1XTU1YW1NUEEL1ZJHAUENFCFCB"><table>
 <tr>
-<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mil) (All)</th>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=0.152mm) (All),(All)</th>
 </tr>
 <tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5594.5mil|Location2.X=5661.628mil|Location1.Y=2785.5mil|Location2.Y=2892.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5594.5mil|Location2.X=5661.628mil|Location1.Y=2785.5mil|Location2.Y=2892.748mil|Absolute=True">Net Antennae: Via (4478mil,-771mil) Top Layer to Bottom Layer</acronym></a><br></td>
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5247.972mil|Location2.X=5252.972mil|Location1.Y=3582.5mil|Location2.Y=3587.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5247.972mil|Location2.X=5252.972mil|Location1.Y=3582.5mil|Location2.Y=3587.5mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.152mm) Between Pad P11-1(99.822mm,38.506mm) on Multi-Layer And Track (97.282mm,38.506mm)(99.711mm,38.506mm) on Bottom Layer </acronym></a><br></td>
 </tr>
 <tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4020.13mil|Location2.X=4087.258mil|Location1.Y=2041.35mil|Location2.Y=2148.599mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4020.13mil|Location2.X=4087.258mil|Location1.Y=2041.35mil|Location2.Y=2148.599mil|Absolute=True">Net Antennae: Via (2903.63mil,-1515.15mil) Top Layer to Bottom Layer</acronym></a><br></td>
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5177.5mil|Location2.X=5182.5mil|Location1.Y=3582.5mil|Location2.Y=3587.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5177.5mil|Location2.X=5182.5mil|Location1.Y=3582.5mil|Location2.Y=3587.5mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.152mm) Between Pad P11-2(97.282mm,38.506mm) on Multi-Layer And Track (97.282mm,38.506mm)(99.711mm,38.506mm) on Bottom Layer </acronym></a><br></td>
 </tr>
-</table></a><a href="#top">Back to top</a><br><br><a name="IDSITCBWAS0MLCGAXWTNW0W2BTVOBF410VVLCXQNJQ4IIHIN3LKASO"><table>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5177.5mil|Location2.X=5182.5mil|Location1.Y=3582.5mil|Location2.Y=3587.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5177.5mil|Location2.X=5182.5mil|Location1.Y=3582.5mil|Location2.Y=3587.5mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.152mm) Between Track (97.282mm,38.506mm)(97.282mm,38.862mm) on Bottom Layer And Track (97.282mm,38.506mm)(99.711mm,38.506mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID0HJ45THSMKY3NNIWA5IEA4TE0JMVG2KBJVI0SWB5WCMM0I5KQPDG"><table>
 <tr>
-<th style="text-align : left" colspan="1" class="rule">Silk primitive without silk layer</th>
+<th style="text-align : left" colspan="1" class="rule">Short-Circuit Constraint (Allowed=No) (All),(All)</th>
 </tr>
 <tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5655.532mil|Location2.X=5884.968mil|Location1.Y=1852.937mil|Location2.Y=2054.043mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5655.532mil|Location2.X=5884.968mil|Location1.Y=1852.937mil|Location2.Y=2054.043mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "C0603" (4471.13mil,-1661.5mil)  Top Overlay</acronym></a><br></td>
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5248.137mil|Location2.X=5283.064mil|Location1.Y=3567.536mil|Location2.Y=3602.464mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5248.137mil|Location2.X=5283.064mil|Location1.Y=3567.536mil|Location2.Y=3602.464mil|Absolute=True">Short-Circuit Constraint: Between Pad P11-1(99.822mm,38.506mm) on Multi-Layer And Track (97.282mm,38.506mm)(99.711mm,38.506mm) on Bottom Layer Location : [X = 133.746mm][Y = 91.059mm]</acronym></a><br></td>
 </tr>
 <tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3349.908mil|Location2.X=3499.37mil|Location1.Y=1879.924mil|Location2.Y=2001.056mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3349.908mil|Location2.X=3499.37mil|Location1.Y=1879.924mil|Location2.Y=2001.056mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "USB" (2185.5mil,-1674.5mil)  Top Overlay</acronym></a><br></td>
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5172.669mil|Location2.X=5211.852mil|Location1.Y=3565.409mil|Location2.Y=3604.591mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5172.669mil|Location2.X=5211.852mil|Location1.Y=3565.409mil|Location2.Y=3604.591mil|Absolute=True">Short-Circuit Constraint: Between Pad P11-2(97.282mm,38.506mm) on Multi-Layer And Track (97.282mm,38.506mm)(99.711mm,38.506mm) on Bottom Layer Location : [X = 131.883mm][Y = 91.059mm]</acronym></a><br></td>
 </tr>
 <tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2897.543mil|Location2.X=3433.547mil|Location1.Y=1413.653mil|Location2.Y=1921.327mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2897.543mil|Location2.X=3433.547mil|Location1.Y=1413.653mil|Location2.Y=1921.327mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "microSD-Molex" (1636.5mil,-1947.5mil)  Top Overlay</acronym></a><br></td>
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5173.402mil|Location2.X=5186.598mil|Location1.Y=3579.422mil|Location2.Y=3592.618mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5173.402mil|Location2.X=5186.598mil|Location1.Y=3579.422mil|Location2.Y=3592.618mil|Absolute=True">Short-Circuit Constraint: Between Track (97.282mm,38.506mm)(97.282mm,38.862mm) on Bottom Layer And Track (97.282mm,38.506mm)(99.711mm,38.506mm) on Bottom Layer Location : [X = 131.572mm][Y = 91.085mm]</acronym></a><br></td>
 </tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5341.865mil|Location2.X=5564.637mil|Location1.Y=1807.269mil|Location2.Y=2001.711mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5341.865mil|Location2.X=5564.637mil|Location1.Y=1807.269mil|Location2.Y=2001.711mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "PIEZO" (4159.13mil,-1710.5mil)  Top Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4664.908mil|Location2.X=4814.37mil|Location1.Y=1879.924mil|Location2.Y=2001.056mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4664.908mil|Location2.X=4814.37mil|Location1.Y=1879.924mil|Location2.Y=2001.056mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "USB" (3500.5mil,-1674.5mil)  Top Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2189.173mil|Location2.X=2725.177mil|Location1.Y=1723.653mil|Location2.Y=2231.327mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2189.173mil|Location2.X=2725.177mil|Location1.Y=1723.653mil|Location2.Y=2231.327mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "microSD-Molex" (928.13mil,-1637.5mil)  Top Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2626.038mil|Location2.X=2775.5mil|Location1.Y=3820.424mil|Location2.Y=3941.556mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2626.038mil|Location2.X=2775.5mil|Location1.Y=3820.424mil|Location2.Y=3941.556mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "P27" (1461.63mil,266mil)  Top Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5650.408mil|Location2.X=5799.87mil|Location1.Y=3693.424mil|Location2.Y=3814.556mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5650.408mil|Location2.X=5799.87mil|Location1.Y=3693.424mil|Location2.Y=3814.556mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "P22" (4486mil,139mil)  Top Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1065.408mil|Location2.X=1214.87mil|Location1.Y=3673.424mil|Location2.Y=3794.556mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1065.408mil|Location2.X=1214.87mil|Location1.Y=3673.424mil|Location2.Y=3794.556mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "P24" (-99mil,119mil)  Top Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5517.872mil|Location2.X=5660.669mil|Location1.Y=1857.256mil|Location2.Y=1971.724mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5517.872mil|Location2.X=5660.669mil|Location1.Y=1857.256mil|Location2.Y=1971.724mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "10X" (4355.13mil,-1700.5mil)  Top Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6384.386mil|Location2.X=6600.493mil|Location1.Y=2842.814mil|Location2.Y=3030.591mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6384.386mil|Location2.X=6600.493mil|Location1.Y=2842.814mil|Location2.Y=3030.591mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "1.0uF" (5463.232mil,-678.287mil)  Bottom Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2832.732mil|Location2.X=3055.503mil|Location1.Y=4385.375mil|Location2.Y=4579.817mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2832.732mil|Location2.X=3055.503mil|Location1.Y=4385.375mil|Location2.Y=4579.817mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "100pF" (1919.909mil,877.602mil)  Bottom Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2909.196mil|Location2.X=3131.968mil|Location1.Y=4578.871mil|Location2.Y=4773.313mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2909.196mil|Location2.X=3131.968mil|Location1.Y=4578.871mil|Location2.Y=4773.313mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "100pF" (1996.374mil,1071.098mil)  Bottom Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3593.684mil|Location2.X=3809.792mil|Location1.Y=3865.452mil|Location2.Y=4053.229mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3593.684mil|Location2.X=3809.792mil|Location1.Y=3865.452mil|Location2.Y=4053.229mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "0.1uF" (2672.531mil,344.35mil)  Bottom Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1839.684mil|Location2.X=2055.792mil|Location1.Y=4302.452mil|Location2.Y=4490.229mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1839.684mil|Location2.X=2055.792mil|Location1.Y=4302.452mil|Location2.Y=4490.229mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "0.1uF" (918.531mil,781.35mil)  Bottom Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1660.677mil|Location2.X=1890.113mil|Location1.Y=1835.11mil|Location2.Y=2036.217mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1660.677mil|Location2.X=1890.113mil|Location1.Y=1835.11mil|Location2.Y=2036.217mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "C0603" (756.185mil,-1679.327mil)  Bottom Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4810.637mil|Location2.X=4986.757mil|Location1.Y=3787.595mil|Location2.Y=3935.385mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4810.637mil|Location2.X=4986.757mil|Location1.Y=3787.595mil|Location2.Y=3935.385mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "4.7k" (3839.5mil,246.5mil)  Bottom Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1168.77mil|Location2.X=1251.587mil|Location1.Y=3693.57mil|Location2.Y=3748.057mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1168.77mil|Location2.X=1251.587mil|Location1.Y=3693.57mil|Location2.Y=3748.057mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "10k" (81.004mil,205.791mil)  Bottom Overlay</acronym></a><br></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1359.363mil|Location2.X=1708.761mil|Location1.Y=1768.516mil|Location2.Y=2089.583mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1359.363mil|Location2.X=1708.761mil|Location1.Y=1768.516mil|Location2.Y=2089.583mil|Absolute=True">Silk To Board Region Clearance (Out of silkscreen region) : Text "TPS62740" (604.823mil,-1685.941mil)  Bottom Overlay</acronym></a><br></td>
-</tr>
-</table></a><a href="#top">Back to top</a><br><br><a name="IDDLZENXOMYRFCB5MWMTDN32ZM2NP2PGD4HYCBGWHKMKYHQNGKXRDL"><table>
-<tr>
-<th style="text-align : left" colspan="2" class="rule">Minimum Solder Mask Sliver (Gap=2mil) (All),(All)</th>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2857.48mil|Location2.X=2927.48mil|Location1.Y=2128mil|Location2.Y=2198mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2857.48mil|Location2.X=2927.48mil|Location1.Y=2128mil|Location2.Y=2198mil|Absolute=True">Via (1747.48mil,-1422mil) Top Layer to Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2831.512mil|Location2.X=2882.819mil|Location1.Y=2101.945mil|Location2.Y=2149.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2831.512mil|Location2.X=2882.819mil|Location1.Y=2101.945mil|Location2.Y=2149.315mil|Absolute=True">Pad R16-1(1712.166mil,-1459.37mil)  Top Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5720.63mil|Location2.X=5790.63mil|Location1.Y=2251mil|Location2.Y=2321mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5720.63mil|Location2.X=5790.63mil|Location1.Y=2251mil|Location2.Y=2321mil|Absolute=True">Via (4610.63mil,-1299mil) Top Layer to Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5772.221mil|Location2.X=5807.779mil|Location1.Y=2253.874mil|Location2.Y=2297.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5772.221mil|Location2.X=5807.779mil|Location1.Y=2253.874mil|Location2.Y=2297.307mil|Absolute=True">Pad C10-2(4645mil,-1309.409mil)  Top Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2775mil|Location2.X=2825mil|Location1.Y=3455.63mil|Location2.Y=3505.63mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2775mil|Location2.X=2825mil|Location1.Y=3455.63mil|Location2.Y=3505.63mil|Absolute=True">Via (1655mil,-104.37mil) Top Layer to Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2712.914mil|Location2.X=2788.347mil|Location1.Y=3482.284mil|Location2.Y=3557.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2712.914mil|Location2.X=2788.347mil|Location1.Y=3482.284mil|Location2.Y=3557.716mil|Absolute=True">Pad P27-1(1605.63mil,-65mil)  Multi-Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2396.866mil|Location2.X=2414.709mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2396.866mil|Location2.X=2414.709mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-2(1260.787mil,-124.606mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2377.181mil|Location2.X=2395.024mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2377.181mil|Location2.X=2395.024mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-1(1241.102mil,-124.606mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2416.551mil|Location2.X=2434.394mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2416.551mil|Location2.X=2434.394mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-3(1280.472mil,-124.606mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2396.866mil|Location2.X=2414.709mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2396.866mil|Location2.X=2414.709mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-2(1260.787mil,-124.606mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2436.236mil|Location2.X=2454.079mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2436.236mil|Location2.X=2454.079mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-4(1300.158mil,-124.606mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2416.551mil|Location2.X=2434.394mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2416.551mil|Location2.X=2434.394mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-3(1280.472mil,-124.606mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2455.921mil|Location2.X=2473.764mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2455.921mil|Location2.X=2473.764mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-5(1319.842mil,-124.606mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2436.236mil|Location2.X=2454.079mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2436.236mil|Location2.X=2454.079mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-4(1300.158mil,-124.606mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2475.606mil|Location2.X=2493.449mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2475.606mil|Location2.X=2493.449mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-6(1339.528mil,-124.606mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2455.921mil|Location2.X=2473.764mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2455.921mil|Location2.X=2473.764mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-5(1319.842mil,-124.606mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2495.291mil|Location2.X=2513.134mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2495.291mil|Location2.X=2513.134mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-7(1359.213mil,-124.606mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2475.606mil|Location2.X=2493.449mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2475.606mil|Location2.X=2493.449mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-6(1339.528mil,-124.606mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2514.976mil|Location2.X=2532.819mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2514.976mil|Location2.X=2532.819mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-8(1378.898mil,-124.606mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2495.291mil|Location2.X=2513.134mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2495.291mil|Location2.X=2513.134mil|Location1.Y=3438.677mil|Location2.Y=3482.11mil|Absolute=True">Pad U20-7(1359.213mil,-124.606mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3400.291mil|Location2.Y=3418.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3400.291mil|Location2.Y=3418.134mil|Absolute=True">Pad U20-10(1410.394mil,-175.787mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3419.976mil|Location2.Y=3437.819mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3419.976mil|Location2.Y=3437.819mil|Absolute=True">Pad U20-9(1410.394mil,-156.102mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3380.606mil|Location2.Y=3398.449mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3380.606mil|Location2.Y=3398.449mil|Absolute=True">Pad U20-11(1410.394mil,-195.472mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3400.291mil|Location2.Y=3418.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3400.291mil|Location2.Y=3418.134mil|Absolute=True">Pad U20-10(1410.394mil,-175.787mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3360.921mil|Location2.Y=3378.764mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3360.921mil|Location2.Y=3378.764mil|Absolute=True">Pad U20-12(1410.394mil,-215.157mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3380.606mil|Location2.Y=3398.449mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3380.606mil|Location2.Y=3398.449mil|Absolute=True">Pad U20-11(1410.394mil,-195.472mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3341.236mil|Location2.Y=3359.079mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3341.236mil|Location2.Y=3359.079mil|Absolute=True">Pad U20-13(1410.394mil,-234.843mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3360.921mil|Location2.Y=3378.764mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3360.921mil|Location2.Y=3378.764mil|Absolute=True">Pad U20-12(1410.394mil,-215.157mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3321.551mil|Location2.Y=3339.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3321.551mil|Location2.Y=3339.394mil|Absolute=True">Pad U20-14(1410.394mil,-254.528mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3341.236mil|Location2.Y=3359.079mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3341.236mil|Location2.Y=3359.079mil|Absolute=True">Pad U20-13(1410.394mil,-234.843mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3301.866mil|Location2.Y=3319.709mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3301.866mil|Location2.Y=3319.709mil|Absolute=True">Pad U20-15(1410.394mil,-274.213mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3321.551mil|Location2.Y=3339.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3321.551mil|Location2.Y=3339.394mil|Absolute=True">Pad U20-14(1410.394mil,-254.528mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3282.181mil|Location2.Y=3300.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3282.181mil|Location2.Y=3300.024mil|Absolute=True">Pad U20-16(1410.394mil,-293.898mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3301.866mil|Location2.Y=3319.709mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2533.677mil|Location2.X=2577.11mil|Location1.Y=3301.866mil|Location2.Y=3319.709mil|Absolute=True">Pad U20-15(1410.394mil,-274.213mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2495.291mil|Location2.X=2513.134mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2495.291mil|Location2.X=2513.134mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-18(1359.213mil,-325.394mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2514.976mil|Location2.X=2532.819mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2514.976mil|Location2.X=2532.819mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-17(1378.898mil,-325.394mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2475.606mil|Location2.X=2493.449mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2475.606mil|Location2.X=2493.449mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-19(1339.528mil,-325.394mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2495.291mil|Location2.X=2513.134mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2495.291mil|Location2.X=2513.134mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-18(1359.213mil,-325.394mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2455.921mil|Location2.X=2473.764mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2455.921mil|Location2.X=2473.764mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-20(1319.842mil,-325.394mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2475.606mil|Location2.X=2493.449mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2475.606mil|Location2.X=2493.449mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-19(1339.528mil,-325.394mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2436.236mil|Location2.X=2454.079mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2436.236mil|Location2.X=2454.079mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-21(1300.158mil,-325.394mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2455.921mil|Location2.X=2473.764mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2455.921mil|Location2.X=2473.764mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-20(1319.842mil,-325.394mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2416.551mil|Location2.X=2434.394mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2416.551mil|Location2.X=2434.394mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-22(1280.472mil,-325.394mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2436.236mil|Location2.X=2454.079mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2436.236mil|Location2.X=2454.079mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-21(1300.158mil,-325.394mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2396.866mil|Location2.X=2414.709mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2396.866mil|Location2.X=2414.709mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-23(1260.787mil,-325.394mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2416.551mil|Location2.X=2434.394mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2416.551mil|Location2.X=2434.394mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-22(1280.472mil,-325.394mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2377.181mil|Location2.X=2395.024mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2377.181mil|Location2.X=2395.024mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-24(1241.102mil,-325.394mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2396.866mil|Location2.X=2414.709mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2396.866mil|Location2.X=2414.709mil|Location1.Y=3237.89mil|Location2.Y=3281.323mil|Absolute=True">Pad U20-23(1260.787mil,-325.394mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3301.866mil|Location2.Y=3319.709mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3301.866mil|Location2.Y=3319.709mil|Absolute=True">Pad U20-26(1209.606mil,-274.213mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3282.181mil|Location2.Y=3300.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3282.181mil|Location2.Y=3300.024mil|Absolute=True">Pad U20-25(1209.606mil,-293.898mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3321.551mil|Location2.Y=3339.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3321.551mil|Location2.Y=3339.394mil|Absolute=True">Pad U20-27(1209.606mil,-254.528mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3301.866mil|Location2.Y=3319.709mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3301.866mil|Location2.Y=3319.709mil|Absolute=True">Pad U20-26(1209.606mil,-274.213mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3341.236mil|Location2.Y=3359.079mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3341.236mil|Location2.Y=3359.079mil|Absolute=True">Pad U20-28(1209.606mil,-234.843mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3321.551mil|Location2.Y=3339.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3321.551mil|Location2.Y=3339.394mil|Absolute=True">Pad U20-27(1209.606mil,-254.528mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3360.921mil|Location2.Y=3378.764mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3360.921mil|Location2.Y=3378.764mil|Absolute=True">Pad U20-29(1209.606mil,-215.157mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3341.236mil|Location2.Y=3359.079mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3341.236mil|Location2.Y=3359.079mil|Absolute=True">Pad U20-28(1209.606mil,-234.843mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3380.606mil|Location2.Y=3398.449mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3380.606mil|Location2.Y=3398.449mil|Absolute=True">Pad U20-30(1209.606mil,-195.472mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3360.921mil|Location2.Y=3378.764mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3360.921mil|Location2.Y=3378.764mil|Absolute=True">Pad U20-29(1209.606mil,-215.157mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3400.291mil|Location2.Y=3418.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3400.291mil|Location2.Y=3418.134mil|Absolute=True">Pad U20-31(1209.606mil,-175.787mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3380.606mil|Location2.Y=3398.449mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3380.606mil|Location2.Y=3398.449mil|Absolute=True">Pad U20-30(1209.606mil,-195.472mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3419.976mil|Location2.Y=3437.819mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3419.976mil|Location2.Y=3437.819mil|Absolute=True">Pad U20-32(1209.606mil,-156.102mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3400.291mil|Location2.Y=3418.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2332.89mil|Location2.X=2376.323mil|Location1.Y=3400.291mil|Location2.Y=3418.134mil|Absolute=True">Pad U20-31(1209.606mil,-175.787mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1904.953mil|Location2.X=1922.795mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1904.953mil|Location2.X=1922.795mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True">Pad U13-2(768.874mil,-1287.323mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.638mil|Location2.X=1942.48mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.638mil|Location2.X=1942.48mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True">Pad U13-1(788.559mil,-1287.323mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1885.268mil|Location2.X=1903.11mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1885.268mil|Location2.X=1903.11mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True">Pad U13-3(749.189mil,-1287.323mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1904.953mil|Location2.X=1922.795mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1904.953mil|Location2.X=1922.795mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True">Pad U13-2(768.874mil,-1287.323mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.583mil|Location2.X=1883.425mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.583mil|Location2.X=1883.425mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True">Pad U13-4(729.504mil,-1287.323mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1885.268mil|Location2.X=1903.11mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1885.268mil|Location2.X=1903.11mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True">Pad U13-3(749.189mil,-1287.323mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1845.898mil|Location2.X=1863.74mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1845.898mil|Location2.X=1863.74mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True">Pad U13-5(709.819mil,-1287.323mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.583mil|Location2.X=1883.425mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.583mil|Location2.X=1883.425mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True">Pad U13-4(729.504mil,-1287.323mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1826.213mil|Location2.X=1844.055mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1826.213mil|Location2.X=1844.055mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True">Pad U13-6(690.134mil,-1287.323mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1845.898mil|Location2.X=1863.74mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1845.898mil|Location2.X=1863.74mil|Location1.Y=2280.882mil|Location2.Y=2314.472mil|Absolute=True">Pad U13-5(709.819mil,-1287.323mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1845.898mil|Location2.X=1863.74mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1845.898mil|Location2.X=1863.74mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True">Pad U13-8(709.819mil,-1202.677mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1826.213mil|Location2.X=1844.055mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1826.213mil|Location2.X=1844.055mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True">Pad U13-7(690.134mil,-1202.677mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.583mil|Location2.X=1883.425mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.583mil|Location2.X=1883.425mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True">Pad U13-9(729.504mil,-1202.677mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1845.898mil|Location2.X=1863.74mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1845.898mil|Location2.X=1863.74mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True">Pad U13-8(709.819mil,-1202.677mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1885.268mil|Location2.X=1903.11mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1885.268mil|Location2.X=1903.11mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True">Pad U13-10(749.189mil,-1202.677mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.583mil|Location2.X=1883.425mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.583mil|Location2.X=1883.425mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True">Pad U13-9(729.504mil,-1202.677mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1904.953mil|Location2.X=1922.795mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1904.953mil|Location2.X=1922.795mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True">Pad U13-11(768.874mil,-1202.677mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1885.268mil|Location2.X=1903.11mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1885.268mil|Location2.X=1903.11mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True">Pad U13-10(749.189mil,-1202.677mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.638mil|Location2.X=1942.48mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.638mil|Location2.X=1942.48mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True">Pad U13-12(788.559mil,-1202.677mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1904.953mil|Location2.X=1922.795mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1904.953mil|Location2.X=1922.795mil|Location1.Y=2365.528mil|Location2.Y=2399.118mil|Absolute=True">Pad U13-11(768.874mil,-1202.677mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5505.63mil|Location2.X=5555.63mil|Location1.Y=3175mil|Location2.Y=3225mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5505.63mil|Location2.X=5555.63mil|Location1.Y=3175mil|Location2.Y=3225mil|Absolute=True">Via (4385.63mil,-385mil) Top Layer to Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5543.795mil|Location2.X=5579.354mil|Location1.Y=3205.173mil|Location2.Y=3221.047mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5543.795mil|Location2.X=5579.354mil|Location1.Y=3205.173mil|Location2.Y=3221.047mil|Absolute=True">Pad U5-29(4416.575mil,-371.89mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5505.63mil|Location2.X=5555.63mil|Location1.Y=3175mil|Location2.Y=3225mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5505.63mil|Location2.X=5555.63mil|Location1.Y=3175mil|Location2.Y=3225mil|Absolute=True">Via (4385.63mil,-385mil) Top Layer to Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5495.85mil|Location2.X=5531.409mil|Location1.Y=3216.693mil|Location2.Y=3260.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5495.85mil|Location2.X=5531.409mil|Location1.Y=3216.693mil|Location2.Y=3260.126mil|Absolute=True">Pad C17-1(4368.63mil,-346.591mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5780.63mil|Location2.X=5850.63mil|Location1.Y=2769mil|Location2.Y=2839mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5780.63mil|Location2.X=5850.63mil|Location1.Y=2769mil|Location2.Y=2839mil|Absolute=True">Via (4670.63mil,-781mil) Top Layer to Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5832.221mil|Location2.X=5867.779mil|Location1.Y=2757.693mil|Location2.Y=2801.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5832.221mil|Location2.X=5867.779mil|Location1.Y=2757.693mil|Location2.Y=2801.126mil|Absolute=True">Pad C24-1(4705mil,-805.591mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5373.126mil|Location2.X=5396.874mil|Location1.Y=3236.591mil|Location2.Y=3280.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5373.126mil|Location2.X=5396.874mil|Location1.Y=3236.591mil|Location2.Y=3280.024mil|Absolute=True">Pad U9-2(4240mil,-326.693mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5398.717mil|Location2.X=5422.465mil|Location1.Y=3236.591mil|Location2.Y=3280.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5398.717mil|Location2.X=5422.465mil|Location1.Y=3236.591mil|Location2.Y=3280.024mil|Absolute=True">Pad U9-3(4265.591mil,-326.693mil)  Bottom Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5347.535mil|Location2.X=5371.283mil|Location1.Y=3236.591mil|Location2.Y=3280.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5347.535mil|Location2.X=5371.283mil|Location1.Y=3236.591mil|Location2.Y=3280.024mil|Absolute=True">Pad U9-1(4214.409mil,-326.693mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5373.126mil|Location2.X=5396.874mil|Location1.Y=3236.591mil|Location2.Y=3280.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5373.126mil|Location2.X=5396.874mil|Location1.Y=3236.591mil|Location2.Y=3280.024mil|Absolute=True">Pad U9-2(4240mil,-326.693mil)  Bottom Layer</acronym></a></td>
-</tr>
-</table></a><a href="#top">Back to top</a><br><br><a name="ID0DABEQUHYQHKIZ5153E2M02SHLMDR0FWXUPWPHK42J0HOPTQLCMH"><table>
-<tr>
-<th style="text-align : left" colspan="2" class="rule">Clearance Constraint (Gap=6mil) (All),(All)</th>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5175mil|Location2.X=5280.63mil|Location1.Y=3580mil|Location2.Y=3590mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5175mil|Location2.X=5280.63mil|Location1.Y=3580mil|Location2.Y=3590mil|Absolute=True">Track (4035mil,0mil)(4130.63mil,0mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5132.283mil|Location2.X=5227.717mil|Location1.Y=3537.284mil|Location2.Y=3632.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5132.283mil|Location2.X=5227.717mil|Location1.Y=3537.284mil|Location2.Y=3632.716mil|Absolute=True">Pad P11-2(4035mil,0mil)  Multi-Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5175mil|Location2.X=5280.63mil|Location1.Y=3580mil|Location2.Y=3590mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5175mil|Location2.X=5280.63mil|Location1.Y=3580mil|Location2.Y=3590mil|Absolute=True">Track (4035mil,0mil)(4130.63mil,0mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5232.283mil|Location2.X=5327.717mil|Location1.Y=3537.284mil|Location2.Y=3632.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5232.283mil|Location2.X=5327.717mil|Location1.Y=3537.284mil|Location2.Y=3632.716mil|Absolute=True">Pad P11-1(4135mil,0mil)  Multi-Layer</acronym></a></td>
-</tr>
-<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5175mil|Location2.X=5280.63mil|Location1.Y=3580mil|Location2.Y=3590mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5175mil|Location2.X=5280.63mil|Location1.Y=3580mil|Location2.Y=3590mil|Absolute=True">Track (4035mil,0mil)(4130.63mil,0mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5177mil|Location2.X=5183mil|Location1.Y=3582mil|Location2.Y=3602mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5177mil|Location2.X=5183mil|Location1.Y=3582mil|Location2.Y=3602mil|Absolute=True">Track (4035mil,0mil)(4035mil,14mil)  Bottom Layer</acronym></a></td>
-</tr>
-</table></a><a href="#top">Back to top</a><br><br><a name="IDWC4TR43TO0VWGN5UB3KBONDADM2QXXE15OOHQSIPNFGVT4O1NIL"><table>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID4OISZ4YCQXI3PUNNE0WQSX4DQH0LU0LNGX3LT5FPYP0JNFPUUHJI"><table>
 <tr>
 <th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
 </tr>
 <tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5632.79mil|Location2.X=5647.21mil|Location1.Y=2197.79mil|Location2.Y=2212.21mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5632.79mil|Location2.X=5647.21mil|Location1.Y=2197.79mil|Location2.Y=2212.21mil|Absolute=True">Isolated copper: Split Plane  (AGND)  on GND. Dead copper detected. Copper area is : 1E2 sq. mils</acronym></a><br></td>
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5632.79mil|Location2.X=5647.21mil|Location1.Y=2197.79mil|Location2.Y=2212.21mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5632.79mil|Location2.X=5647.21mil|Location1.Y=2197.79mil|Location2.Y=2212.21mil|Absolute=True">Isolated copper: Split Plane  (AGND) on GND. Dead copper detected. Copper area is : 0.067 sq. mm</acronym></a><br></td>
 </tr>
 <tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5628.621mil|Location2.X=5651.379mil|Location1.Y=2193.621mil|Location2.Y=2216.379mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5628.621mil|Location2.X=5651.379mil|Location1.Y=2193.621mil|Location2.Y=2216.379mil|Absolute=True">Isolated copper: Split Plane  (VA)  on VCC. Dead copper detected. Copper area is : 2E2 sq. mils</acronym></a><br></td>
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5628.621mil|Location2.X=5651.379mil|Location1.Y=2193.621mil|Location2.Y=2216.379mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5628.621mil|Location2.X=5651.379mil|Location1.Y=2193.621mil|Location2.Y=2216.379mil|Absolute=True">Isolated copper: Split Plane  (VA) on VCC. Dead copper detected. Copper area is : 0.128 sq. mm</acronym></a><br></td>
 </tr>
-</table></a><a href="#top">Back to top</a><br><br><a name="IDNEHYHVGHZL5BGSW1I0BVCYIZEH1BBHRS4HYLCDPUS5M4WUYVEM2P"><table>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDL0FMCMYIR5MBG5HBMYQBSEBAEJ21JM0GICOKMJCFSIS4ESVDUOE"><table>
 <tr>
-<th style="text-align : left" colspan="2" class="rule">Short-Circuit Constraint (Allowed=No) (All),(All)</th>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=0.051mm) (All),(All)</th>
 </tr>
 <tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5175mil|Location2.X=5280.63mil|Location1.Y=3580mil|Location2.Y=3590mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5175mil|Location2.X=5280.63mil|Location1.Y=3580mil|Location2.Y=3590mil|Absolute=True">Track (4035mil,0mil)(4130.63mil,0mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5132.283mil|Location2.X=5227.717mil|Location1.Y=3537.284mil|Location2.Y=3632.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5132.283mil|Location2.X=5227.717mil|Location1.Y=3537.284mil|Location2.Y=3632.716mil|Absolute=True">Pad P11-2(4035mil,0mil)  Multi-Layer</acronym></a></td>
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5769.8mil|Location2.X=5773.05mil|Location1.Y=2284.375mil|Location2.Y=2287.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5769.8mil|Location2.X=5773.05mil|Location1.Y=2284.375mil|Location2.Y=2287.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.04mm &lt; 0.051mm) Between Pad C10-2(112.776mm,5.247mm) on Top Layer And Via (111.903mm,5.512mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.04mm]</acronym></a><br></td>
 </tr>
 <tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5175mil|Location2.X=5280.63mil|Location1.Y=3580mil|Location2.Y=3590mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5175mil|Location2.X=5280.63mil|Location1.Y=3580mil|Location2.Y=3590mil|Absolute=True">Track (4035mil,0mil)(4130.63mil,0mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5232.283mil|Location2.X=5327.717mil|Location1.Y=3537.284mil|Location2.Y=3632.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5232.283mil|Location2.X=5327.717mil|Location1.Y=3537.284mil|Location2.Y=3632.716mil|Absolute=True">Pad P11-1(4135mil,0mil)  Multi-Layer</acronym></a></td>
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5529.005mil|Location2.X=5532.255mil|Location1.Y=3214.222mil|Location2.Y=3217.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5529.005mil|Location2.X=5532.255mil|Location1.Y=3214.222mil|Location2.Y=3217.472mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.043mm &lt; 0.051mm) Between Pad C17-1(105.756mm,29.703mm) on Bottom Layer And Via (106.188mm,28.727mm) from Top Layer to Bottom Layer [Bottom Solder] Mask Sliver [0.043mm]</acronym></a><br></td>
 </tr>
 <tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
-<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5175mil|Location2.X=5280.63mil|Location1.Y=3580mil|Location2.Y=3590mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5175mil|Location2.X=5280.63mil|Location1.Y=3580mil|Location2.Y=3590mil|Absolute=True">Track (4035mil,0mil)(4130.63mil,0mil)  Bottom Layer</acronym></a></td>
-<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5177mil|Location2.X=5183mil|Location1.Y=3582mil|Location2.Y=3602mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5177mil|Location2.X=5183mil|Location1.Y=3582mil|Location2.Y=3602mil|Absolute=True">Track (4035mil,0mil)(4035mil,14mil)  Bottom Layer</acronym></a></td>
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5829.69mil|Location2.X=5832.94mil|Location1.Y=2799.658mil|Location2.Y=2802.908mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5829.69mil|Location2.X=5832.94mil|Location1.Y=2799.658mil|Location2.Y=2802.908mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad C24-1(114.3mm,18.044mm) on Bottom Layer And Via (113.427mm,18.669mm) from Top Layer to Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
 </tr>
-</table></a><a href="#top">Back to top</a><br><br></body>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2783.417mil|Location2.X=2789.119mil|Location1.Y=3484.521mil|Location2.Y=3493.967mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2783.417mil|Location2.X=2789.119mil|Location1.Y=3484.521mil|Location2.Y=3493.967mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.048mm &lt; 0.051mm) Between Pad P27-1(35.576mm,36.855mm) on Multi-Layer And Via (36.83mm,35.855mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.048mm] / [Bottom Solder] Mask Sliver [0.048mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.699mil|Location2.X=2889.771mil|Location1.Y=2145.8mil|Location2.Y=2151.655mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.699mil|Location2.X=2889.771mil|Location1.Y=2145.8mil|Location2.Y=2151.655mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.044mm &lt; 0.051mm) Between Pad R16-1(38.282mm,1.438mm) on Top Layer And Via (39.179mm,2.388mm) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [0.044mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2394.32mil|Location2.X=2397.57mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2394.32mil|Location2.X=2397.57mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-1(26.317mm,35.341mm) on Bottom Layer And Pad U20-2(26.817mm,35.341mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3397.745mil|Location2.Y=3400.995mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3397.745mil|Location2.Y=3400.995mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-10(30.617mm,34.041mm) on Bottom Layer And Pad U20-11(30.617mm,33.541mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3417.43mil|Location2.Y=3420.68mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3417.43mil|Location2.Y=3420.68mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-10(30.617mm,34.041mm) on Bottom Layer And Pad U20-9(30.617mm,34.541mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3378.06mil|Location2.Y=3381.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3378.06mil|Location2.Y=3381.31mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-11(30.617mm,33.541mm) on Bottom Layer And Pad U20-12(30.617mm,33.041mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3358.375mil|Location2.Y=3361.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3358.375mil|Location2.Y=3361.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-12(30.617mm,33.041mm) on Bottom Layer And Pad U20-13(30.617mm,32.541mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3338.69mil|Location2.Y=3341.94mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3338.69mil|Location2.Y=3341.94mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-13(30.617mm,32.541mm) on Bottom Layer And Pad U20-14(30.617mm,32.041mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3319.005mil|Location2.Y=3322.255mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3319.005mil|Location2.Y=3322.255mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-14(30.617mm,32.041mm) on Bottom Layer And Pad U20-15(30.617mm,31.541mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3299.32mil|Location2.Y=3302.57mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.973mil|Location2.X=2544.223mil|Location1.Y=3299.32mil|Location2.Y=3302.57mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-15(30.617mm,31.541mm) on Bottom Layer And Pad U20-16(30.617mm,31.041mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2512.43mil|Location2.X=2515.68mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2512.43mil|Location2.X=2515.68mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-17(29.817mm,30.241mm) on Bottom Layer And Pad U20-18(29.317mm,30.241mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2492.745mil|Location2.X=2495.995mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2492.745mil|Location2.X=2495.995mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-18(29.317mm,30.241mm) on Bottom Layer And Pad U20-19(28.817mm,30.241mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2473.06mil|Location2.X=2476.31mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2473.06mil|Location2.X=2476.31mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-19(28.817mm,30.241mm) on Bottom Layer And Pad U20-20(28.317mm,30.241mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2414.005mil|Location2.X=2417.255mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2414.005mil|Location2.X=2417.255mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-2(26.817mm,35.341mm) on Bottom Layer And Pad U20-3(27.317mm,35.341mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2453.375mil|Location2.X=2456.625mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2453.375mil|Location2.X=2456.625mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-20(28.317mm,30.241mm) on Bottom Layer And Pad U20-21(27.817mm,30.241mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2433.69mil|Location2.X=2436.94mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2433.69mil|Location2.X=2436.94mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-21(27.817mm,30.241mm) on Bottom Layer And Pad U20-22(27.317mm,30.241mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2414.005mil|Location2.X=2417.255mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2414.005mil|Location2.X=2417.255mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-22(27.317mm,30.241mm) on Bottom Layer And Pad U20-23(26.817mm,30.241mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2394.32mil|Location2.X=2397.57mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2394.32mil|Location2.X=2397.57mil|Location1.Y=3270.777mil|Location2.Y=3274.027mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-23(26.817mm,30.241mm) on Bottom Layer And Pad U20-24(26.317mm,30.241mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3299.32mil|Location2.Y=3302.57mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3299.32mil|Location2.Y=3302.57mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-25(25.517mm,31.041mm) on Bottom Layer And Pad U20-26(25.517mm,31.541mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3319.005mil|Location2.Y=3322.255mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3319.005mil|Location2.Y=3322.255mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-26(25.517mm,31.541mm) on Bottom Layer And Pad U20-27(25.517mm,32.041mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3338.69mil|Location2.Y=3341.94mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3338.69mil|Location2.Y=3341.94mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-27(25.517mm,32.041mm) on Bottom Layer And Pad U20-28(25.517mm,32.541mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3358.375mil|Location2.Y=3361.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3358.375mil|Location2.Y=3361.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-28(25.517mm,32.541mm) on Bottom Layer And Pad U20-29(25.517mm,33.041mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3378.06mil|Location2.Y=3381.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3378.06mil|Location2.Y=3381.31mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-29(25.517mm,33.041mm) on Bottom Layer And Pad U20-30(25.517mm,33.541mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2433.69mil|Location2.X=2436.94mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2433.69mil|Location2.X=2436.94mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-3(27.317mm,35.341mm) on Bottom Layer And Pad U20-4(27.817mm,35.341mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3397.745mil|Location2.Y=3400.995mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3397.745mil|Location2.Y=3400.995mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-30(25.517mm,33.541mm) on Bottom Layer And Pad U20-31(25.517mm,34.041mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3417.43mil|Location2.Y=3420.68mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.186mil|Location2.X=2343.436mil|Location1.Y=3417.43mil|Location2.Y=3420.68mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-31(25.517mm,34.041mm) on Bottom Layer And Pad U20-32(25.517mm,34.541mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2453.375mil|Location2.X=2456.625mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2453.375mil|Location2.X=2456.625mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-4(27.817mm,35.341mm) on Bottom Layer And Pad U20-5(28.317mm,35.341mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2473.06mil|Location2.X=2476.31mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2473.06mil|Location2.X=2476.31mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-5(28.317mm,35.341mm) on Bottom Layer And Pad U20-6(28.817mm,35.341mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2492.745mil|Location2.X=2495.995mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2492.745mil|Location2.X=2495.995mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-6(28.817mm,35.341mm) on Bottom Layer And Pad U20-7(29.317mm,35.341mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2512.43mil|Location2.X=2515.68mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2512.43mil|Location2.X=2515.68mil|Location1.Y=3471.564mil|Location2.Y=3474.814mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U20-7(29.317mm,35.341mm) on Bottom Layer And Pad U20-8(29.817mm,35.341mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5542.556mil|Location2.X=5548.457mil|Location1.Y=3201.644mil|Location2.Y=3210.044mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5542.556mil|Location2.X=5548.457mil|Location1.Y=3201.644mil|Location2.Y=3210.044mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.048mm &lt; 0.051mm) Between Pad U5-29(106.974mm,29.06mm) on Bottom Layer And Via (106.188mm,28.727mm) from Top Layer to Bottom Layer [Bottom Solder] Mask Sliver [0.048mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5370.58mil|Location2.X=5373.83mil|Location1.Y=3234.966mil|Location2.Y=3238.216mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5370.58mil|Location2.X=5373.83mil|Location1.Y=3234.966mil|Location2.Y=3238.216mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U9-1(101.839mm,30.208mm) on Bottom Layer And Pad U9-2(102.489mm,30.208mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5396.17mil|Location2.X=5399.42mil|Location1.Y=3234.966mil|Location2.Y=3238.216mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5396.17mil|Location2.X=5399.42mil|Location1.Y=3234.966mil|Location2.Y=3238.216mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.051mm) Between Pad U9-2(102.489mm,30.208mm) on Bottom Layer And Pad U9-3(103.139mm,30.208mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDR4HGF0RC2PCBPJLT1S4YYWJYLOVIFXRHP102A3CW2BJG31MIJPIG"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5594.5mil|Location2.X=5661.628mil|Location1.Y=2785.5mil|Location2.Y=2892.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\remora-2\altium\remora-2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5594.5mil|Location2.X=5661.628mil|Location1.Y=2785.5mil|Location2.Y=2892.748mil|Absolute=True">Net Antennae: Via (108.534mm,18.923mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
 </html>
