@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : C:\w\remora-2\altium\remora-2.PcbDoc
 Date     : 9/10/2021
-Time     : 7:44:58 PM
+Time     : 7:49:14 PM
 
 Processing Rule : Clearance Constraint (Gap=0.152mm) (All),(All)
    Violation between Clearance Constraint: (Collision < 0.152mm) Between Pad P11-1(86.792mm,39.624mm) on Multi-Layer And Track (84.252mm,39.624mm)(86.681mm,39.624mm) on Bottom Layer 
