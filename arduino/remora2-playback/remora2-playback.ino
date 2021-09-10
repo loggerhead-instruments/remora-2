@@ -72,6 +72,35 @@ void setup() {
   sgtl5000_1.inputSelect(myInput);
   sgtl5000_1.volume(1.0);
 
+  sgtl5000_1.lineOutLevel(13);
+
+//  lineOutLevel(both);
+//
+//Adjust the line level output voltage range. The following settings are possible:
+//
+//13: 3.16 Volts p-p
+//14: 2.98 Volts p-p
+//15: 2.83 Volts p-p
+//16: 2.67 Volts p-p
+//17: 2.53 Volts p-p
+//18: 2.39 Volts p-p
+//19: 2.26 Volts p-p
+//20: 2.14 Volts p-p
+//21: 2.02 Volts p-p
+//22: 1.91 Volts p-p
+//23: 1.80 Volts p-p
+//24: 1.71 Volts p-p
+//25: 1.62 Volts p-p
+//26: 1.53 Volts p-p
+//27: 1.44 Volts p-p
+//28: 1.37 Volts p-p
+//29: 1.29 Volts p-p  (default)
+//30: 1.22 Volts p-p
+//31: 1.16 Volts p-p
+//lineOutLevel(left, right);
+//
+//Adjust the line level outout voltage range, with separate settings for left and right. The same settings (13 to 31) are available.
+
   SPI.setMOSI(SDCARD_MOSI_PIN);
   SPI.setSCK(SDCARD_SCK_PIN);
   if (!(SD.begin(SDCARD_CS_PIN))) {

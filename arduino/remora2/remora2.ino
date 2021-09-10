@@ -63,7 +63,7 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2020-01-24";
+char codeVer[12] = "2021-09-09";
 
 unsigned long recDur = 120; // minutes 1140 = 24 hours
 int recInt = 0;
@@ -92,7 +92,7 @@ byte recMinutesAfterPlay = 2;
 float maxDepth;  
 byte playNow = 0;
 byte playBackDepthExceeded = 0;
-int nPlayed = 0;
+volatile unsigned int nPlayed = 0;
 volatile boolean REC_STATE, PLAY_STATE;
 float daysFromStart;
 

@@ -171,7 +171,7 @@ int ProcCmd(char *pCmd)
       playBackResetDepth = lv1;
       break;
     }
-    //default maxPlayBacks = 200;
+    //default maxPlayBacks = 80;
     case ('P' + ('M'<<8)):
     {
       sscanf(&pCmd[3],"%d",&lv1);

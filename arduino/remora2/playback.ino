@@ -3,6 +3,8 @@ void checkPlay(){
     maxDepth = depth; // track maximum depth
   }
 
+  if(depth < 20.0) maxDepth = depth; // reset maxDepth when each dive ends
+
   
   // check if after exceeding playback depth, came shallow enough to allow another playback
   if(playBackDepthExceeded==2){
@@ -35,6 +37,7 @@ void checkPlay(){
         PLAY_STATE = 1;
         playTime = t;
         playBackDepthExceeded = 2;
+        nPlayed += 1;
         //Serial.println("P");
     }
   }
