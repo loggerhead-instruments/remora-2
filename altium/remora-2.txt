@@ -1,0 +1,10 @@
+Board Information Report
+Filename     : C:\w\remora-2\altium\remora-2.PcbDoc
+Date         : 9/13/2021
+Time         : 12:39:01 PM
+Time Elapsed : 00:00:00
+
+General
+    Board Size, 127mmx44.45mm
+    Components on board, 128
+count : 2
