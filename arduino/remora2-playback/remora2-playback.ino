@@ -35,7 +35,7 @@ AudioOutputI2S           audioOutput;
 AudioInputI2S            i2s2;           //xy=105,63
 AudioRecordQueue         queue1;         //xy=281,63
 AudioConnection          patchCord1(playWav1, 0, audioOutput, 0);
-AudioConnection          patchCord2(i2s2, 0, queue1, 0);
+AudioConnection          patchCord2(playWav1, 1, audioOutput, 1);
 AudioControlSGTL5000     sgtl5000_1;
 
 const int myInput = AUDIO_INPUT_LINEIN;
@@ -69,10 +69,7 @@ void setup() {
   // This may wait forever if the SDA & SCL pins lack
   // pullup resistors
   sgtl5000_1.enable();
-  sgtl5000_1.inputSelect(myInput);
-  sgtl5000_1.volume(1.0);
-
-  sgtl5000_1.lineOutLevel(13);
+  //sgtl5000_1.lineOutLevel(31);
 
 //  lineOutLevel(both);
 //
