@@ -63,13 +63,13 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2021-09-09";
+char codeVer[12] = "2021-11-10";
 
 unsigned long recDur = 120; // minutes 1140 = 24 hours
 int recInt = 0;
 int LED_EN = 1; //enable green LEDs flash 1x per pressure read. Can be disabled from script.
 
-boolean HALL_EN = 1; 
+boolean HALL_EN = 0; 
 boolean HALL_LED_EN = 0; //flash red LED for Hall sensor
 
 //#define pressAddress 0x76
