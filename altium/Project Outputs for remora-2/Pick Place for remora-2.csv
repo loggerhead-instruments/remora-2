@@ -1,151 +1,129 @@
-Altium Designer Pick and Place Locations
-C:\w\remora-2\altium\Project Outputs for remora-2\Pick Place for remora-2.csv
-
-========================================================================================================================
-File Design Information:
-
-Date:       04/01/21
-Time:       13:02
-Revision:   0f7c0365b06de052cc8d2c070d44fbf4411f5de9
-Variant:    No variations
-Units used: mm
-
-"Designator","Comment","Layer","Footprint","Footprint Description","Center-X(mm)","Center-Y(mm)","Rotation","Description"
-"U15","DS3231","BottomLayer","DS3231","","15.2954","17.1704","180",""
-"P9","Tactile","TopLayer","Tactile-B3U-1000","","64.5574","27.2288","180",""
-"P4","Tactile","TopLayer","Tactile-B3U-1000","","96.7900","27.9654","0",""
-"*1","8MHz","BottomLayer","XTAL-ABM3","","34.0774","38.8874","360",""
-"C34","1uF","BottomLayer","Tant0805","","10.4554","27.8384","180",""
-"C35","1uF","BottomLayer","Tant0805","","3.5814","27.2034","90",""
-"C42",".01uF","TopLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","51.3494","1.6924","180","Ceramic Chip Capacitor - Standard"
-"C39","1uF","TopLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","44.2374","3.7084","180","Ceramic Chip Capacitor - Standard"
-"C40","1uF","TopLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","51.3494","3.7244","360","Ceramic Chip Capacitor - Standard"
-"C41","1.0uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","120.2342","29.8704","270","Ceramic Chip Capacitor - Standard"
-"C37","1.0uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","107.3404","31.9024","360","Ceramic Chip Capacitor - Standard"
-"C38","1.0uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","106.2896","27.2542","180","Ceramic Chip Capacitor - Standard"
-"C36","1.0uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","120.5484","23.3934","90","Ceramic Chip Capacitor - Standard"
-"C33","0.01uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","110.8964","21.3614","180","Ceramic Chip Capacitor - Standard"
-"C27","0.01uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","117.5004","19.0754","90","Ceramic Chip Capacitor - Standard"
-"C21","0.01uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","105.5624","34.4424","180","Ceramic Chip Capacitor - Standard"
-"C32","1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","118.1354","23.3934","360","Ceramic Chip Capacitor - Standard"
-"C25","1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","119.5324","12.4864","270","Ceramic Chip Capacitor - Standard"
-"C20","1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","111.7854","36.0934","270","Ceramic Chip Capacitor - Standard"
-"C30","1.0uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","19.0754","36.7284","360","Ceramic Chip Capacitor - Standard"
-"C31","1.0uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","110.7694","23.3934","180","Ceramic Chip Capacitor - Standard"
-"C24","1.0uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","119.4054","19.0754","90","Ceramic Chip Capacitor - Standard"
-"C19","1.0uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","105.5624","36.4744","180","Ceramic Chip Capacitor - Standard"
-"C17","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","110.8616","30.7340","90","Ceramic Chip Capacitor - Standard"
-"C26","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","115.5954","25.2984","360","Ceramic Chip Capacitor - Standard"
-"C28","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","118.5164","31.1404","90","Ceramic Chip Capacitor - Standard"
-"C22","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","114.3254","33.4264","180","Ceramic Chip Capacitor - Standard"
-"C29","10uF","BottomLayer","Tant0805","","71.6186","6.9342","180",""
-"C9","C0603","TopLayer","0603","Chip Capacitor; Body 1.6 x 0.8 mm (LxW typ)","119.4054","5.2324","270","Ceramic Chip Capacitor - Standard"
-"C10","0.1uF","TopLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","117.8814","4.9784","90","Ceramic Chip Capacitor - Standard"
-"C16","C0603","TopLayer","0603","Chip Capacitor; Body 1.6 x 0.8 mm (LxW typ)","110.3028","1.4732","360","Ceramic Chip Capacitor - Standard"
-"C12","0.47uF","TopLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","112.9284","11.0744","360","Ceramic Chip Capacitor - Standard"
-"C11",".47uF","TopLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","116.4844","10.9474","180","Ceramic Chip Capacitor - Standard"
-"C8","C0603","TopLayer","0603","Chip Capacitor; Body 1.6 x 0.8 mm (LxW typ)","118.8974","2.8194","180","Ceramic Chip Capacitor - Standard"
-"C15","0.01uF","TopLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","80.4164","0.7874","270","Ceramic Chip Capacitor - Standard"
-"C13","1uF","TopLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","82.4484","8.4074","90","Ceramic Chip Capacitor - Standard"
-"C14","1uF","TopLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","82.4484","0.7874","270","Ceramic Chip Capacitor - Standard"
-"C3","1.0uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","120.8692","8.4074","270","Ceramic Chip Capacitor - Standard"
-"C2","1.0uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","119.8532","4.7498","180","Ceramic Chip Capacitor - Standard"
-"C1","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","109.4138","9.7790","90","Ceramic Chip Capacitor - Standard"
-"C5","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","108.4994","3.8354","180","Ceramic Chip Capacitor - Standard"
-"C6","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","117.9990","10.5664","90","Ceramic Chip Capacitor - Standard"
-"C4","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","113.3094","12.4714","180","Ceramic Chip Capacitor - Standard"
-"C7","10uF","BottomLayer","Tant0805","","103.3686","6.2230","90",""
-"C64","100pF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","38.6494","39.0144","270","Ceramic Chip Capacitor - Standard"
-"C63","100pF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","29.5044","39.0144","270","Ceramic Chip Capacitor - Standard"
-"C65","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","33.6804","27.9654","270","Ceramic Chip Capacitor - Standard"
-"C62","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","2.5908","40.0812","180","Ceramic Chip Capacitor - Standard"
-"C51","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","22.2664","21.1074","270","Ceramic Chip Capacitor - Standard"
-"C54","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","6.4168","6.8834","360","Ceramic Chip Capacitor - Standard"
-"C55","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","2.2258","3.0734","180","Ceramic Chip Capacitor - Standard"
-"C61","0.1uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","2.0828","4.2418","360","Ceramic Chip Capacitor - Standard"
-"C53","0.1uF","TopLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","20.2344","32.4104","0","Ceramic Chip Capacitor - Standard"
-"C50","C0603","BottomLayer","0603","Chip Capacitor; Body 1.6 x 0.8 mm (LxW typ)","18.1008","2.8194","90","Ceramic Chip Capacitor - Standard"
-"C49","C0603","BottomLayer","0603","Chip Capacitor; Body 1.6 x 0.8 mm (LxW typ)","21.7058","7.3948","90","Ceramic Chip Capacitor - Standard"
-"C43","0.01uF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","20.3454","30.3784","90","Ceramic Chip Capacitor - Standard"
-"C47","1.ouF","BottomLayer","0402","Chip Capacitor; Body 1.0 x 0.5 mm (LxW typ)","18.3294","30.5054","270","Ceramic Chip Capacitor - Standard"
-"D2","LED_0603","TopLayer","Diode0603","","3.9784","20.4724","180",""
-"D3","LED_0603","TopLayer","Diode0603","","53.2384","38.3794","360",""
-"D1","LED_0603","TopLayer","Diode0603","","86.6046","38.3540","180",""
-"D5","LED_0603","TopLayer","Diode0603","","27.6352","37.8968","180",""
-"D4","LED_0603","TopLayer","Diode0603","","27.6860","39.9034","0",""
-"L1","2.2uH","BottomLayer","Inductor_KLZ1608AHR","","18.7358","5.1054","360",""
-"P18","Battery","TopLayer","HDR1X2","Connector; Header; 2 Position","76.8764","37.6174","180","Header, 2-Pin"
-"P15","USB","TopLayer","HDR_2x1_2mm","","57.4214","-0.2286","270","Charging Connector"
-"P13","microUSB-vert","TopLayer","MICROUSB-VERT","Molex 05133-0011","72.4794","18.2834","270","Molex 105133-0011"
-"P17","microSD-Molex","TopLayer","microSD_Molex_hinged","","62.8904","18.3134","90",""
-"P14","HYDROPHONE","TopLayer","HDR1X3","Connector; Header; 3 Position","122.7074","30.8864","90","Header, 3-Pin"
-"P11","GND Tie","TopLayer","HDR1X2","Connector; Header; 2 Position","103.6574","38.8874","180","Header, 2-Pin"
-"P12","HYDROPHONE","TopLayer","HDR1X3","Connector; Header; 3 Position","122.7074","22.7584","90","Header, 3-Pin"
-"P16","Display","TopLayer","HDR1X4","Connector; Header; 4 Position","118.8974","36.3474","360","Header, 4-Pin"
-"P5","PIEZO","TopLayer","HDR_2x1_2mm","","106.6786","0.0000","90","Charging Connector"
-"P7","USB","TopLayer","HDR_2x1_2mm","","90.8224","-0.2286","270","Charging Connector"
-"P6","microUSB-vert","TopLayer","MICROUSB-VERT","Molex 05133-0011","104.8644","19.2994","270","Molex 105133-0011"
-"P8","microSD-Molex","TopLayer","microSD_Molex_hinged","","95.0214","19.0754","90",""
-"P3","HYDROPHONE","TopLayer","HDR1X3","Connector; Header; 3 Position","122.7074","12.9794","90","Header, 3-Pin"
-"P2","HYDROPHONE","TopLayer","HDR1X3","Connector; Header; 3 Position","122.7074","4.7244","90","Header, 3-Pin"
-"P28","Custom program 2x5","TopLayer","Header_2x5_50mil","","41.1132","18.6690","180",""
-"P26","Tactile","TopLayer","Tactile-B3U-1000","","23.2824","18.2118","90",""
-"P29","Header 5","TopLayer","HDR1X5","Connector; Header; 5 Position","-0.1016","33.8074","90","Header, 5-Pin"
-"P25","microSD-Molex","TopLayer","microSD_Molex_hinged","","31.4358","18.0594","90",""
-"P27","AVR SPI","TopLayer","HDR2X3","Connector; Header; 3x2 Position","43.2214","38.5064","360","Header, 3-Pin, Dual row"
-"P22","Header 3","TopLayer","HDR1X3","Connector; Header; 3 Position","117.5004","40.2844","180","Header, 3-Pin"
-"P23","Battery","TopLayer","HDR1X2","Connector; Header; 2 Position","70.2724","37.8714","180","Header, 2-Pin"
-"P24","Header 4","TopLayer","HDR1X4","Connector; Header; 4 Position","9.9314","39.7764","360","Header, 4-Pin"
-"P21","Battery","TopLayer","HDR1X2","Connector; Header; 2 Position","-0.0856","22.1234","270","Header, 2-Pin"
-"P19","DIP1","TopLayer","DIP1","","32.4264","27.7114","360",""
-"Q1","DMN5L06TK-7","BottomLayer","SOT-523","For Diodes Inc MOSFET DMN5L06TK","74.3364","34.6964","90","Ultra-low leakage Enhanced MOSFET"
-"Q2","DMN5L06TK-7","BottomLayer","SOT-523","For Diodes Inc MOSFET DMN5L06TK","71.6694","34.5694","90","Ultra-low leakage Enhanced MOSFET"
-"R16","20k","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","44.2374","1.8194","360","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R13","330","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","3.8514","20.4724","360","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R12","2k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","10.7094","25.5524","180","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R17","330","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","50.4604","36.2204","90","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R15","4.7k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","73.1774","25.5524","90","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R14","4.7k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","70.7644","25.5524","90","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R7","100K","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","110.6424","9.0424","270","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R6","10K","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","113.1824","8.0264","180","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R3","10K","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","116.5004","7.5946","0","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R5","10K","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","113.1824","9.4234","360","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R4","10K","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","116.3734","9.5758","180","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R2","10X","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","109.4900","2.8956","180","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R1","20k","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","118.8974","1.5494","180","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R9","20k","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","80.4164","8.5344","270","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R11","330","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","90.6686","38.2524","180","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R10","4.7k","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","98.9584","0.7874","270","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R8","4.7k","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","97.3074","0.7366","270","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R28","4.7k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","17.3134","27.4574","270","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R26","4.7k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","17.9324","39.9796","360","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R29","330","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","26.9654","36.3474","360","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R27","330","TopLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","25.1206","39.0398","90","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R24","10k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","2.9210","38.8112","180","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R22","4.7k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","23.0284","18.9484","180","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R19","100k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","2.7084","15.5194","0","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R18","33k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","2.7084","16.9164","180","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R21","100k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","32.0294","24.2824","0","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R20","33k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","33.8234","25.8064","360","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"U8","MCP73831T-2DCI/OT","BottomLayer","SOT-23-OT5_N","SOT23, 5-Leads, Body 2.9x1.7mm, Pitch 0.95mm, Lead Span 2.8mm, IPC Medium Density","7.0104","26.5684","360","Miniature Single-Cell, Fully Integrated Li-Ion, Li-Polymer Charge Management Controller, 4.2V, 5-Pin SOT-23, Industrial Temperature, Tape and Reel"
-"U10","LP3985IM5-3.3","TopLayer","MF05A_N","SOT23, 5-Leads, Body 2.9x1.6mm, Pitch 0.95mm, Lead Span 2.8mm, IPC Medium Density","47.9204","2.7084","360","Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-"U9","TLV70018DCKR","BottomLayer","TI-DCK5_V","SOT23, 5-Leads, Body 2x1.25mm, Pitch 0.65mm","107.5944","29.4894","270","Single Output LDO, 200 mA, Fixed 1.8 V Output, 2 to 5.5 V Input, with Low IQ, 5-pin SC70 (DCK), -40 to 125 degC, Green (RoHS & no Sb/Br)"
-"U7","LP3985IM5-3.3","BottomLayer","MF05A_N","SOT23, 5-Leads, Body 2.9x1.6mm, Pitch 0.95mm, Lead Span 2.8mm, IPC Medium Density","114.4524","22.3774","180","Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-"U6","LP3985IM5-3.3","BottomLayer","MF05A_N","SOT23, 5-Leads, Body 2.9x1.6mm, Pitch 0.95mm, Lead Span 2.8mm, IPC Medium Density","118.5164","15.5194","90","Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-"U4","LP3985IM5-3.3","BottomLayer","MF05A_N","SOT23, 5-Leads, Body 2.9x1.6mm, Pitch 0.95mm, Lead Span 2.8mm, IPC Medium Density","109.1184","35.4584","180","Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-"U5","SGTL5000","BottomLayer","QFN32","","114.5794","29.1914","270","SGTL5000"
-"U1","SGTL5000","BottomLayer","QFN32","","113.4364","8.4074","270","SGTL5000"
-"U2","MAX9788","TopLayer","MAX9788","QFN, 28-Leads, Body 4.00x4.00mm, Pitch 0.40mm, Thermal Pad 2.60x2.60mm, IPC Medium Density","114.0714","3.8354","180","audio amp"
-"U3","LP3985IM5-3.3","TopLayer","MF05A_N","SOT23, 5-Leads, Body 2.9x1.6mm, Pitch 0.95mm, Lead Span 2.8mm, IPC Medium Density","81.4084","4.7284","270","Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-"U20","ATmega8-16AC","BottomLayer","32M1-A_M","QFN, 32-Leads, Body 5x5mm, Pitch 0.5mm, Thermal Pad 3.3x3.3mm, IPC Low Density","33.1724","33.1724","270","8-Bit AVR Microcontroller with 8K Bytes of In-System Programmable Flash Memory"
-"U18","Level Shifter","BottomLayer","DHVQFN14","QFN, 14-Leads, Body 2.50x3.00mm, Pitch 0.50mm, Thermal Pad 1.00x1.50mm, IPC Medium Density","13.2748","3.2004","360","Voltage level translator"
-"U17","ICM20948","BottomLayer","MPU6500","QFN, 24-Leads, Body 3.00x3.00mm, Pitch 0.40mm, Thermal Pad 1.54x1.54mm, IPC Medium Density","6.4008","4.0314","90","Invensense"
-"U16","MS5837","TopLayer","MS5837","","20.7104","36.2044","90","Pressure/Temp"
-"U14","Keller7LD","TopLayer","Keller7LD","","8.9154","32.1564","180","Keller Pressure/Temp"
-"U13","TPS62740","BottomLayer","TPS6274x","QFN, 12-Leads, Body 2.00x3.00mm, Pitch 0.50mm, Thermal Pad 0.90x2.00mm, IPC Medium Density","18.6778","7.2644","90",""
-"U12","LP3985IM5-3.3","BottomLayer","MF05A_N","SOT23, 5-Leads, Body 2.9x1.6mm, Pitch 0.95mm, Lead Span 2.8mm, IPC Medium Density","19.3294","33.9344","270","Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-"R25","20k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","118.2624","21.2344","360","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"P1","Teensy Surface","BottomLayer","TEENSY3.2_surface_mount","","89.6874","19.4564","180",""
-"P10","Teensy Surface","BottomLayer","TEENSY3.2_surface_mount","","56.2864","19.4564","180",""
-"R30","10k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","9.8044","6.6548","270","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-"R31","10k","BottomLayer","3-0603","Chip Resistor; Body 1.6 x 0.9 mm (LxW typ)","9.4234","1.4986","270","Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+Designator,Comment,Layer,Footprint,Center-X(mm),X,Center-Y(mm),Rotation,Description
+*1,8MHz,BottomLayer,XTAL-ABM3,30.352,-30.352,4.1558,0,
+C1,0.1uF,BottomLayer,402,105.6884,-105.6884,-24.9526,90,Ceramic Chip Capacitor - Standard
+C17,0.1uF,BottomLayer,402,107.1362,-107.1362,-3.9976,90,Ceramic Chip Capacitor - Standard
+C19,1.0uF,BottomLayer,402,101.837,-101.837,1.7428,180,Ceramic Chip Capacitor - Standard
+C2,1.0uF,BottomLayer,402,116.1278,-116.1278,-29.9818,180,Ceramic Chip Capacitor - Standard
+C20,1uF,BottomLayer,402,108.06,-108.06,1.3618,270,Ceramic Chip Capacitor - Standard
+C21,0.01uF,BottomLayer,402,101.837,-101.837,-0.2892,180,Ceramic Chip Capacitor - Standard
+C22,0.1uF,BottomLayer,402,110.6,-110.6,-1.3052,180,Ceramic Chip Capacitor - Standard
+C24,1.0uF,BottomLayer,402,115.68,-115.68,-15.6562,90,Ceramic Chip Capacitor - Standard
+C25,1uF,BottomLayer,402,115.807,-115.807,-22.2452,270,Ceramic Chip Capacitor - Standard
+C26,0.1uF,BottomLayer,402,111.87,-111.87,-9.4332,0,Ceramic Chip Capacitor - Standard
+C27,0.01uF,BottomLayer,402,113.775,-113.775,-15.6562,90,Ceramic Chip Capacitor - Standard
+C28,0.1uF,BottomLayer,402,114.791,-114.791,-3.5912,90,Ceramic Chip Capacitor - Standard
+C29,10uF,BottomLayer,Tant0805,67.8932,-67.8932,-27.7974,180,
+C3,1.0uF,BottomLayer,402,117.1438,-117.1438,-26.3242,270,Ceramic Chip Capacitor - Standard
+C30,1.0uF,BottomLayer,402,15.35,-15.35,1.9968,0,Ceramic Chip Capacitor - Standard
+C31,1.0uF,BottomLayer,402,107.044,-107.044,-11.3382,180,Ceramic Chip Capacitor - Standard
+C32,1uF,BottomLayer,402,114.41,-114.41,-11.3382,0,Ceramic Chip Capacitor - Standard
+C33,0.01uF,BottomLayer,402,107.171,-107.171,-13.3702,180,Ceramic Chip Capacitor - Standard
+C34,1uF,BottomLayer,Tant0805,6.73,-6.73,-6.8932,180,
+C35,1uF,BottomLayer,Tant0805,-0.144,0.144,-7.5282,90,
+C36,1.0uF,BottomLayer,402,116.823,-116.823,-11.3382,90,Ceramic Chip Capacitor - Standard
+C37,1.0uF,BottomLayer,402,103.615,-103.615,-2.8292,0,Ceramic Chip Capacitor - Standard
+C38,1.0uF,BottomLayer,402,102.5642,-102.5642,-7.4774,180,Ceramic Chip Capacitor - Standard
+C4,0.1uF,BottomLayer,402,109.584,-109.584,-22.2602,180,Ceramic Chip Capacitor - Standard
+C41,1.0uF,BottomLayer,402,116.5088,-116.5088,-4.8612,270,Ceramic Chip Capacitor - Standard
+C43,0.01uF,BottomLayer,402,16.62,-16.62,-4.3532,90,Ceramic Chip Capacitor - Standard
+C47,1.ouF,BottomLayer,402,14.604,-14.604,-4.2262,270,Ceramic Chip Capacitor - Standard
+C5,0.1uF,BottomLayer,402,104.774,-104.774,-30.8962,180,Ceramic Chip Capacitor - Standard
+C51,0.1uF,BottomLayer,402,31.225,-31.225,-22.5396,0,Ceramic Chip Capacitor - Standard
+C6,0.1uF,BottomLayer,402,114.2736,-114.2736,-24.1652,90,Ceramic Chip Capacitor - Standard
+C62,0.1uF,BottomLayer,402,-1.1346,1.1346,5.3496,180,Ceramic Chip Capacitor - Standard
+C63,100pF,BottomLayer,402,25.779,-25.779,4.2828,270,Ceramic Chip Capacitor - Standard
+C64,100pF,BottomLayer,402,34.924,-34.924,4.2828,270,Ceramic Chip Capacitor - Standard
+C65,0.1uF,BottomLayer,402,29.955,-29.955,-6.7662,270,Ceramic Chip Capacitor - Standard
+C7,10uF,BottomLayer,Tant0805,99.6432,-99.6432,-28.5086,90,
+P1,Teensy Surface,BottomLayer,TEENSY3.2_surface_mount,85.962,-85.962,-15.2752,180,
+P10,Teensy Surface,BottomLayer,TEENSY3.2_surface_mount,52.561,-52.561,-15.2752,180,
+Q1,DMN5L06TK-7,BottomLayer,SOT-523,70.611,-70.611,-0.0352,90,Ultra-low leakage Enhanced MOSFET
+Q2,DMN5L06TK-7,BottomLayer,SOT-523,-3.573,3.573,-29.8802,90,Ultra-low leakage Enhanced MOSFET
+R12,2k,BottomLayer,3-0603,6.984,-6.984,-9.1792,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R13,330,BottomLayer,3-0603,-3.4206,3.4206,-17.2056,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R14,4.7k,BottomLayer,3-0603,67.039,-67.039,-9.1792,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R15,4.7k,BottomLayer,3-0603,69.452,-69.452,-9.1792,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R18,33k,BottomLayer,3-0603,22.0208,-22.0208,-15.3514,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R19,100k,BottomLayer,3-0603,22.0208,-22.0208,-16.7484,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R20,33k,BottomLayer,3-0603,30.098,-30.098,-8.9252,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R21,100k,BottomLayer,3-0603,28.304,-28.304,-10.4492,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R22,4.7k,BottomLayer,3-0603,35.1366,-35.1366,-26.7814,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R24,10k,BottomLayer,3-0603,-0.8044,0.8044,4.0796,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R25,20k,BottomLayer,3-0603,114.537,-114.537,-13.4972,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R26,4.7k,BottomLayer,3-0603,14.207,-14.207,5.248,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R28,4.7k,BottomLayer,3-0603,13.588,-13.588,-7.2742,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+U1,SGTL5000,BottomLayer,QFN32,109.711,-109.711,-26.3242,270,SGTL5000
+U12,LP3985IM5-3.3,BottomLayer,MF05A_N,15.604,-15.604,-0.7972,270,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U15,DS3231,BottomLayer,DS3231,28.1402,-28.1402,-29.3722,180,
+U20,ATmega8-16AC,BottomLayer,32M1-A_M,29.447,-29.447,-1.5592,270,8-Bit AVR Microcontroller with 8K Bytes of In-System Programmable Flash Memory
+U4,LP3985IM5-3.3,BottomLayer,MF05A_N,105.393,-105.393,0.7268,180,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U5,SGTL5000,BottomLayer,QFN32,110.854,-110.854,-5.5402,270,SGTL5000
+U6,LP3985IM5-3.3,BottomLayer,MF05A_N,114.791,-114.791,-19.2122,90,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U7,LP3985IM5-3.3,BottomLayer,MF05A_N,110.727,-110.727,-12.3542,180,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U8,MCP73831T-2DCI/OT,BottomLayer,SOT-23-OT5_N,3.285,-3.285,-8.1632,0,"Miniature Single-Cell, Fully Integrated Li-Ion, Li-Polymer Charge Management Controller, 4.2V, 5-Pin SOT-23, Industrial Temperature, Tape and Reel"
+U9,TLV70018DCKR,BottomLayer,TI-DCK5_V,103.869,-103.869,-5.2422,270,"Single Output LDO, 200 mA, Fixed 1.8 V Output, 2 to 5.5 V Input, with Low IQ, 5-pin SC70 (DCK), -40 to 125 degC, Green (RoHS & no Sb/Br)"
+C10,0.1uF,TopLayer,402,114.156,-114.156,-29.7532,90,Ceramic Chip Capacitor - Standard
+C11,.47uF,TopLayer,402,112.759,-112.759,-23.7842,180,Ceramic Chip Capacitor - Standard
+C12,0.47uF,TopLayer,402,109.203,-109.203,-23.6572,0,Ceramic Chip Capacitor - Standard
+C13,1uF,TopLayer,402,78.723,-78.723,-26.3242,90,Ceramic Chip Capacitor - Standard
+C14,1uF,TopLayer,402,78.723,-78.723,-33.9442,270,Ceramic Chip Capacitor - Standard
+C15,0.01uF,TopLayer,402,76.691,-76.691,-33.9442,270,Ceramic Chip Capacitor - Standard
+C16,C0603,TopLayer,603,106.5774,-106.5774,-33.2584,0,Ceramic Chip Capacitor - Standard
+C39,1uF,TopLayer,402,40.512,-40.512,-31.0232,180,Ceramic Chip Capacitor - Standard
+C40,1uF,TopLayer,402,47.624,-47.624,-31.0072,0,Ceramic Chip Capacitor - Standard
+C42,.01uF,TopLayer,402,47.624,-47.624,-33.0392,180,Ceramic Chip Capacitor - Standard
+C53,0.1uF,TopLayer,402,16.509,-16.509,-2.3212,0,Ceramic Chip Capacitor - Standard
+C8,C0603,TopLayer,603,115.172,-115.172,-31.9122,180,Ceramic Chip Capacitor - Standard
+C9,C0603,TopLayer,603,115.68,-115.68,-29.4992,270,Ceramic Chip Capacitor - Standard
+D1,LED_0603,TopLayer,Diode0603,82.8792,-82.8792,3.6224,180,
+D2,LED_0603,TopLayer,Diode0603,0.237,-0.237,-18.5518,180,
+D3,LED_0603,TopLayer,Diode0603,49.513,-49.513,3.6478,0,
+D4,LED_0603,TopLayer,Diode0603,23.9606,-23.9606,5.1718,0,
+D5,LED_0603,TopLayer,Diode0603,23.9098,-23.9098,3.1652,180,
+P11,GND Tie,TopLayer,HDR1X2,99.932,-99.932,4.1558,180,"Header, 2-Pin"
+P12,HYDROPHONE,TopLayer,HDR1X3,118.982,-118.982,-11.9732,90,"Header, 3-Pin"
+P13,microUSB-vert,TopLayer,MICROUSB-VERT,68.754,-68.754,-16.4482,270,Molex 105133-0011
+P14,HYDROPHONE,TopLayer,HDR1X3,118.982,-118.982,-3.8452,90,"Header, 3-Pin"
+P15,USB,TopLayer,HDR_2x1_2mm,53.696,-53.696,-34.9602,270,Charging Connector
+P16,Display,TopLayer,HDR1X4,115.172,-115.172,1.6158,0,"Header, 4-Pin"
+P17,microSD-Molex,TopLayer,microSD_Molex_hinged,59.165,-59.165,-16.4182,90,
+P18,Battery,TopLayer,HDR1X2,73.151,-73.151,2.8858,180,"Header, 2-Pin"
+P19,DIP1,TopLayer,DIP1,28.701,-28.701,-7.0202,0,
+P2,HYDROPHONE,TopLayer,HDR1X3,118.982,-118.982,-30.0072,90,"Header, 3-Pin"
+P20,Header 6,TopLayer,HDR1X6,8.0602,-8.0602,-35.4428,180,"Header, 6-Pin"
+P21,Battery,TopLayer,HDR1X2,-3.811,3.811,-12.6082,270,"Header, 2-Pin"
+P22,Header 3,TopLayer,HDR1X3,113.775,-113.775,5.5528,180,"Header, 3-Pin"
+P24,Header 4,TopLayer,HDR1X4,6.206,-6.206,5.0448,0,"Header, 4-Pin"
+P25,microSD-Molex,TopLayer,microSD_Molex_hinged,27.7104,-27.7104,-16.6722,90,
+P26,Tactile,TopLayer,Tactile-B3U-1000,19.557,-19.557,-16.5198,90,
+P27,AVR SPI,TopLayer,HDR2X3,39.496,-39.496,3.7748,0,"Header, 3-Pin, Dual row"
+P28,Custom program 2x5,TopLayer,Header_2x5_50mil,37.3878,-37.3878,-16.0626,180,
+P29,Header 5,TopLayer,HDR1X5,-3.827,3.827,-0.9242,90,"Header, 5-Pin"
+P3,HYDROPHONE,TopLayer,HDR1X3,118.982,-118.982,-21.7522,90,"Header, 3-Pin"
+P30,Header 2,TopLayer,HDR1X2,-3.6238,3.6238,-25.0796,90,"Header, 2-Pin"
+P4,Tactile,TopLayer,Tactile-B3U-1000,93.0646,-93.0646,-6.7662,0,
+P5,PIEZO,TopLayer,HDR_2x1_2mm,102.9532,-102.9532,-34.7316,90,Charging Connector
+P6,microUSB-vert,TopLayer,MICROUSB-VERT,101.139,-101.139,-15.4322,270,Molex 105133-0011
+P7,USB,TopLayer,HDR_2x1_2mm,87.097,-87.097,-34.9602,270,Charging Connector
+P8,microSD-Molex,TopLayer,microSD_Molex_hinged,91.296,-91.296,-15.6562,90,
+P9,Tactile,TopLayer,Tactile-B3U-1000,60.832,-60.832,-7.5028,180,
+R1,20k,TopLayer,3-0603,115.172,-115.172,-33.1822,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R10,4.7k,TopLayer,3-0603,95.233,-95.233,-33.9442,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R11,330,TopLayer,3-0603,86.9432,-86.9432,3.5208,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R16,20k,TopLayer,3-0603,40.512,-40.512,-32.9122,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R17,330,TopLayer,3-0603,46.735,-46.735,1.4888,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R2,10X,TopLayer,3-0603,105.7646,-105.7646,-31.836,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R27,330,TopLayer,3-0603,21.3952,-21.3952,4.3082,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R29,330,TopLayer,3-0603,23.24,-23.24,1.6158,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R3,10K,TopLayer,3-0603,112.775,-112.775,-27.137,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R4,10K,TopLayer,3-0603,112.648,-112.648,-25.1558,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R5,10K,TopLayer,3-0603,109.457,-109.457,-25.3082,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R6,10K,TopLayer,3-0603,109.457,-109.457,-26.7052,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R7,100K,TopLayer,3-0603,106.917,-106.917,-25.6892,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R8,4.7k,TopLayer,3-0603,93.582,-93.582,-33.995,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R9,20k,TopLayer,3-0603,76.691,-76.691,-26.1972,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+U10,LP3985IM5-3.3,TopLayer,MF05A_N,44.195,-44.195,-32.0232,0,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U14,Keller7LD,TopLayer,Keller7LD,5.19,-5.19,-2.5752,180,Keller Pressure/Temp
+U16,MS5837,TopLayer,MS5837,16.985,-16.985,1.4728,90,Pressure/Temp
+U2,MAX9788,TopLayer,MAX9788,110.346,-110.346,-30.8962,180,audio amp
+U3,LP3985IM5-3.3,TopLayer,MF05A_N,77.683,-77.683,-30.0032,270,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
