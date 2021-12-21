@@ -1,5 +1,11 @@
-// Copyright Loggerhead Instruments, 2020
+// Copyright Loggerhead Instruments, 2021
 // David Mann
+
+// This version does not record to microSD, it will transmit data over serial
+// To do:
+// - read settings at start from Record Teensy
+// - after trigger record Teensy to start, begin streaming motion data
+// - sleep motion board when not using
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
 // ATMEGA328p: low-power motion datalogging
@@ -38,7 +44,6 @@
 // 20 Hz on motion sensors; clock prescaler = 2;
 
 #include <SPI.h>
-#include <SdFat.h>
 #include <MsTimer2.h> 
 #include <avr/sleep.h>
 #include <avr/power.h>
@@ -63,7 +68,7 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2021-12-02";
+char codeVer[12] = "2021-12-21";
 
 unsigned long recDur = 120; // minutes 1140 = 24 hours
 int recInt = 0;
@@ -71,7 +76,6 @@ int LED_EN = 1; //enable green LEDs flash 1x per pressure read. Can be disabled 
 
 boolean HALL_EN = 0; 
 boolean HALL_LED_EN = 0; //flash red LED for Hall sensor
-boolean SD_INIT = 1;
 
 //#define pressAddress 0x76
 //float MS58xx_constant = 8192.0; // for 30 bar sensor
@@ -118,10 +122,6 @@ byte depthIndex = 0;
 #define REC_STATUS A0 // Rev 2 of board
 #define PLAY_STATUS A6 // Rev 2 of board
 
-// SD file system
-SdFat sd;
-File dataFile;
-int fileCount; 
 
 int ssCounter; // used to get different sample rates from one timer based on imu_srate
 byte clockprescaler=2;  //clock prescaler
@@ -159,6 +159,8 @@ volatile int spin;
 // System Modes and Status
 int mode = 0; //standby = 0; running = 1
 volatile float voltage;
+volatile boolean writeSlowSensorsFlag = 0;
+volatile boolean writeMotionSensorsFlag = 0;
 
 // Time
 volatile byte second = 0;
@@ -197,30 +199,19 @@ void setup() {
 
   Wire.begin();
   Wire.setClock(400000);
-  if(!sd.begin(chipSelect, SPI_FULL_SPEED)){
-    digitalWrite(LED_RED, HIGH);
-    digitalWrite(LED_GRN, LOW);
-    delay(1000);
-    SD_INIT = 0;
-  }
-  
-  if (SD_INIT) loadScript(); // do this early to set time
   
   // recalculate sample rates in case changed from script
   slowRateMultiple = imuSrate / sensorSrate;
   speriod = 1000 / imuSrate;
 
   initSensors();
-
   // this sometimes fails
   // critical to update time here
   while(readRTC()==0){ 
     delay(100);
   }
   startUnixTime = t; // time tag turned on
-  if(SD_INIT) logFileWrite();
   digitalWrite(BURN, LOW); // power down IMU
-
 
   if(startTime==0) startTime = t + 5;
 //  Serial.print("Time:"); Serial.println(t);
@@ -230,12 +221,12 @@ void setup() {
   delay(10);
 
   wdtInit();  // used to wake from sleep
-  setClockPrescaler(clockprescaler); // set clockprescaler from script file
-
+  setClockPrescaler(clockprescaler); // set clockprescaler from script file; this affects the baud rate
 }
 
 void loop() {
-  
+
+  // wait in mode 0 while delay to play is in effect and while checkPlay is waiting to start record
   while(mode==0){
    // resetWdt();
    digitalWrite(BURN, HIGH); // power on IMU because may be messing with I2C
@@ -257,51 +248,35 @@ void loop() {
     if(t >= startTime){
       endTime = startTime + (recDur * 60);
       startTime += (recDur * 60) + recInt;  // this will be next start time for interval record      mpuInit(1);
-      if(SD_INIT) fileInit();
       digitalWrite(BURN, HIGH); // power on IMU
       delay(5);
       myICM.begin( Wire, 1 );
      // icmSetup();
      // updateTemp();  // get first reading ready
       mode = 1;
-      startInterruptTimer(speriod, clockprescaler);
-      attachInterrupt(digitalPinToInterrupt(HALL), spinCount, RISING);
+      setClockPrescaler(0); // run full speed during data acquisition so have full bandwidth serial
+      startInterruptTimer(speriod, 0);
+      if(HALL_EN) attachInterrupt(digitalPinToInterrupt(HALL), spinCount, RISING);
     }
   } // mode = 0
 
   while(mode==1){
    // resetWdt();
    if((t - startUnixTime) > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
-    // check if time to close
-    if(t>=endTime){
-      stopTimer();
-      if(SD_INIT) dataFile.close(); // close file
-      
-      if(recInt==0){  // no interval between files
-        endTime += (recDur * 60);  // update end time
-        if(SD_INIT)  fileInit();
-        startInterruptTimer(speriod, clockprescaler);
-      }
-      else{
-        mode = 0;
-        wdtInit(); // start wdt
-      }
-    }
 
-    // Check if stop button pressed
-    if(digitalRead(BUTTON1)==0){
-      delay(10); // simple deBounce
-      if(digitalRead(BUTTON1)==0){
-        stopTimer();
-        digitalWrite(LED_RED, HIGH); 
-        dataFile.close();
-        delay(30000);
-        // wait 30 s to stop
-        startInterruptTimer(speriod, clockprescaler);
-        if(SD_INIT) fileInit();
-        digitalWrite(LED_RED, LOW);
-      }
-    }
+   // check if data to write over serial
+
+   if(writeMotionSensorsFlag){
+      serialWriteImu(); // write IMU to Serial
+      writeMotionSensorsFlag = 0;
+      if(writeSlowSensorsFlag==0) Serial.println();
+   }
+   
+   if(writeSlowSensorsFlag){
+    serialWriteSlowSensors();
+    writeSlowSensorsFlag = 0;
+   }
+
   
     daysFromStart = (float) (t - startUnixTime) / 86400.0;
     if((daysFromStart >= delayRecPlayDays) & (daysFromStart < maxPlayDays)) {
@@ -325,8 +300,8 @@ void spinCount(){
 void initSensors(){
   delay(2000);
   readVoltage();
-  Serial.print(voltage);
-  Serial.println("V");
+//  Serial.print(voltage);
+//  Serial.println("V");
 
   // Sends DT to Record Teensy
   readRTC();
@@ -397,7 +372,7 @@ void initSensors(){
    // Serial.print(digitalRead(REC_STATUS));
     delay(500);
   }
-  digitalWrite(REC_POW, LOW);
+  // digitalWrite(REC_POW, LOW);
   digitalWrite(PLAY_POW, LOW);
 }
 
@@ -430,95 +405,48 @@ void initSensors(){
 //  Serial.println(myICM.gyrZ());
 //}
 
-void fileWriteImu(){
-  dataFile.print(myICM.accX()); dataFile.print(",");
-  dataFile.print(myICM.accY()); dataFile.print(",");
-  dataFile.print(myICM.accZ()); dataFile.print(",");
-  dataFile.print(myICM.magX()); dataFile.print(",");
-  dataFile.print(myICM.magY()); dataFile.print(",");
-  dataFile.print(myICM.magZ()); dataFile.print(",");
-  dataFile.print(myICM.gyrX()); dataFile.print(",");
-  dataFile.print(myICM.gyrY()); dataFile.print(",");
-  dataFile.print(myICM.gyrZ());
+void serialWriteImu(){
+  Serial.print(myICM.accX()); Serial.print(",");
+  Serial.print(myICM.accY()); Serial.print(",");
+  Serial.print(myICM.accZ()); Serial.print(",");
+  Serial.print(myICM.magX()); Serial.print(",");
+  Serial.print(myICM.magY()); Serial.print(",");
+  Serial.print(myICM.magZ()); Serial.print(",");
+  Serial.print(myICM.gyrX()); Serial.print(",");
+  Serial.print(myICM.gyrY()); Serial.print(",");
+  Serial.print(myICM.gyrZ());
 }
 
-void fileWriteSlowSensors(){
+void serialWriteSlowSensors(){
   //Serial.println(depth);
-  dataFile.print(','); dataFile.print(year);  
-  dataFile.print('-');
-  if(month < 10) dataFile.print('0');
-  dataFile.print(month);
-  dataFile.print('-');
-  if(day < 10) dataFile.print('0');
-  dataFile.print(day);
-  dataFile.print('T');
-  if(hour < 10) dataFile.print('0');
-  dataFile.print(hour);
-  dataFile.print(':');
-  if(minute < 10) dataFile.print('0');
-  dataFile.print(minute);
-  dataFile.print(':');
-  if(second < 10) dataFile.print('0');
-  dataFile.print(second);
-  dataFile.print(",");
-  dataFile.print(pressure_mbar);
-  dataFile.print(','); dataFile.print(depth);
-  dataFile.print(','); dataFile.print(temperature);
-  dataFile.print(','); dataFile.print(voltage);
-  dataFile.print(','); dataFile.print(REC_STATE);
-  dataFile.print(','); dataFile.print(PLAY_STATE);
+  Serial.print(','); Serial.print(year);  
+  Serial.print('-');
+  if(month < 10) Serial.print('0');
+  Serial.print(month);
+  Serial.print('-');
+  if(day < 10) Serial.print('0');
+  Serial.print(day);
+  Serial.print('T');
+  if(hour < 10) Serial.print('0');
+  Serial.print(hour);
+  Serial.print(':');
+  if(minute < 10) Serial.print('0');
+  Serial.print(minute);
+  Serial.print(':');
+  if(second < 10) Serial.print('0');
+  Serial.print(second);
+  Serial.print(",");
+  Serial.print(pressure_mbar);
+  Serial.print(','); Serial.print(depth);
+  Serial.print(','); Serial.print(temperature);
+  Serial.print(','); Serial.print(voltage);
+  Serial.print(','); Serial.print(REC_STATE);
+  Serial.print(','); Serial.print(PLAY_STATE);
   if(HALL_EN){
-      dataFile.print(','); dataFile.print(spin);
+      Serial.print(','); Serial.print(spin);
   }
-}
-
-void logFileWrite()
-{
-   readRTC();
-   
-   File logFile = sd.open("log.txt", O_WRITE | O_CREAT | O_APPEND);
-   logFile.print("Code version:"); logFile.println(codeVer);
-   logFile.print("Serial Number: ");
-   for (uint8_t i = 14; i < 24; i += 1) {
-       logFile.print(boot_signature_byte_get(i), HEX);
-   }
-   logFile.println();
-//   if(MS58xx_constant == 8192.0) {
-//    logFile.println("30 Bar");
-//   }
-//   else{
-//    logFile.println("2 Bar");
-//   }
-   
-   logFile.print(year);  logFile.print("-");
-   logFile.print(month); logFile.print("-");
-   logFile.print(day); logFile.print("T");
-   logFile.print(hour); logFile.print(":");
-   logFile.print(minute); logFile.print(":");
-   logFile.println(second);
-
-   logFile.close();
-}
-
-void fileInit()
-{
-   char filename[60];
-   sprintf(filename,"%02d%02d%02dT%02d%02d%02d.csv", year, month, day, hour, minute, second);  //filename is DDHHMM
-   dataFile = sd.open(filename, O_WRITE | O_CREAT | O_APPEND);
-   while (!dataFile){
-    digitalWrite(LED_RED, HIGH);
-    fileCount += 1;
-    //sprintf(filename,"F%06d.txt",fileCount); //if can't open just use count
-    dataFile = sd.open(filename, O_WRITE | O_CREAT | O_EXCL);
-   // Serial.println(filename);
-    delay(100);
-   }
-   digitalWrite(LED_RED, LOW);
-   dataFile.print("accelX,accelY,accelZ,magX,magY,magZ,gyroX,gyroY,gyroZ,date,mBar,depth,temp,V,rec,play");
-   if(HALL_EN) dataFile.print(",spin");
-   dataFile.println();
-   SdFile::dateTimeCallback(file_date_time);
-  // Serial.println(filename);
+  Serial.println();
+  Serial.flush();
 }
 
 /********************************************************************
@@ -529,7 +457,7 @@ void sampleSensors(void){
 
    // calcImu();
     myICM.getAGMT();
-    if(SD_INIT) fileWriteImu();
+    writeMotionSensorsFlag = 1;
 
 //  // MS58xx start temperature conversion half-way through
   if((ssCounter>=(0.5 * slowRateMultiple))  & togglePress){ 
@@ -550,21 +478,15 @@ void sampleSensors(void){
     readRTC();
     //calcPressTemp(); // MS58xx pressure and temperature
     readVoltage();
-    if(SD_INIT) fileWriteSlowSensors();
-    checkPlay();
+    writeSlowSensorsFlag = 1;
+    
+    // checkPlay();
     ssCounter = 0;
     spin = 0; //reset spin counter
     digitalWrite(LED_GRN, LOW);
   }
-  if(SD_INIT)  dataFile.println();
 }
 
-//This function returns the date and time for SD card file access and modify time. One needs to call in setup() to register this callback function: SdFile::dateTimeCallback(file_date_time);
-void file_date_time(uint16_t* date, uint16_t* time) 
-{
-  *date=FAT_DATE(year + 2000,month,day);
-  *time=FAT_TIME(hour,minute,second);
-}
 
 void readVoltage(){
   voltage = analogRead(BAT_VOLTAGE) * 0.0042;

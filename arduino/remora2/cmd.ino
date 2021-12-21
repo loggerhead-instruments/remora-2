@@ -222,52 +222,52 @@ boolean loadScript()
   char s[30];
   char c;
   short i;
-
-  File file;
-  unsigned long TM_byte;
-  int comment_TM = 0;
-
-  // Read card setup.txt file to set date and time, recording interval
- file=sd.open("setup.txt");
- if(file)
- {
-   do{
-        i = 0;
-        s[i] = 0;
-        do{
-            c = file.read();
-            if(c!='\r') s[i++] = c;
-            if(c=='T') 
-            {
-              TM_byte = file.position() - 1;
-              comment_TM = 1;
-            }
-            if(i>29) break;
-          }while(c!='\n');
-          s[--i] = 0;
-          if(s[0] != '/' && i>1)
-          {
-            ProcCmd(s);
-          }
-      }while(file.available());
-      file.close();  
-      
-      // comment out TM line if it exists
-      if (comment_TM)
-      {
-//        Serial.print("Comment TM ");
-//        Serial.println(TM_byte);
-        file = sd.open("setup.txt", FILE_WRITE);
-        file.seek(TM_byte);
-        file.print("//");
-        file.close();
-      }
-      
-  }
-  else
-  {   
-  //  Serial.println("no file");
-    return 0;
-  }
+//
+//  File file;
+//  unsigned long TM_byte;
+//  int comment_TM = 0;
+//
+//  // Read card setup.txt file to set date and time, recording interval
+// file=sd.open("setup.txt");
+// if(file)
+// {
+//   do{
+//        i = 0;
+//        s[i] = 0;
+//        do{
+//            c = file.read();
+//            if(c!='\r') s[i++] = c;
+//            if(c=='T') 
+//            {
+//              TM_byte = file.position() - 1;
+//              comment_TM = 1;
+//            }
+//            if(i>29) break;
+//          }while(c!='\n');
+//          s[--i] = 0;
+//          if(s[0] != '/' && i>1)
+//          {
+//            ProcCmd(s);
+//          }
+//      }while(file.available());
+//      file.close();  
+//      
+//      // comment out TM line if it exists
+//      if (comment_TM)
+//      {
+////        Serial.print("Comment TM ");
+////        Serial.println(TM_byte);
+//        file = sd.open("setup.txt", FILE_WRITE);
+//        file.seek(TM_byte);
+//        file.print("//");
+//        file.close();
+//      }
+//      
+//  }
+//  else
+//  {   
+//  //  Serial.println("no file");
+//    return 0;
+//  }
  return 1;  
 }

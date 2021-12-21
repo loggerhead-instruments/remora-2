@@ -7,11 +7,11 @@ void setup() {
 }
 
 void loop() {
-  int incomingByte;
+  byte incomingByte;
 
   if (HWSERIAL.available() > 0) {
     incomingByte = HWSERIAL.read();
-    if (incomingByte==13) Serial.println();
+    if (incomingByte==20) Serial.println();
     else Serial.write(incomingByte);
     
   }

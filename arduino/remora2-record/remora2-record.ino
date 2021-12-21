@@ -2,18 +2,23 @@
 // SNAP acoustic recorder
 //
 // Loggerhead Instruments
-// 2016-2019
+// 2016-2021
 // David Mann
 // 
 // Modified from PJRC audio code
 // http://www.pjrc.com/store/teensy3_audio.html
 //
-// Compile with 72 MHz Fastest
+// Compile with 96 MHz Fastest
 
 // Modified by WMXZ 15-05-2018 for SdFS anf multiple sampling frequencies
 // Optionally uses SdFS from Bill Greiman https://github.com/greiman/SdFs; but has higher current draw in sleep
 
-char codeVersion[12] = "2020-01-16";
+// To do
+// - load motion.txt and send values to atmega328p
+// - stream serial input to text file when recording audio file
+// - comment TM line if it exits
+
+char codeVersion[12] = "2021-12-21";
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics
 
 #define USE_SDFS 0  // to be used for exFAT but works also for FAT16/32
