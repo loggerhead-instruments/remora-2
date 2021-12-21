@@ -28,7 +28,6 @@ static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostic
 #include "LHI_record_queue.h"
 #include "control_sgtl5000.h"
 
-//#include <SerialFlash.h>
 #if USE_SDFS==0
   #include "input_i2s.h"
 //  #include "LHI_record_queue.h"
@@ -52,7 +51,6 @@ static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostic
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_FeatherOLED.h>
 #include <EEPROM.h>
-//#include <TimerOne.h>
 
 #define CPU_RESTART_ADDR (uint32_t *)0xE000ED0C
 #define CPU_RESTART_VAL 0x5FA0004
@@ -170,9 +168,11 @@ SnoozeBlock config_teensy32(snooze_audio, alarm);
 // The file where data is recorded
 #if USE_SDFS==1
   FsFile frec;
+  FsFile frecMotion;
   SdFs sd;
 #else
   File frec;
+  File frecMotion;
   SdFat sd;
   //SdFile file; // not used(WMXZ)
 #endif
@@ -297,10 +297,6 @@ void setup() {
 
   read_myID();
   
-
-
-
-  
   // Audio connections require memory, and the record queue
   // uses this memory to buffer incoming audio.
   // initialize now to estimate DC offset during setup
@@ -348,6 +344,14 @@ void loop() {
   // Record mode
   if (mode == 1) {
     continueRecording();  // download data  
+
+  byte incomingByte;
+  while (HWSERIAL.available() > 0) {
+    incomingByte = HWSERIAL.read();
+    frecMotion.write(incomingByte);
+    // Serial.write(incomingByte);
+  }
+    
     if(LEDSON) digitalWrite(ledGreen, HIGH);
     
     if(buf_count >= nbufs_per_file){       // time for new file?
@@ -371,6 +375,7 @@ void loop() {
 void startRecording() {
   if (printDiags)  Serial.println("startRecording");
   FileInit();
+  motionFileInit();
   buf_count = 0;
   queue1.begin();
   digitalWrite(REC_STATUS, HIGH);
@@ -414,6 +419,8 @@ void stopRecording() {
   AudioMemoryUsageMaxReset();
   //frec.timestamp(T_WRITE,(uint16_t) year(t),month(t),day(t),hour(t),minute(t),second);
   frec.close();
+  frecMotion.println("closing");
+  frecMotion.close();
   delay(100);
   digitalWrite(REC_STATUS, LOW);
 }
@@ -432,6 +439,19 @@ void sdInit(){
   }
 }
 
+void motionFileInit(){
+  sd.chdir(); // only to be sure to start from root
+  char motionFileName[100];
+  sprintf(motionFileName,"%04d%02d%02dT%02d%02d%02d_%lu%lu.csv", year(t), month(t), day(t), hour(t), minute(t), second(t), myID[0], myID[1]);  //filename is DDHHMMSS
+
+  #if USE_SDFS==1
+    if(frecMotion = sd.open(motionFileName,  O_CREAT | O_APPEND | O_WRITE)){
+  #else
+    if(frecMotion = sd.open(motionFileName,  O_CREAT | O_APPEND | O_WRITE)){
+  #endif
+    frecMotion.println("accelX,accelY,accelZ,magX,magY,magZ,gyroX,gyroY,gyroZ,date,mBar,depth,temp,V,rec,play");
+   }
+}
 
 void FileInit()
 {
