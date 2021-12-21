@@ -1,7 +1,7 @@
 // Copyright Loggerhead Instruments, 2020
 // David Mann
 
-// Remora2 is an underwater motion datalogger with audio recording and playback
+// Remora2-DTP is an underwater motion datalogger with depth-triggered audio recording
 // ATMEGA328p: low-power motion datalogging
 // Dual Teensy 3.2: Audio playback and record
 
@@ -63,7 +63,7 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2021-12-02";
+char codeVer[12] = "2021-11-10";
 
 unsigned long recDur = 120; // minutes 1140 = 24 hours
 int recInt = 0;
@@ -71,7 +71,6 @@ int LED_EN = 1; //enable green LEDs flash 1x per pressure read. Can be disabled 
 
 boolean HALL_EN = 0; 
 boolean HALL_LED_EN = 0; //flash red LED for Hall sensor
-boolean SD_INIT = 1;
 
 //#define pressAddress 0x76
 //float MS58xx_constant = 8192.0; // for 30 bar sensor
@@ -197,15 +196,13 @@ void setup() {
 
   Wire.begin();
   Wire.setClock(400000);
-  if(!sd.begin(chipSelect, SPI_FULL_SPEED)){
+  while(!sd.begin(chipSelect, SPI_FULL_SPEED)){
     digitalWrite(LED_RED, HIGH);
     digitalWrite(LED_GRN, LOW);
     delay(1000);
-    SD_INIT = 0;
   }
-  
-  if (SD_INIT) loadScript(); // do this early to set time
-  
+
+  loadScript(); // do this early to set time
   // recalculate sample rates in case changed from script
   slowRateMultiple = imuSrate / sensorSrate;
   speriod = 1000 / imuSrate;
@@ -218,7 +215,7 @@ void setup() {
     delay(100);
   }
   startUnixTime = t; // time tag turned on
-  if(SD_INIT) logFileWrite();
+  logFileWrite();
   digitalWrite(BURN, LOW); // power down IMU
 
 
@@ -231,7 +228,6 @@ void setup() {
 
   wdtInit();  // used to wake from sleep
   setClockPrescaler(clockprescaler); // set clockprescaler from script file
-
 }
 
 void loop() {
@@ -257,7 +253,7 @@ void loop() {
     if(t >= startTime){
       endTime = startTime + (recDur * 60);
       startTime += (recDur * 60) + recInt;  // this will be next start time for interval record      mpuInit(1);
-      if(SD_INIT) fileInit();
+      fileInit();
       digitalWrite(BURN, HIGH); // power on IMU
       delay(5);
       myICM.begin( Wire, 1 );
@@ -275,11 +271,11 @@ void loop() {
     // check if time to close
     if(t>=endTime){
       stopTimer();
-      if(SD_INIT) dataFile.close(); // close file
+      dataFile.close(); // close file
       
       if(recInt==0){  // no interval between files
         endTime += (recDur * 60);  // update end time
-        if(SD_INIT)  fileInit();
+        fileInit();
         startInterruptTimer(speriod, clockprescaler);
       }
       else{
@@ -298,7 +294,7 @@ void loop() {
         delay(30000);
         // wait 30 s to stop
         startInterruptTimer(speriod, clockprescaler);
-        if(SD_INIT) fileInit();
+        fileInit();
         digitalWrite(LED_RED, LOW);
       }
     }
@@ -386,13 +382,15 @@ void initSensors(){
 //  }
 
 
-  digitalWrite(REC_ST, HIGH);  // start recording
-  delay(3000);
-//  for(int i = 0; i<5; i++){
-//    Serial.print(digitalRead(REC_STATUS));
-//    delay(500);
-//  }
-  digitalWrite(REC_ST, LOW); // stop recording
+  while(1){
+    digitalWrite(LED_GRN, LOW);
+    digitalWrite(REC_ST, HIGH);  // start recording
+    delay(60000);
+    digitalWrite(REC_ST, LOW); // stop recording
+    digitalWrite(LED_GRN, HIGH);
+    delay(5000);
+  }
+  
   for(int i = 0; i<10; i++){
    // Serial.print(digitalRead(REC_STATUS));
     delay(500);
@@ -529,7 +527,7 @@ void sampleSensors(void){
 
    // calcImu();
     myICM.getAGMT();
-    if(SD_INIT) fileWriteImu();
+    fileWriteImu();
 
 //  // MS58xx start temperature conversion half-way through
   if((ssCounter>=(0.5 * slowRateMultiple))  & togglePress){ 
@@ -550,13 +548,13 @@ void sampleSensors(void){
     readRTC();
     //calcPressTemp(); // MS58xx pressure and temperature
     readVoltage();
-    if(SD_INIT) fileWriteSlowSensors();
+    fileWriteSlowSensors();
     checkPlay();
     ssCounter = 0;
     spin = 0; //reset spin counter
     digitalWrite(LED_GRN, LOW);
   }
-  if(SD_INIT)  dataFile.println();
+    dataFile.println();
 }
 
 //This function returns the date and time for SD card file access and modify time. One needs to call in setup() to register this callback function: SdFile::dateTimeCallback(file_date_time);
