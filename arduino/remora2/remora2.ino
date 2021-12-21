@@ -254,12 +254,15 @@ void loop() {
      // icmSetup();
      // updateTemp();  // get first reading ready
       mode = 1;
+      digitalWrite(REC_POW, HIGH);
+      digitalWrite(REC_ST, HIGH); // start recording audio
       setClockPrescaler(0); // run full speed during data acquisition so have full bandwidth serial
       startInterruptTimer(speriod, 0);
       if(HALL_EN) attachInterrupt(digitalPinToInterrupt(HALL), spinCount, RISING);
     }
   } // mode = 0
 
+  int counter = 0;
   while(mode==1){
    // resetWdt();
    if((t - startUnixTime) > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
@@ -275,6 +278,13 @@ void loop() {
    if(writeSlowSensorsFlag){
     serialWriteSlowSensors();
     writeSlowSensorsFlag = 0;
+    counter++;
+   }
+
+   // test stopping here
+   if(counter>60){
+    digitalWrite(LED_RED, HIGH);
+    digitalWrite(REC_ST, LOW);  // stop recording
    }
 
   
@@ -372,7 +382,7 @@ void initSensors(){
    // Serial.print(digitalRead(REC_STATUS));
     delay(500);
   }
-  // digitalWrite(REC_POW, LOW);
+  digitalWrite(REC_POW, LOW);
   digitalWrite(PLAY_POW, LOW);
 }
 
