@@ -1,4 +1,9 @@
 int checkPlay(){
+
+  // return if within time out period and not playing
+  // this is so it doesn't trigger playBackDepth thresholds
+  if (((t - playTime)/60 < minPlayBackInterval) & playNow==0) return 0;
+  
   if(depth > maxDepth) {
     maxDepth = depth; // track maximum depth
   }
@@ -53,6 +58,13 @@ int checkPlay(){
       PLAY_STATE = 0;
       playNow = 2;
     }
+  }
+
+  // in case playback fails, turn off recording after 3 minutes
+  if((playNow==1) & (t > playTime + 180)){
+    digitalWrite(PLAY_POW, LOW);
+    PLAY_STATE = 0;
+    playNow = 2;
   }
 
   // playNow state = 2
