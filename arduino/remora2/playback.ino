@@ -2,10 +2,6 @@ int checkPlay(){
 
   if(depth < 20.0) maxDepth = depth; // reset maxDepth when each dive ends
   
-  // return if within time out period and not playing
-  // this is so it doesn't trigger playBackDepth thresholds
-  if (((t - playTime)/60 < minPlayBackInterval) & playNow==0) return 0;
-  
   if(depth > maxDepth) {
     maxDepth = depth; // track maximum depth
   }

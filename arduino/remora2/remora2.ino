@@ -272,16 +272,20 @@ void loop() {
         delay(100);
         kellerRead(); // read new depth value
       }
-      // check if time to start recording; recording will start when checkPlay returns 1
-      if(checkPlay()==1){
-        digitalWrite(BURN, HIGH); // power on IMU
-        delay(5);
-        myICM.begin( Wire, 1 );
-       // icmSetup();
-       // updateTemp();  // get first reading ready
-        mode = 1;
-        setClockPrescaler(0); // run full speed during data acquisition so have full bandwidth serial
-        startInterruptTimer(speriod, 0);
+
+      // start tracking depths once minPlayBackInterval is exceeded
+      if (((t - playTime)/60 < minPlayBackInterval)){
+        // check if time to start recording; recording will start when checkPlay returns 1
+        if(checkPlay()==1){
+          digitalWrite(BURN, HIGH); // power on IMU
+          delay(5);
+          myICM.begin( Wire, 1 );
+         // icmSetup();
+         // updateTemp();  // get first reading ready
+          mode = 1;
+          setClockPrescaler(0); // run full speed during data acquisition so have full bandwidth serial
+          startInterruptTimer(speriod, 0);
+        }
       }
     }
   } // mode = 0
