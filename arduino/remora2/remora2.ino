@@ -274,7 +274,7 @@ void loop() {
       }
 
       // start tracking depths once minPlayBackInterval is exceeded
-      if (((t - playTime)/60 < minPlayBackInterval)){
+      if (((t - playTime)/60 > minPlayBackInterval)){
         // check if time to start recording; recording will start when checkPlay returns 1
         if(checkPlay()==1){
           digitalWrite(BURN, HIGH); // power on IMU
