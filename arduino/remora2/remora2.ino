@@ -4,8 +4,6 @@
 // This version does not record to microSD, it will transmit data over serial
 // To do:
 // - read settings at start from Record Teensy
-// - after trigger record Teensy to start, begin streaming motion data
-// - sleep motion board when not using
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
 // ATMEGA328p: low-power motion datalogging
@@ -89,8 +87,8 @@ float ascentRecordTrigger = 75.0; // after exceed playBackDepthThreshold, must a
 float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen
 int maxPlayBacks = 80; // maximum number of times to play
 unsigned int minPlayBackInterval = 540; // keep playbacks from being closer than x minutes
-float delayRecPlayDays = 14.0; // delay record/playback for x days.
-float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; e.g. 28 days
+float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
+float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; e.g. 42 days
 byte recMinutesAfterPlay = 2;
 
 // Playback status
@@ -101,7 +99,7 @@ volatile unsigned int nPlayed = 0;
 volatile boolean REC_STATE, PLAY_STATE;
 float daysFromStart;
 
-boolean simulateDepth = 0;
+boolean simulateDepth = 1;
 float depthProfile[] = {0.1, 500.0, 450.0, 420.0, 300.0, 10.0, 5.0, 50.0, 100.0, 200.0
                       }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
 byte depthIndex = 0;
@@ -161,6 +159,7 @@ int mode = 0; //standby = 0; running = 1
 volatile float voltage;
 volatile boolean writeSlowSensorsFlag = 0;
 volatile boolean writeMotionSensorsFlag = 0;
+volatile boolean changeToModeZero = 0;
 
 // Time
 volatile byte second = 0;
@@ -228,8 +227,8 @@ void loop() {
 
   // wait in mode 0 while delay to play is in effect and while checkPlay is waiting to start record
   while(mode==0){
-   // resetWdt();
-   digitalWrite(BURN, HIGH); // power on IMU because may be messing with I2C
+    // resetWdt();
+    digitalWrite(BURN, HIGH); // power on IMU because may be messing with I2C
     readRTC();
     digitalWrite(BURN, LOW); // power on IMU
     if((t - startUnixTime) > 3600){
@@ -245,58 +244,60 @@ void loop() {
     digitalWrite(LED_RED, LOW);
     enterSleep();
 
-    if(t >= startTime){
-      endTime = startTime + (recDur * 60);
-      startTime += (recDur * 60) + recInt;  // this will be next start time for interval record      mpuInit(1);
-      digitalWrite(BURN, HIGH); // power on IMU
-      delay(5);
-      myICM.begin( Wire, 1 );
-     // icmSetup();
-     // updateTemp();  // get first reading ready
-      mode = 1;
-      digitalWrite(REC_POW, HIGH);
-      digitalWrite(REC_ST, HIGH); // start recording audio
-      setClockPrescaler(0); // run full speed during data acquisition so have full bandwidth serial
-      startInterruptTimer(speriod, 0);
-      if(HALL_EN) attachInterrupt(digitalPinToInterrupt(HALL), spinCount, RISING);
-    }
-  } // mode = 0
-
-  int counter = 0;
-  while(mode==1){
-   // resetWdt();
-   if((t - startUnixTime) > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
-
-   // check if data to write over serial
-
-   if(writeMotionSensorsFlag){
-      serialWriteImu(); // write IMU to Serial
-      writeMotionSensorsFlag = 0;
-      if(writeSlowSensorsFlag==0) Serial.println();
-   }
-   
-   if(writeSlowSensorsFlag){
-    serialWriteSlowSensors();
-    writeSlowSensorsFlag = 0;
-    counter++;
-   }
-
-   // test stopping here
-   if(counter>60){
-    digitalWrite(LED_RED, HIGH);
-    digitalWrite(REC_ST, LOW);  // stop recording
-   }
-
-  
     daysFromStart = (float) (t - startUnixTime) / 86400.0;
-    if((daysFromStart >= delayRecPlayDays) & (daysFromStart < maxPlayDays)) {
+    if((daysFromStart >= delayRecPlayDays) & (daysFromStart < maxPlayDays)){
       if(simulateDepth){
         depthIndex = (byte) (t - startUnixTime) / 60.0;
         if (depthIndex > 9) depthIndex = 0;
         depth = depthProfile[depthIndex];
       }
-      checkPlay();
+      else{
+        kellerConvert(); // start new depth reading
+        delay(100);
+        kellerRead(); // read new depth value
+      }
+      // check if time to start recording; recording will start when checkPlay returns 1
+      if(checkPlay()==1){
+        digitalWrite(BURN, HIGH); // power on IMU
+        delay(5);
+        myICM.begin( Wire, 1 );
+       // icmSetup();
+       // updateTemp();  // get first reading ready
+        mode = 1;
+        setClockPrescaler(0); // run full speed during data acquisition so have full bandwidth serial
+        startInterruptTimer(speriod, 0);
+      }
     }
+  } // mode = 0
+
+  //
+  // Send Motion Data Out Serial Port and Wait for Record to End
+  //
+  while(mode==1){
+    if(simulateDepth){
+        depthIndex = (byte) (t - startUnixTime) / 60.0;
+        if (depthIndex > 9) depthIndex = 0;
+        depth = depthProfile[depthIndex];
+      }
+   // resetWdt();
+   if((t - startUnixTime) > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
+
+   // check if data to write over serial
+   if(writeMotionSensorsFlag){
+      serialWriteImu(); // write IMU to Serial
+      writeMotionSensorsFlag = 0;
+      if(writeSlowSensorsFlag==0) Serial.println();
+   }
+   if(writeSlowSensorsFlag){
+    serialWriteSlowSensors();
+    writeSlowSensorsFlag = 0;
+   }
+
+   if (changeToModeZero == 1){
+    stopTimer();
+    setClockPrescaler(clockprescaler);  // slow down clock to save power
+    mode = 0;          
+   }
   } // mode = 1
 }
 
@@ -490,7 +491,8 @@ void sampleSensors(void){
     readVoltage();
     writeSlowSensorsFlag = 1;
     
-    // checkPlay();
+    int retVal = checkPlay();
+    if(retVal==0) changeToModeZero = 1; // when done recording change to mode 0
     ssCounter = 0;
     spin = 0; //reset spin counter
     digitalWrite(LED_GRN, LOW);

@@ -1,4 +1,4 @@
-void checkPlay(){
+int checkPlay(){
   if(depth > maxDepth) {
     maxDepth = depth; // track maximum depth
   }
@@ -69,4 +69,6 @@ void checkPlay(){
       }
     }
   }
+
+  return REC_STATE;
 }
