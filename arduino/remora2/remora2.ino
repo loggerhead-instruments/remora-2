@@ -4,6 +4,7 @@
 // This version does not record to microSD, it will transmit data over serial
 // To do:
 // - read settings at start from Record Teensy
+// - get time from Teensy if in settings file
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
 // ATMEGA328p: low-power motion datalogging
@@ -100,9 +101,11 @@ volatile boolean REC_STATE, PLAY_STATE;
 float daysFromStart;
 
 boolean simulateDepth = 1;
+#define nDepths 10
 float depthProfile[] = {0.1, 500.0, 450.0, 420.0, 300.0, 10.0, 5.0, 50.0, 100.0, 200.0
                       }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
 byte depthIndex = 0;
+byte oldMinute;
 
 // pin assignments
 #define chipSelect  10
@@ -215,12 +218,13 @@ void setup() {
   if(startTime==0) startTime = t + 5;
 //  Serial.print("Time:"); Serial.println(t);
 //  Serial.print("Start Time:"); Serial.println(startTime);
-//  Serial.print("UT:"); Serial.println(startUnixTime);
+//  Serial.print("UT:"); Serial.println( );
 //  Serial.println(simulateDepth);
   delay(10);
 
   wdtInit();  // used to wake from sleep
   setClockPrescaler(clockprescaler); // set clockprescaler from script file; this affects the baud rate
+  oldMinute = minute;
 }
 
 void loop() {
@@ -247,8 +251,11 @@ void loop() {
     daysFromStart = (float) (t - startUnixTime) / 86400.0;
     if((daysFromStart >= delayRecPlayDays) & (daysFromStart < maxPlayDays)){
       if(simulateDepth){
-        depthIndex = (byte) (t - startUnixTime) / 60.0;
-        if (depthIndex > 9) depthIndex = 0;
+        if (minute != oldMinute){
+          oldMinute = minute;
+          depthIndex++;
+          if(depthIndex>=nDepths) depthIndex = 0;
+        }
         depth = depthProfile[depthIndex];
       }
       else{
@@ -275,8 +282,11 @@ void loop() {
   //
   while(mode==1){
     if(simulateDepth){
-        depthIndex = (byte) (t - startUnixTime) / 60.0;
-        if (depthIndex > 9) depthIndex = 0;
+        if (minute != oldMinute){
+          oldMinute = minute;
+          depthIndex++;
+          if(depthIndex>=nDepths) depthIndex = 0;
+        }
         depth = depthProfile[depthIndex];
       }
    // resetWdt();
