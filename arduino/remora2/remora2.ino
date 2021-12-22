@@ -5,6 +5,7 @@
 // To do:
 // - read settings at start from Record Teensy
 // - get time from Teensy if in settings file
+// - enable clock prescaler in mode 0
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
 // ATMEGA328p: low-power motion datalogging
@@ -87,7 +88,7 @@ float ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must a
 float ascentRecordTrigger = 75.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record
 float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen
 int maxPlayBacks = 80; // maximum number of times to play
-unsigned int minPlayBackInterval = 540; // keep playbacks from being closer than x minutes
+unsigned int minPlayBackInterval = 10; // keep playbacks from being closer than x minutes default: 540
 float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
 float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; e.g. 42 days
 byte recMinutesAfterPlay = 2;
@@ -145,7 +146,8 @@ int speriod = 1000 / imuSrate;
 //uint16_t TEMPSENS; //Temperature sensitivity coefficient
 // byte Tbuff[3];
 // byte Pbuff[3];
-volatile float depth, temperature, pressure_mbar;
+volatile float depth = 0.0;
+volatile float temperature, pressure_mbar;
 boolean togglePress = 0; // flag to toggle conversion of temperature and pressure
 
 //int16_t accelX, accelY, accelZ;
@@ -213,6 +215,7 @@ void setup() {
     delay(100);
   }
   startUnixTime = t; // time tag turned on
+  playTime = t;
   digitalWrite(BURN, LOW); // power down IMU
 
   if(startTime==0) startTime = t + 5;
@@ -223,7 +226,7 @@ void setup() {
   delay(10);
 
   wdtInit();  // used to wake from sleep
-  setClockPrescaler(clockprescaler); // set clockprescaler from script file; this affects the baud rate
+  //setClockPrescaler(clockprescaler); // set clockprescaler from script file; this affects the baud rate
   oldMinute = minute;
 }
 
@@ -246,6 +249,7 @@ void loop() {
     }
     digitalWrite(LED_GRN, LOW);
     digitalWrite(LED_RED, LOW);
+    
     enterSleep();
 
     daysFromStart = (float) (t - startUnixTime) / 86400.0;
@@ -255,8 +259,13 @@ void loop() {
           oldMinute = minute;
           depthIndex++;
           if(depthIndex>=nDepths) depthIndex = 0;
+          depth = depthProfile[depthIndex];
+          delay(100);
+          Serial.print("Min since last play:");
+          Serial.println((t - playTime)/60);
+          serialWriteSlowSensors();
+          delay(100);
         }
-        depth = depthProfile[depthIndex];
       }
       else{
         kellerConvert(); // start new depth reading
@@ -305,7 +314,7 @@ void loop() {
 
    if (changeToModeZero == 1){
     stopTimer();
-    setClockPrescaler(clockprescaler);  // slow down clock to save power
+   // setClockPrescaler(clockprescaler);  // slow down clock to save power
     mode = 0;          
    }
   } // mode = 1
@@ -478,7 +487,7 @@ void sampleSensors(void){
 
    // calcImu();
     myICM.getAGMT();
-    writeMotionSensorsFlag = 1;
+    
 
 //  // MS58xx start temperature conversion half-way through
   if((ssCounter>=(0.5 * slowRateMultiple))  & togglePress){ 
@@ -494,7 +503,7 @@ void sampleSensors(void){
 //    updatePress();  
     if(simulateDepth==0) kellerRead();
     togglePress = 1;
-    
+
     if(LED_EN) digitalWrite(LED_GRN, HIGH);
     readRTC();
     //calcPressTemp(); // MS58xx pressure and temperature
@@ -507,6 +516,7 @@ void sampleSensors(void){
     spin = 0; //reset spin counter
     digitalWrite(LED_GRN, LOW);
   }
+  writeMotionSensorsFlag = 1; // always write motion sensors, set flag after slow sensors flag
 }
 
 

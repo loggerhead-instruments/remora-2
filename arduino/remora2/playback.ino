@@ -1,5 +1,7 @@
 int checkPlay(){
 
+  if(depth < 20.0) maxDepth = depth; // reset maxDepth when each dive ends
+  
   // return if within time out period and not playing
   // this is so it doesn't trigger playBackDepth thresholds
   if (((t - playTime)/60 < minPlayBackInterval) & playNow==0) return 0;
@@ -7,9 +9,6 @@ int checkPlay(){
   if(depth > maxDepth) {
     maxDepth = depth; // track maximum depth
   }
-
-  if(depth < 20.0) maxDepth = depth; // reset maxDepth when each dive ends
-
   
   // check if after exceeding playback depth, came shallow enough to allow another playback
   if(playBackDepthExceeded==2){
@@ -24,7 +23,7 @@ int checkPlay(){
   // waiting for playback algorithm to be satisfied to trigger playback
   // prevent from playing back more than once per x minutes
   if(playNow==0){
-    if((depth > playBackDepthThreshold) & (playBackDepthExceeded==0) & (((t - playTime)/60) > minPlayBackInterval)) {
+    if((depth > playBackDepthThreshold) & (playBackDepthExceeded==0)) {
       playBackDepthExceeded = 1;  // check if went deeper than a certain depth
     }
 
@@ -32,6 +31,7 @@ int checkPlay(){
     if ((playBackDepthExceeded==1) & (maxDepth - depth > ascentRecordTrigger) & (nPlayed < maxPlayBacks) & (REC_STATE==0)) {
       digitalWrite(REC_POW, HIGH); // turn on recorder
       digitalWrite(REC_ST, HIGH);  // start recording
+      playTime = t; // update here as well so timeout below doesn't kick out
       REC_STATE = 1;
     }
 
