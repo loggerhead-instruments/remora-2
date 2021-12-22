@@ -337,8 +337,8 @@ void loop() {
       }
       Serial.println("Record Start.");
       mode = 1;
-      
-      startRecording();
+      motionFileInit();
+      startRecording(); // this will init audio file
   }
 
   // Record mode
@@ -375,7 +375,6 @@ void loop() {
 void startRecording() {
   if (printDiags)  Serial.println("startRecording");
   FileInit();
-  motionFileInit();
   buf_count = 0;
   queue1.begin();
   digitalWrite(REC_STATUS, HIGH);
@@ -419,7 +418,6 @@ void stopRecording() {
   AudioMemoryUsageMaxReset();
   //frec.timestamp(T_WRITE,(uint16_t) year(t),month(t),day(t),hour(t),minute(t),second);
   frec.close();
-  frecMotion.println("closing");
   frecMotion.close();
   delay(100);
   digitalWrite(REC_STATUS, LOW);
