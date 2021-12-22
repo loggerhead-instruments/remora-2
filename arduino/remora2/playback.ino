@@ -74,6 +74,7 @@ int checkPlay(){
         digitalWrite(REC_POW, LOW);
         REC_STATE = 0;
         playNow = 0;
+        maxDepth = 0; // reset maxDepth
       }
     }
   }
