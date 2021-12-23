@@ -309,7 +309,6 @@ void loop() {
    if(writeMotionSensorsFlag){
       serialWriteImu(); // write IMU to Serial
       writeMotionSensorsFlag = 0;
-      if(writeSlowSensorsFlag==0) Serial.println();
    }
    if(writeSlowSensorsFlag){
     serialWriteSlowSensors();
@@ -319,7 +318,8 @@ void loop() {
    if (changeToModeZero == 1){
     stopTimer();
    // setClockPrescaler(clockprescaler);  // slow down clock to save power
-    mode = 0;          
+    mode = 0;        
+    changeToModeZero = 0;  
    }
   } // mode = 1
 }
@@ -440,6 +440,7 @@ void initSensors(){
 //}
 
 void serialWriteImu(){
+  Serial.println(); // force start on new line
   Serial.print(myICM.accX()); Serial.print(",");
   Serial.print(myICM.accY()); Serial.print(",");
   Serial.print(myICM.accZ()); Serial.print(",");
@@ -479,8 +480,6 @@ void serialWriteSlowSensors(){
   if(HALL_EN){
       Serial.print(','); Serial.print(spin);
   }
-  Serial.println();
-  Serial.flush();
 }
 
 /********************************************************************
@@ -491,7 +490,6 @@ void sampleSensors(void){
 
    // calcImu();
     myICM.getAGMT();
-    
 
 //  // MS58xx start temperature conversion half-way through
   if((ssCounter>=(0.5 * slowRateMultiple))  & togglePress){ 
@@ -499,7 +497,7 @@ void sampleSensors(void){
 //    updateTemp();
     togglePress = 0;
     if(simulateDepth==0) kellerConvert();
-}
+  }
     
   if(ssCounter>=slowRateMultiple){
 //    // MS58xx pressure and temperature
@@ -522,7 +520,6 @@ void sampleSensors(void){
   }
   writeMotionSensorsFlag = 1; // always write motion sensors, set flag after slow sensors flag
 }
-
 
 void readVoltage(){
   voltage = analogRead(BAT_VOLTAGE) * 0.0042;
