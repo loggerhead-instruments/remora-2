@@ -5,7 +5,7 @@
 // To do:
 // - read settings at start from Record Teensy
 // - get time from Teensy if in settings file
-// - enable clock prescaler in mode 0
+// - turn off depth simulation
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
 // ATMEGA328p: low-power motion datalogging
@@ -88,7 +88,7 @@ float ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must a
 float ascentRecordTrigger = 75.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record
 float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen
 int maxPlayBacks = 80; // maximum number of times to play
-unsigned int minPlayBackInterval = 10; // keep playbacks from being closer than x minutes default: 540
+unsigned int minPlayBackInterval = 1; // keep playbacks from being closer than x minutes Default: 540
 float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
 float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; e.g. 42 days
 byte recMinutesAfterPlay = 2;
@@ -226,7 +226,7 @@ void setup() {
   delay(10);
 
   wdtInit();  // used to wake from sleep
-  //setClockPrescaler(clockprescaler); // set clockprescaler from script file; this affects the baud rate
+  setClockPrescaler(clockprescaler); // set clockprescaler from script file; this affects the baud rate
   oldMinute = minute;
 }
 
@@ -260,11 +260,13 @@ void loop() {
           depthIndex++;
           if(depthIndex>=nDepths) depthIndex = 0;
           depth = depthProfile[depthIndex];
+          setClockPrescaler(0);
           delay(100);
           Serial.print("Min since last play:");
           Serial.println((t - playTime)/60);
           serialWriteSlowSensors();
           delay(100);
+          setClockPrescaler(clockprescaler);
         }
       }
       else{
@@ -277,13 +279,12 @@ void loop() {
       if (((t - playTime)/60 > minPlayBackInterval)){
         // check if time to start recording; recording will start when checkPlay returns 1
         if(checkPlay()==1){
-          digitalWrite(BURN, HIGH); // power on IMU
-          delay(5);
-          myICM.begin( Wire, 1 );
-         // icmSetup();
-         // updateTemp();  // get first reading ready
-          mode = 1;
           setClockPrescaler(0); // run full speed during data acquisition so have full bandwidth serial
+          digitalWrite(BURN, HIGH); // power on IMU
+          delay(100);
+          myICM.begin( Wire, 1 );
+          myICM.getAGMT();  // for some reason need this so when read from interrupt get good readings
+          mode = 1;
           startInterruptTimer(speriod, 0);
         }
       }
@@ -317,7 +318,7 @@ void loop() {
 
    if (changeToModeZero == 1){
     stopTimer();
-   // setClockPrescaler(clockprescaler);  // slow down clock to save power
+    setClockPrescaler(clockprescaler);  // slow down clock to save power
     mode = 0;        
     changeToModeZero = 0;  
    }
@@ -388,10 +389,15 @@ void initSensors(){
 //  Serial.flush();
 //  delay(5000);
 
-//  myICM.begin( Wire, 1 );
-//  if( myICM.status != ICM_20948_Stat_Ok ){
-//      Serial.println( "ICM fail" );
-//      delay(500);
+  myICM.begin( Wire, 1 );
+  if( myICM.status != ICM_20948_Stat_Ok ){
+      Serial.println( "ICM fail" );
+      delay(500);
+  }
+//  for (int i=0; i<100; i++){
+//    myICM.getAGMT();
+//    printImu();
+//    delay(100);
 //  }
 
 
@@ -426,18 +432,18 @@ void initSensors(){
 //  magZ = (int16_t)  (((int16_t)imuTempBuffer[18] << 8) | imuTempBuffer[19]);  
 //}
 
-//void printImu(){
-//  Serial.print("a/m/g:\t");
-//  Serial.print(myICM.accX()); Serial.print("\t");
-//  Serial.print(myICM.accY()); Serial.print("\t");
-//  Serial.print(myICM.accZ()); Serial.print("\t");
-//  Serial.print(myICM.magX()); Serial.print("\t");
-//  Serial.print(myICM.magY()); Serial.print("\t");
-//  Serial.print(myICM.magZ()); Serial.print("\t");
-//  Serial.print(myICM.gyrX()); Serial.print("\t");
-//  Serial.print(myICM.gyrY()); Serial.print("\t");
-//  Serial.println(myICM.gyrZ());
-//}
+void printImu(){
+  Serial.print("a/m/g:\t");
+  Serial.print(myICM.accX()); Serial.print("\t");
+  Serial.print(myICM.accY()); Serial.print("\t");
+  Serial.print(myICM.accZ()); Serial.print("\t");
+  Serial.print(myICM.magX()); Serial.print("\t");
+  Serial.print(myICM.magY()); Serial.print("\t");
+  Serial.print(myICM.magZ()); Serial.print("\t");
+  Serial.print(myICM.gyrX()); Serial.print("\t");
+  Serial.print(myICM.gyrY()); Serial.print("\t");
+  Serial.println(myICM.gyrZ());
+}
 
 void serialWriteImu(){
   Serial.println(); // force start on new line
