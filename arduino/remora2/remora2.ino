@@ -3,9 +3,6 @@
 
 // This version does not record to microSD, it will transmit data over serial
 // To do:
-// - read settings at start from Record Teensy
-// - get time from Teensy if in settings file
-// - turn off depth simulation
 // - set to defaults
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
@@ -69,7 +66,7 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2021-12-21";
+char codeVer[12] = "2021-12-31";
 
 unsigned long recDur = 120; // minutes 1140 = 24 hours
 int recInt = 0;
@@ -102,7 +99,7 @@ volatile unsigned int nPlayed = 0;
 volatile boolean REC_STATE, PLAY_STATE;
 float daysFromStart;
 
-boolean simulateDepth = 1;
+boolean simulateDepth = 0;
 #define nDepths 10
 float depthProfile[] = {0.1, 500.0, 450.0, 420.0, 300.0, 10.0, 5.0, 50.0, 100.0, 200.0
                       }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
@@ -201,6 +198,8 @@ void setup() {
   digitalWrite(LED_RED,LOW);
   digitalWrite(LED_GRN,HIGH);
   digitalWrite(BURN, HIGH);
+
+  loadScript();
 
   Wire.begin();
   Wire.setClock(400000);

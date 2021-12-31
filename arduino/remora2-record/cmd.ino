@@ -89,6 +89,7 @@ boolean LoadScript()
       	s[i] = 0;
         do{
             c = file.read();
+            HWSERIAL.write(c); // write out to Atmega
 	          if(c!='\r') s[i++] = c;
             if(c=='T') 
             {
