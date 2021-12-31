@@ -6,6 +6,7 @@
 // - read settings at start from Record Teensy
 // - get time from Teensy if in settings file
 // - turn off depth simulation
+// - set to defaults
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
 // ATMEGA328p: low-power motion datalogging
@@ -83,15 +84,15 @@ float pressureOffset_mbar;
 // float MS58xx_constant = 327680.0; // for 2 bar sensor; will switch to this if 30 bar fails to give good depth
 
 // Playback Settings
-float playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold
-float ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
-float ascentRecordTrigger = 75.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record
-float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen
-int maxPlayBacks = 80; // maximum number of times to play
-unsigned int minPlayBackInterval = 1; // keep playbacks from being closer than x minutes Default: 540
+float playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold. Default 400.0
+float ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback. Default 100.0
+float ascentRecordTrigger = 75.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record. Default 75.0
+float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen. Default 20.0
+int maxPlayBacks = 80; // maximum number of times to play. Default 80
+unsigned int minPlayBackInterval = 10; // keep playbacks from being closer than x minutes Default: 540
 float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
 float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; e.g. 42 days
-byte recMinutesAfterPlay = 2;
+byte recMinutesAfterPlay = 2; // record this many minutes after playback stops. Default 10
 
 // Playback status
 float maxDepth;  
