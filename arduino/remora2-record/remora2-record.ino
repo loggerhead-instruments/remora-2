@@ -18,7 +18,7 @@
 // - stream serial input to text file when recording audio file
 // - comment TM line if it exits
 
-char codeVersion[12] = "2021-12-21";
+char codeVersion[12] = "2022-01-01";
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics
 
 #define USE_SDFS 0  // to be used for exFAT but works also for FAT16/32
@@ -145,7 +145,7 @@ int isf = I_SAMP;
 float gainDb;
 
 int recMode = MODE_NORMAL;
-long rec_dur = 600;
+long rec_dur = 3600;
 long rec_int = 0;
 int wakeahead = 5;  //wake from snooze to give hydrophone and camera time to power up
 int snooze_hour;
@@ -216,7 +216,7 @@ void setup() {
 
   RTC_CR = 0; // disable RTC
   delay(100);
-  Serial.println(RTC_CR,HEX);
+  // Serial.println(RTC_CR,HEX);
   // change capacitance to 26 pF (12.5 pF load capacitance)
   RTC_CR = RTC_CR_SC16P | RTC_CR_SC8P | RTC_CR_SC2P; 
   delay(100);
@@ -590,7 +590,7 @@ void calcGain(){
 
 time_t getTeensy3Time()
 {
-  return Teensy3Clock.get();
+  return now();
 }
 
 unsigned long processSyncMessage() {

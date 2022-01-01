@@ -8,12 +8,12 @@ int ProcCmd(char *pCmd)
 	short n;
 	long lv1;
 	char s[22];
-        unsigned int tday;
-        unsigned int tmonth;
-        unsigned int tyear;
-        unsigned int thour;
-        unsigned int tmin;
-        unsigned int tsec;
+  unsigned int tday;
+  unsigned int tmonth;
+  unsigned int tyear;
+  unsigned int thour;
+  unsigned int tmin;
+  unsigned int tsec;
 
 	pCV = (short*)pCmd;
 
@@ -44,6 +44,26 @@ int ProcCmd(char *pCmd)
         noDC = 1;
         break;
       }
+
+    // Set Real Time Clock
+    case ('T' + ('M'<<8)):
+    {
+         //set time
+         t = now();
+         Serial.print("Old Time:"); Serial.println(t);
+         sscanf(&pCmd[3],"%d-%d-%d %d:%d:%d",&tyear,&tmonth,&tday,&thour,&tmin,&tsec);
+         setTime(thour,tmin,tsec,tday,tmonth,tyear); 
+         Serial.print("Set Time: ");
+         Serial.print(tyear); Serial.print("-");
+         Serial.print(tmonth); Serial.print("-");
+         Serial.print(tday); Serial.print(" ");
+         Serial.print(thour); Serial.print(":");
+         Serial.print(tmin);Serial.print(":");
+         Serial.println(tsec);
+         t = now();
+         Serial.print("New Time:"); Serial.println(t);
+         break;
+     }
       
     // Sample rate in Hz
     case ('H' + ('Z'<<8)):
@@ -89,7 +109,7 @@ boolean LoadScript()
       	s[i] = 0;
         do{
             c = file.read();
-            HWSERIAL.write(c); // write out to Atmega
+            
 	          if(c!='\r') s[i++] = c;
             if(c=='T') 
             {
