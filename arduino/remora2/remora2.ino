@@ -5,6 +5,7 @@
 // To do:
 // - set to defaults
 // -SD off
+// - measure power consumption
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
 // ATMEGA328p: low-power motion datalogging
@@ -87,10 +88,10 @@ float ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must a
 float ascentRecordTrigger = 75.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record. Default 75.0
 float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen. Default 20.0
 int maxPlayBacks = 80; // maximum number of times to play. Default 80
-unsigned int minPlayBackInterval = 2; // keep playbacks from being closer than x minutes Default: 540
+unsigned int minPlayBackInterval = 20; // keep playbacks from being closer than x minutes Default: 540
 float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
 float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; e.g. 42 days
-byte recMinutesAfterPlay = 2; // record this many minutes after playback stops. Default 10
+byte recMinutesAfterPlay = 10; // record this many minutes after playback stops. Default 10
 
 // Playback status
 float maxDepth;  

@@ -10,9 +10,9 @@
 //
 // Compile with 96 MHz Fastest
 
-// To Do:
-// Test Serial storage with WFI removed if dropping motion samples
-// 
+// Major Changes:
+// dumps Serial input to a separate file from audio file
+// WFI removed to avoid dropping motion samples
 // Modified serial1.c line 43 to increase serial receive buffer size to the following:
 // #define SERIAL1_RX_BUFFER_SIZE     256 // number of incoming bytes to buffer; default=64
 // C:\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\serial1.c
