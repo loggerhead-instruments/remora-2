@@ -4,6 +4,7 @@
 // This version does not record to microSD, it will transmit data over serial
 // To do:
 // - set to defaults
+// -SD off
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
 // ATMEGA328p: low-power motion datalogging
@@ -66,7 +67,7 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2021-12-31";
+char codeVer[12] = "2022-01-01";
 
 unsigned long recDur = 120; // minutes 1140 = 24 hours
 int recInt = 0;
@@ -86,7 +87,7 @@ float ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must a
 float ascentRecordTrigger = 75.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record. Default 75.0
 float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen. Default 20.0
 int maxPlayBacks = 80; // maximum number of times to play. Default 80
-unsigned int minPlayBackInterval = 10; // keep playbacks from being closer than x minutes Default: 540
+unsigned int minPlayBackInterval = 2; // keep playbacks from being closer than x minutes Default: 540
 float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
 float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; e.g. 42 days
 byte recMinutesAfterPlay = 2; // record this many minutes after playback stops. Default 10
@@ -99,7 +100,7 @@ volatile unsigned int nPlayed = 0;
 volatile boolean REC_STATE, PLAY_STATE;
 float daysFromStart;
 
-boolean simulateDepth = 0;
+boolean simulateDepth = 10;
 #define nDepths 10
 float depthProfile[] = {0.1, 500.0, 450.0, 420.0, 300.0, 10.0, 5.0, 50.0, 100.0, 200.0
                       }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
@@ -199,7 +200,9 @@ void setup() {
   digitalWrite(LED_GRN,HIGH);
   digitalWrite(BURN, HIGH);
 
-  loadScript();
+  delay(100);
+  // loadScript();
+  // Serial.print("SD:"); Serial.println(simulateDepth);
 
   Wire.begin();
   Wire.setClock(400000);
@@ -337,15 +340,15 @@ void initSensors(){
   readVoltage();
 //  Serial.print(voltage);
 //  Serial.println("V");
-
-  // Sends DT to Record Teensy
-  readRTC();
-  Serial.print("DT "); Serial.println(t);
-  Serial.print("T "); Serial.print(hour); Serial.print(":");
-  Serial.print(minute); Serial.print(":");
-  Serial.println(second);
-  Serial.flush();
-  delay(5000);
+//
+//  // Sends DT to Record Teensy
+//  readRTC();
+//  Serial.print("DT "); Serial.println(t);
+//  Serial.print("T "); Serial.print(hour); Serial.print(":");
+//  Serial.print(minute); Serial.print(":");
+//  Serial.println(second);
+//  Serial.flush();
+//  delay(5000);
 
   // Pressure/Temperature
 //  if (pressInit()==0){

@@ -227,7 +227,7 @@ boolean loadScript()
   int comment_TM = 0;
 
   // Read setup from Serial
- do{
+ while(Serial.available()>0){
     i = 0;
     s[i] = 0;
     do{
@@ -235,11 +235,12 @@ boolean loadScript()
         if(c!='\r') s[i++] = c;
         if(i>29) break;
       }while(c!='\n');
+      delay(100);  // time for next line
       s[--i] = 0;
       if(s[0] != '/' && i>1)
       {
         ProcCmd(s);
       }
-  }while(Serial.available());
+  };
  return 1;  
 }
