@@ -137,7 +137,7 @@ volatile boolean LEDSON=1;
 boolean introperiod=1;  //flag for introductory period; used for keeping LED on for a little while
 
 int32_t lhi_fsamps[7] = {8000, 16000, 32000, 44100, 48000, 96000, 192000};
-#define I_SAMP 5   // 0 is 8 kHz; 1 is 16 kHz; 2 is 32 kHz; 3 is 44.1 kHz; 4 is 48 kHz; 5 is 96 kHz; 6 is 192 kHz
+#define I_SAMP 3   // 0 is 8 kHz; 1 is 16 kHz; 2 is 32 kHz; 3 is 44.1 kHz; 4 is 48 kHz; 5 is 96 kHz; 6 is 192 kHz
 
 float audio_srate = lhi_fsamps[I_SAMP];
 int isf = I_SAMP;
@@ -400,9 +400,8 @@ void continueRecording() {
       memcpy(ptr+256, queue1.readBuffer(), 256);
       queue1.freeBuffer();
     }
-    digitalWrite(ledGreen, LOW);
+    digitalWrite(ledGreen, LOW);  
     if(frec.write(buffer, NREC*512)==-1) resetFunc(); //audio to .wav file
-      
     buf_count += NREC;
   }
 }

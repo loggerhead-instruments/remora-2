@@ -5,7 +5,7 @@
 // To do:
 // - set to defaults
 // -SD off
-// - measure power consumption
+
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
 // ATMEGA328p: low-power motion datalogging
@@ -29,12 +29,10 @@
 // Maybe  start recording on the playback dive as soon as it depth is reached and stop recording 1-2 minutes after the playback.
 
 // Power Consumption
-// 140 mA during record and playback
-// 11 mA with CP=2
-// 3 mA if unplug IMU (so 8 mA is IMU)
-
-// 0.8 mA with IMU powered down; delay start
-// 2 mA recording depth sensor only with IMU board powered down
+//    mA during record and playback
+// 72 mA during record (96 MHz clock rate) LED ON
+// 70 mA during record (72 MHz clock rate) LED ON
+// 0.4 mA reading depth sensor and IMU powered down
 
 // Wiring
 // - Jumper wire from R18 (ClockBat) to both Teensy Clock Bat 
@@ -85,13 +83,13 @@ float pressureOffset_mbar;
 // Playback Settings
 float playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold. Default 400.0
 float ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback. Default 100.0
-float ascentRecordTrigger = 75.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record. Default 75.0
+float ascentRecordTrigger = 40.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record. Default 75.0
 float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen. Default 20.0
 int maxPlayBacks = 80; // maximum number of times to play. Default 80
-unsigned int minPlayBackInterval = 20; // keep playbacks from being closer than x minutes Default: 540
+unsigned int minPlayBackInterval = 2; // keep playbacks from being closer than x minutes Default: 540
 float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
 float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; e.g. 42 days
-byte recMinutesAfterPlay = 10; // record this many minutes after playback stops. Default 10
+byte recMinutesAfterPlay = 4; // record this many minutes after playback stops. Default 10
 
 // Playback status
 float maxDepth;  
