@@ -1,5 +1,5 @@
 //
-// SNAP acoustic recorder
+// Remora2 Record Teensy
 //
 // Loggerhead Instruments
 // 2016-2021
@@ -10,13 +10,15 @@
 //
 // Compile with 96 MHz Fastest
 
+// To Do:
+// Test Serial storage with WFI removed if dropping motion samples
+// 
+// Modified serial1.c line 43 to increase serial receive buffer size to the following:
+// #define SERIAL1_RX_BUFFER_SIZE     256 // number of incoming bytes to buffer; default=64
+// C:\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\serial1.c
+
 // Modified by WMXZ 15-05-2018 for SdFS anf multiple sampling frequencies
 // Optionally uses SdFS from Bill Greiman https://github.com/greiman/SdFs; but has higher current draw in sleep
-
-// To do
-// - load motion.txt and send values to atmega328p
-// - stream serial input to text file when recording audio file
-// - comment TM line if it exits
 
 char codeVersion[12] = "2022-01-01";
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics
@@ -221,7 +223,8 @@ void setup() {
   RTC_CR = RTC_CR_SC16P | RTC_CR_SC8P | RTC_CR_SC2P; 
   delay(100);
   RTC_CR = RTC_CR_SC16P | RTC_CR_SC8P | RTC_CR_SC2P | RTC_CR_OSCE;
-
+  // setSyncProvider(getTeensy3Time);
+  
   Wire.begin();  
 
     // Initialize the SD card
@@ -369,7 +372,7 @@ void loop() {
     }
   }
   
-  asm("wfi"); // reduce power between interrupts
+  // asm("wfi"); // reduce power between interrupts
 }
 
 void startRecording() {
@@ -590,7 +593,7 @@ void calcGain(){
 
 time_t getTeensy3Time()
 {
-  return now();
+  return Teensy3Clock.get();
 }
 
 unsigned long processSyncMessage() {

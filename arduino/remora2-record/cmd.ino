@@ -49,21 +49,21 @@ int ProcCmd(char *pCmd)
     case ('T' + ('M'<<8)):
     {
          //set time
-         t = now();
-         Serial.print("Old Time:"); Serial.println(t);
          sscanf(&pCmd[3],"%d-%d-%d %d:%d:%d",&tyear,&tmonth,&tday,&thour,&tmin,&tsec);
-         setTime(thour,tmin,tsec,tday,tmonth,tyear); 
-         Serial.print("Set Time: ");
-         Serial.print(tyear); Serial.print("-");
-         Serial.print(tmonth); Serial.print("-");
-         Serial.print(tday); Serial.print(" ");
-         Serial.print(thour); Serial.print(":");
-         Serial.print(tmin);Serial.print(":");
-         Serial.println(tsec);
-         t = now();
-         Serial.print("New Time:"); Serial.println(t);
+         TIME_HEAD NewTime;
+         NewTime.sec = tsec;
+         NewTime.minute = tmin;
+         NewTime.hour = thour;
+         NewTime.day = tday;
+         NewTime.month = tmonth;
+         NewTime.year = tyear-2000;
+         ULONG newtime=RTCToUNIXTime(&NewTime);  //get new time in seconds
+         startTime=RTCToUNIXTime(&NewTime);
+         Teensy3Clock.set(newtime); 
+         Serial.print("Clock Set: ");
+         Serial.println(newtime);
          break;
-     }
+      }
       
     // Sample rate in Hz
     case ('H' + ('Z'<<8)):
