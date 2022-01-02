@@ -83,14 +83,14 @@ float pressureOffset_mbar;
 
 // Playback Settings
 float playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold. Default 400.0
-float ascentDepthTrigger = 190.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback. Default 100.0
-float ascentRecordTrigger = 40.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record. Default 75.0
+float ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback. Default 100.0
+float ascentRecordTrigger = 40.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record. Default 40.0
 float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen. Default 20.0
 int maxPlayBacks = 80; // maximum number of times to play. Default 80
-unsigned int minPlayBackInterval = 30; // keep playbacks from being closer than x minutes Default: 540
+unsigned int minPlayBackInterval = 10; // keep playbacks from being closer than x minutes Default: 540
 float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
 float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; e.g. 42 days
-byte recMinutesAfterPlay = 5; // record this many minutes after playback stops. Default 10
+byte recMinutesAfterPlay = 3; // record this many minutes after playback stops. Default 10
 
 // Playback status
 float maxDepth;  
@@ -100,7 +100,7 @@ volatile unsigned int nPlayed = 0;
 volatile boolean REC_STATE, PLAY_STATE;
 float daysFromStart;
 
-boolean simulateDepth = 10;
+boolean simulateDepth = 1;
 #define nDepths 10
 float depthProfile[] = {0.1, 500.0, 450.0, 420.0, 300.0, 200.0, 100.0, 50.0, 100.0, 200.0
                       }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
