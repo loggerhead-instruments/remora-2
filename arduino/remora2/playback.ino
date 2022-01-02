@@ -1,11 +1,10 @@
 void checkPlay(){
+
+  if((depth < 20.0) & (playState==0)) maxDepth = depth; // reset maxDepth when each dive ends
+  
   if(depth > maxDepth) {
     maxDepth = depth; // track maximum depth
   }
-
-  if(depth < 20.0) maxDepth = depth; // reset maxDepth when each dive ends
-
-  
   // check if after exceeding playback depth, came shallow enough to allow another playback
   if(playBackDepthExceeded==2){
     if(depth < playBackResetDepth){
@@ -15,11 +14,11 @@ void checkPlay(){
     }
   }
 
-  // playNow State = 0
+  // playState State = 0
   // waiting for playback algorithm to be satisfied to trigger playback
   // prevent from playing back more than once per x minutes
-  if(playNow==0){
-    if((depth > playBackDepthThreshold) & (playBackDepthExceeded==0) & (((t - playTime)/60) > minPlayBackInterval)) {
+  if(playState==0){
+    if((depth > playBackDepthThreshold) & (playBackDepthExceeded==0)) {
       playBackDepthExceeded = 1;  // check if went deeper than a certain depth
     }
 
@@ -27,12 +26,13 @@ void checkPlay(){
     if ((playBackDepthExceeded==1) & (maxDepth - depth > ascentRecordTrigger) & (nPlayed < maxPlayBacks) & (REC_STATE==0)) {
       digitalWrite(REC_POW, HIGH); // turn on recorder
       digitalWrite(REC_ST, HIGH);  // start recording
-      REC_STATE = 1;
+      playTime = t; // update here as well so timeout below doesn't kick out
+      REC_STATE = 1;  
     }
 
     // Trigger playback if on ascent came up enough
     if ((playBackDepthExceeded==1) & (maxDepth - depth > ascentDepthTrigger) & (nPlayed < maxPlayBacks)) {
-        playNow = 1;
+        playState = 1;
         digitalWrite(PLAY_POW, HIGH);  // play will start automatically
         PLAY_STATE = 1;
         playTime = t;
@@ -42,21 +42,29 @@ void checkPlay(){
     }
   }
 
-  // playNow state = 1
+  // playState state = 1
   // turn off playback board when playing done
   // give 10 seconds before checking this because takes some time for play board to wake
-  if((playNow==1) & (t > playTime + 10)){
+  if((playState==1) & (t > playTime + 10)){
     int playStatusPin = analogRead(PLAY_STATUS);
    // Serial.println(playStatusPin);
     if(playStatusPin < 200){
       digitalWrite(PLAY_POW, LOW);
       PLAY_STATE = 0;
-      playNow = 2;
+      playState = 2;
     }
   }
 
-  // playNow state = 2
-  if(playNow==2){
+
+  // in case playback fails, turn off recording after 1 minute
+  if((playState==1) & (t > playTime + 60)){
+    digitalWrite(PLAY_POW, LOW);
+    PLAY_STATE = 0;
+    playState = 2;
+  }
+
+  // playState state = 2
+  if(playState==2){
     // wait to turn off record recMinutesAfterPlay started
     byte minutesAfterPlay = (t - playTime) / 60;
     if(minutesAfterPlay >= recMinutesAfterPlay){
@@ -65,7 +73,8 @@ void checkPlay(){
       if(digitalRead(REC_STATUS)==0){
         digitalWrite(REC_POW, LOW);
         REC_STATE = 0;
-        playNow = 0;
+        playState = 0;
+        maxDepth = 0; // reset maxDepth  
       }
     }
   }

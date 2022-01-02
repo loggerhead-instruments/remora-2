@@ -91,16 +91,18 @@ byte recMinutesAfterPlay = 2;
 
 // Playback status
 float maxDepth;  
-byte playNow = 0;
-byte playBackDepthExceeded = 0;
+volatile byte playState = 0;
+volatile byte playBackDepthExceeded = 0;
 volatile unsigned int nPlayed = 0;
 volatile boolean REC_STATE, PLAY_STATE;
 float daysFromStart;
 
 boolean simulateDepth = 0;
-float depthProfile[] = {0.1, 500.0, 450.0, 420.0, 300.0, 10.0, 5.0, 50.0, 100.0, 200.0
+#define nDepths 10
+float depthProfile[] = {0.1, 500.0, 450.0, 420.0, 300.0, 200.0, 100.0, 50.0, 100.0, 200.0
                       }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
 byte depthIndex = 0;
+byte oldMinute;
 
 // pin assignments
 #define chipSelect  10
@@ -231,7 +233,7 @@ void setup() {
 
   wdtInit();  // used to wake from sleep
   setClockPrescaler(clockprescaler); // set clockprescaler from script file
-
+  oldMinute = minute;
 }
 
 void loop() {
@@ -265,7 +267,7 @@ void loop() {
      // updateTemp();  // get first reading ready
       mode = 1;
       startInterruptTimer(speriod, clockprescaler);
-      attachInterrupt(digitalPinToInterrupt(HALL), spinCount, RISING);
+      if(HALL_EN) attachInterrupt(digitalPinToInterrupt(HALL), spinCount, RISING);
     }
   } // mode = 0
 
@@ -304,10 +306,13 @@ void loop() {
     }
   
     daysFromStart = (float) (t - startUnixTime) / 86400.0;
-    if((daysFromStart >= delayRecPlayDays) & (daysFromStart < maxPlayDays)) {
+    if((daysFromStart >= delayRecPlayDays) & (daysFromStart < maxPlayDays) & (((t - playTime)/60) > minPlayBackInterval)) {
       if(simulateDepth){
-        depthIndex = (byte) (t - startUnixTime) / 60.0;
-        if (depthIndex > 9) depthIndex = 0;
+       if (minute != oldMinute){
+          oldMinute = minute;
+          depthIndex++;
+          if(depthIndex>=nDepths) depthIndex = 0;
+        }
         depth = depthProfile[depthIndex];
       }
       checkPlay();
