@@ -31,6 +31,7 @@
 // Power Consumption
 //    mA during record and playback
 // 72 mA during record (96 MHz clock rate) LED ON
+// 60 mA during record (96 MHz clock rate) LED OFF
 // 70 mA during record (72 MHz clock rate) LED ON
 // 0.4 mA reading depth sensor and IMU powered down
 
@@ -82,18 +83,18 @@ float pressureOffset_mbar;
 
 // Playback Settings
 float playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold. Default 400.0
-float ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback. Default 100.0
+float ascentDepthTrigger = 190.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback. Default 100.0
 float ascentRecordTrigger = 40.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record. Default 75.0
 float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen. Default 20.0
 int maxPlayBacks = 80; // maximum number of times to play. Default 80
-unsigned int minPlayBackInterval = 2; // keep playbacks from being closer than x minutes Default: 540
+unsigned int minPlayBackInterval = 30; // keep playbacks from being closer than x minutes Default: 540
 float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
 float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; e.g. 42 days
-byte recMinutesAfterPlay = 4; // record this many minutes after playback stops. Default 10
+byte recMinutesAfterPlay = 5; // record this many minutes after playback stops. Default 10
 
 // Playback status
 float maxDepth;  
-byte playNow = 0;
+volatile byte playState = 0;
 byte playBackDepthExceeded = 0;
 volatile unsigned int nPlayed = 0;
 volatile boolean REC_STATE, PLAY_STATE;
@@ -101,7 +102,7 @@ float daysFromStart;
 
 boolean simulateDepth = 10;
 #define nDepths 10
-float depthProfile[] = {0.1, 500.0, 450.0, 420.0, 300.0, 10.0, 5.0, 50.0, 100.0, 200.0
+float depthProfile[] = {0.1, 500.0, 450.0, 420.0, 300.0, 200.0, 100.0, 50.0, 100.0, 200.0
                       }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
 byte depthIndex = 0;
 byte oldMinute;
@@ -280,13 +281,15 @@ void loop() {
       // start tracking depths once minPlayBackInterval is exceeded
       if (((t - playTime)/60 > minPlayBackInterval)){
         // check if time to start recording; recording will start when checkPlay returns 1
-        if(checkPlay()==1){
+        checkPlay();
+        if(REC_STATE==1){
           setClockPrescaler(0); // run full speed during data acquisition so have full bandwidth serial
           digitalWrite(BURN, HIGH); // power on IMU
           delay(100);
           myICM.begin( Wire, 1 );
           myICM.getAGMT();  // for some reason need this so when read from interrupt get good readings
           mode = 1;
+          
           startInterruptTimer(speriod, 0);
         }
       }
@@ -322,7 +325,8 @@ void loop() {
     stopTimer();
     setClockPrescaler(clockprescaler);  // slow down clock to save power
     mode = 0;        
-    changeToModeZero = 0;  
+    changeToModeZero = 0; 
+    playState = 0;  // reset play state
    }
   } // mode = 1
 }
@@ -520,8 +524,8 @@ void sampleSensors(void){
     readVoltage();
     writeSlowSensorsFlag = 1;
     
-    int retVal = checkPlay();
-    if(retVal==0) changeToModeZero = 1; // when done recording change to mode 0
+    checkPlay();
+    if(playState==3) changeToModeZero = 1; // when done recording change to mode 0
     ssCounter = 0;
     spin = 0; //reset spin counter
     digitalWrite(LED_GRN, LOW);
