@@ -203,15 +203,15 @@ void setup() {
   digitalWrite(REC_STATUS, LOW);
   Serial1.begin(baud); // talk to Atmega
 
-  Serial.println(RTC_TSR);
-  Serial.println(RTC_TSR);
-  Serial.println(RTC_TSR);
+//  Serial.println(RTC_TSR);
+//  Serial.println(RTC_TSR);
+//  Serial.println(RTC_TSR);
 
   readEEPROM();
 
   RTC_CR = 0; // disable RTC
   delay(100);
-  Serial.println(RTC_CR,HEX);
+//  Serial.println(RTC_CR,HEX);
   // change capacitance to 26 pF (12.5 pF load capacitance)
   RTC_CR = RTC_CR_SC16P | RTC_CR_SC8P | RTC_CR_SC2P; 
   delay(100);
