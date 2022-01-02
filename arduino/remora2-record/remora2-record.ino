@@ -13,7 +13,7 @@
 // Modified by WMXZ 15-05-2018 for SdFS anf multiple sampling frequencies
 // Optionally uses SdFS from Bill Greiman https://github.com/greiman/SdFs; but has higher current draw in sleep
 
-char codeVersion[12] = "2020-01-16";
+char codeVersion[12] = "2022-01-02";
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics
 
 #define USE_SDFS 0  // to be used for exFAT but works also for FAT16/32
@@ -132,7 +132,7 @@ volatile boolean LEDSON=1;
 boolean introperiod=1;  //flag for introductory period; used for keeping LED on for a little while
 
 int32_t lhi_fsamps[7] = {8000, 16000, 32000, 44100, 48000, 96000, 192000};
-#define I_SAMP 5   // 0 is 8 kHz; 1 is 16 kHz; 2 is 32 kHz; 3 is 44.1 kHz; 4 is 48 kHz; 5 is 96 kHz; 6 is 192 kHz
+#define I_SAMP 3   // 0 is 8 kHz; 1 is 16 kHz; 2 is 32 kHz; 3 is 44.1 kHz; 4 is 48 kHz; 5 is 96 kHz; 6 is 192 kHz
 
 float audio_srate = lhi_fsamps[I_SAMP];
 int isf = I_SAMP;
@@ -142,7 +142,7 @@ int isf = I_SAMP;
 float gainDb;
 
 int recMode = MODE_NORMAL;
-long rec_dur = 600;
+long rec_dur = 3600;
 long rec_int = 0;
 int wakeahead = 5;  //wake from snooze to give hydrophone and camera time to power up
 int snooze_hour;
@@ -348,6 +348,7 @@ void loop() {
     if(buf_count >= nbufs_per_file){       // time for new file?
         frec.close();
         FileInit();
+        buf_count = 0;
     }
 
     // stop when low detected
