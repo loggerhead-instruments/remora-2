@@ -67,7 +67,7 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2022-01-01";
+char codeVer[12] = "2022-01-02";
 
 unsigned long recDur = 120; // minutes 1140 = 24 hours
 int recInt = 0;
@@ -82,10 +82,10 @@ float pressureOffset_mbar;
 // float MS58xx_constant = 327680.0; // for 2 bar sensor; will switch to this if 30 bar fails to give good depth
 
 // Playback Settings
-float playBackDepthThreshold = 5.0; // tag must go deeper than this depth to trigger threshold. Default 400.0
+float playBackDepthThreshold = 10.0; // tag must go deeper than this depth to trigger threshold. Default 400.0
 float ascentDepthTrigger = 2.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback. Default 100.0
 float ascentRecordTrigger = 1.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record. Default 40.0
-float playBackResetDepth = 1.0; // tag needs to come back above this depth before next playback can happen. Default 20.0
+float playBackResetDepth = 0.5; // tag needs to come back above this depth before next playback can happen. Default 20.0
 int maxPlayBacks = 80; // maximum number of times to play. Default 80
 unsigned int minPlayBackInterval = 2; // keep playbacks from being closer than x minutes Default: 540
 float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
@@ -102,7 +102,7 @@ float daysFromStart;
 
 boolean simulateDepth = 0;
 #define nDepths 10
-float depthProfile[] = {0.1, 500.0, 450.0, 420.0, 300.0, 200.0, 100.0, 50.0, 100.0, 200.0
+float depthProfile[] = {0.1, 1.0, 10.0, 20.0, 10.0, 5.0, 3.0, 0.0, 10.0, 20.0
                       }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
 byte depthIndex = 0;
 byte oldMinute;
@@ -159,11 +159,11 @@ boolean togglePress = 0; // flag to toggle conversion of temperature and pressur
 volatile int spin;
 
 // System Modes and Status
-int mode = 0; //standby = 0; running = 1
+volatile int mode = 0; //standby = 0; running = 1
 volatile float voltage;
 volatile boolean writeSlowSensorsFlag = 0;
 volatile boolean writeMotionSensorsFlag = 0;
-volatile boolean changeToModeZero = 0;
+
 
 // Time
 volatile byte second = 0;
@@ -273,9 +273,16 @@ void loop() {
         }
       }
       else{
+        setClockPrescaler(0);
+        digitalWrite(BURN, HIGH); // power up IMU so can use I2C
+        delay(10);
         kellerConvert(); // start new depth reading
         delay(100);
         kellerRead(); // read new depth value
+        digitalWrite(BURN, LOW); // power down IMU
+       // Serial.println(depth);
+        delay(10);
+        setClockPrescaler(clockprescaler);
       }
 
       // start tracking depths once minPlayBackInterval is exceeded
@@ -289,7 +296,6 @@ void loop() {
           myICM.begin( Wire, 1 );
           myICM.getAGMT();  // for some reason need this so when read from interrupt get good readings
           mode = 1;
-          
           startInterruptTimer(speriod, 0);
         }
       }
@@ -321,11 +327,10 @@ void loop() {
     writeSlowSensorsFlag = 0;
    }
 
-   if (changeToModeZero == 1){
+   if (playState==3){
     stopTimer();
     setClockPrescaler(clockprescaler);  // slow down clock to save power
     mode = 0;        
-    changeToModeZero = 0; 
     playState = 0;  // reset play state
    }
   } // mode = 1
@@ -525,7 +530,7 @@ void sampleSensors(void){
     writeSlowSensorsFlag = 1;
     
     checkPlay();
-    if(playState==3) changeToModeZero = 1; // when done recording change to mode 0
+    //Serial.print("PS:"); Serial.println(playState);
     ssCounter = 0;
     spin = 0; //reset spin counter
     digitalWrite(LED_GRN, LOW);

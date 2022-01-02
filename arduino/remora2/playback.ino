@@ -1,6 +1,8 @@
 void checkPlay(){
 
-  if((depth < 20.0) & (playState==0)) maxDepth = depth; // reset maxDepth when each dive ends
+  if((depth < 1.0) & (playState==0)) {
+    maxDepth = depth; // reset maxDepth when each dive ends
+  }
   
   if(depth > maxDepth) {
     maxDepth = depth; // track maximum depth
@@ -56,7 +58,7 @@ void checkPlay(){
     }
   }
 
-  // in case playback fails, turn off recording after 1 minute
+  // in case playback fails, turn off play board after 1 minute
   if((playState==1) & (t > playTime + 60)){
     digitalWrite(PLAY_POW, LOW);
     PLAY_STATE = 0;
