@@ -360,6 +360,7 @@ void loop() {
     if(buf_count >= nbufs_per_file){       // time for new file?
         frec.close();
         FileInit();
+        buf_count = 0;
     }
 
     // stop when low detected
