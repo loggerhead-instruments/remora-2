@@ -23,7 +23,7 @@ void checkPlay(){
     }
 
     // Trigger record if on ascent came up enough
-    if ((playBackDepthExceeded==1) & (maxDepth - depth > ascentRecordTrigger) & (nPlayed < maxPlayBacks) & (REC_STATE==0)) {
+    if ((playBackDepthExceeded==1) & (maxDepth - depth > ascentRecordTrigger) & (nPlayed < maxPlayBacks) & (REC_STATE==0) & (((t - playTime)/60) > minPlayBackInterval)) {
       digitalWrite(REC_POW, HIGH); // turn on recorder
       digitalWrite(REC_ST, HIGH);  // start recording
       playTime = t; // update here as well so timeout below doesn't kick out
@@ -31,7 +31,7 @@ void checkPlay(){
     }
 
     // Trigger playback if on ascent came up enough
-    if ((playBackDepthExceeded==1) & (maxDepth - depth > ascentDepthTrigger) & (nPlayed < maxPlayBacks)) {
+    if ((playBackDepthExceeded==1) & (maxDepth - depth > ascentDepthTrigger) & (nPlayed < maxPlayBacks) & (REC_STATE==1)) {
         playState = 1;
         digitalWrite(PLAY_POW, HIGH);  // play will start automatically
         PLAY_STATE = 1;

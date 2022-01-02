@@ -5,6 +5,9 @@
 // ATMEGA328p: low-power motion datalogging
 // Dual Teensy 3.2: Audio playback and record
 
+// To Do
+// - Test record 80 minutes after playback
+
 // Operation
 // 1. Motion(ATMEGA328) controls power to playback and record Teensy booards.
 // 2. Record and playback start automatically when power is turned on to Play and Rec boards from Motion Atmega.
@@ -81,13 +84,13 @@ float pressureOffset_mbar;
 // Playback Settings
 float playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold
 float ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
-float ascentRecordTrigger = 75.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record
+float ascentRecordTrigger = 40.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record; Default 75
 float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen
 int maxPlayBacks = 80; // maximum number of times to play
-unsigned int minPlayBackInterval = 540; // keep playbacks from being closer than x minutes
-float delayRecPlayDays = 14.0; // delay record/playback for x days.
-float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; e.g. 28 days
-byte recMinutesAfterPlay = 2;
+unsigned int minPlayBackInterval = 10; // keep playbacks from being closer than x minutes; Default 540
+float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14.0
+float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; Default 42.0
+byte recMinutesAfterPlay = 2; // Default 2
 
 // Playback status
 float maxDepth;  
@@ -220,6 +223,7 @@ void setup() {
     delay(100);
   }
   startUnixTime = t; // time tag turned on
+  playTime = t; 
   if(SD_INIT) logFileWrite();
   digitalWrite(BURN, LOW); // power down IMU
 
@@ -306,7 +310,7 @@ void loop() {
     }
   
     daysFromStart = (float) (t - startUnixTime) / 86400.0;
-    if((daysFromStart >= delayRecPlayDays) & (daysFromStart < maxPlayDays) & (((t - playTime)/60) > minPlayBackInterval)) {
+    if((daysFromStart >= delayRecPlayDays) & (daysFromStart < maxPlayDays)) {
       if(simulateDepth){
        if (minute != oldMinute){
           oldMinute = minute;
@@ -316,6 +320,18 @@ void loop() {
         depth = depthProfile[depthIndex];
       }
       checkPlay();
+    }
+    else{
+      // case where in middle of playback when exceed maxPlayDays
+      // stop playback and recording gracefully
+      if((daysFromStart >= maxPlayDays) & (playState>0)){
+        digitalWrite(REC_ST, LOW); // stop recording
+        delay(1000);
+        digitalWrite(PLAY_POW, LOW);
+        digitalWrite(REC_POW, LOW);
+        REC_STATE = 0;
+        playState = 0;
+      }
     }
   } // mode = 1
 }
@@ -556,7 +572,7 @@ void sampleSensors(void){
     //calcPressTemp(); // MS58xx pressure and temperature
     readVoltage();
     if(SD_INIT) fileWriteSlowSensors();
-    checkPlay();
+    // checkPlay();
     ssCounter = 0;
     spin = 0; //reset spin counter
     digitalWrite(LED_GRN, LOW);
