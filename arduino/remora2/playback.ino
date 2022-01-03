@@ -1,3 +1,5 @@
+uint8_t timeoutCounter = 0;
+
 void checkPlay(){
 
   if((depth < 1.0) & (playState==0)) {
@@ -66,16 +68,19 @@ void checkPlay(){
   }
 
   // playState state = 2
+  
   if(playState==2){
     // wait to turn off record recMinutesAfterPlay started
     byte minutesAfterPlay = (t - playTime) / 60;
     if(minutesAfterPlay >= recMinutesAfterPlay){
       digitalWrite(REC_ST, LOW); // stop recording
-      if(digitalRead(REC_STATUS)==0){
+      timeoutCounter++;
+      if(digitalRead(REC_STATUS)==0 | (timeoutCounter > 10)){
         digitalWrite(REC_POW, LOW);
         REC_STATE = 0;
         playState = 3;
         maxDepth = 0; // reset maxDepth    
+        timeoutCounter = 0;
       } 
     }
   }

@@ -1,9 +1,9 @@
 #define GyroAddress 0x69
 #define CompassAddress = 0x0C  //0x0C internal compass on 9150
 
-byte mpuInit(boolean mode){
+byte mpuInit(boolean imuMode){
   byte ecode;
-  if(mode==0)
+  if(imuMode==0)
   {
      ecode = I2Cwrite(GyroAddress, 0x06, 0x40);  //Sleep mode, internal 8 MHz oscillator  //another mode is cycle where it wakes up periodically to take a value
      return ecode;

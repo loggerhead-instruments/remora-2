@@ -87,7 +87,7 @@ float ascentDepthTrigger = 2.0; // after exceed playBackDepthThreshold, must asc
 float ascentRecordTrigger = 1.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record. Default 40.0
 float playBackResetDepth = 0.5; // tag needs to come back above this depth before next playback can happen. Default 20.0
 int maxPlayBacks = 80; // maximum number of times to play. Default 80
-unsigned int minPlayBackInterval = 2; // keep playbacks from being closer than x minutes Default: 540
+unsigned int minPlayBackInterval = 1 ; // keep playbacks from being closer than x minutes Default: 540
 float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
 float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; e.g. 42 days
 byte recMinutesAfterPlay = 1; // record this many minutes after playback stops. Default 10
@@ -159,8 +159,8 @@ boolean togglePress = 0; // flag to toggle conversion of temperature and pressur
 volatile int spin;
 
 // System Modes and Status
-volatile int mode = 0; //standby = 0; running = 1
-volatile float voltage;
+byte loopMode = 0; //standby = 0; running = 1
+float voltage;
 volatile boolean writeSlowSensorsFlag = 0;
 volatile boolean writeMotionSensorsFlag = 0;
 
@@ -235,8 +235,8 @@ void setup() {
 
 void loop() {
 
-  // wait in mode 0 while delay to play is in effect and while checkPlay is waiting to start record
-  while(mode==0){
+  // wait in loopMode 0 while delay to play is in effect and while checkPlay is waiting to start record
+  while(loopMode==0){
     // resetWdt();
     digitalWrite(BURN, HIGH); // power on IMU because may be messing with I2C
     readRTC();
@@ -279,6 +279,9 @@ void loop() {
         kellerConvert(); // start new depth reading
         delay(100);
         kellerRead(); // read new depth value
+        Serial.print("mode: "); Serial.print(loopMode);
+        Serial.print(" depth:"); Serial.println(depth);
+        
         digitalWrite(BURN, LOW); // power down IMU
        // Serial.println(depth);
         delay(10);
@@ -289,23 +292,23 @@ void loop() {
       if (((t - playTime)/60 > minPlayBackInterval)){
         // check if time to start recording; recording will start when checkPlay returns 1
         checkPlay();
-        if(REC_STATE==1){
+      if(REC_STATE==1){
           setClockPrescaler(0); // run full speed during data acquisition so have full bandwidth serial
           digitalWrite(BURN, HIGH); // power on IMU
           delay(100);
           myICM.begin( Wire, 1 );
           myICM.getAGMT();  // for some reason need this so when read from interrupt get good readings
-          mode = 1;
+          loopMode = 1;
           startInterruptTimer(speriod, 0);
         }
       }
     }
-  } // mode = 0
+  } // loopMode = 0
 
   //
   // Send Motion Data Out Serial Port and Wait for Record to End
   //
-  while(mode==1){
+  while(loopMode==1){
     if(simulateDepth){
         if (minute != oldMinute){
           oldMinute = minute;
@@ -324,16 +327,17 @@ void loop() {
    }
    if(writeSlowSensorsFlag){
     serialWriteSlowSensors();
+    Serial.print("P:"); Serial.println(playState);
     writeSlowSensorsFlag = 0;
    }
 
    if (playState==3){
     stopTimer();
     setClockPrescaler(clockprescaler);  // slow down clock to save power
-    mode = 0;        
+    loopMode = 0;        
     playState = 0;  // reset play state
    }
-  } // mode = 1
+  } // loopMode = 1
 }
 
 boolean ledState;
@@ -510,16 +514,11 @@ void sampleSensors(void){
 
 //  // MS58xx start temperature conversion half-way through
   if((ssCounter>=(0.5 * slowRateMultiple))  & togglePress){ 
-//    readPress();   
-//    updateTemp();
     togglePress = 0;
     if(simulateDepth==0) kellerConvert();
   }
     
-  if(ssCounter>=slowRateMultiple){
-//    // MS58xx pressure and temperature
-//    readTemp();
-//    updatePress();  
+  if(ssCounter>=slowRateMultiple){  
     if(simulateDepth==0) kellerRead();
     togglePress = 1;
 
@@ -530,7 +529,6 @@ void sampleSensors(void){
     writeSlowSensorsFlag = 1;
     
     checkPlay();
-    //Serial.print("PS:"); Serial.println(playState);
     ssCounter = 0;
     spin = 0; //reset spin counter
     digitalWrite(LED_GRN, LOW);
