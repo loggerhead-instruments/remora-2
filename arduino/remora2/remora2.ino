@@ -89,6 +89,9 @@ unsigned int minPlayBackInterval = 1; // minutes from end of one rec/playback se
 float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
 byte recMinutes = 2; // record this many minutes after playback stops. Default 10
 byte playDelayMinutes = 1;  // minutes to start playback after start recording
+byte checkDepthPeriod = 30; // number of seconds to check change in depth
+
+byte checkDepthCounter = 0;
 
 // Playback status
 unsigned int nPlayed = 0;
@@ -227,6 +230,7 @@ void setup() {
   wdtInit();  // used to wake from sleep
   setClockPrescaler(clockprescaler); // set clockprescaler from script file; this affects the baud rate
   oldMinute = minute;
+  depth = 0;
   oldDepth = depth;
 }
 
@@ -248,60 +252,60 @@ void loop() {
     digitalWrite(LED_RED, LOW);
     
     enterSleep();
-
-    daysFromStart = (float) (t - startUnixTime) / 86400.0;
-    // check if time to start record/playback sequence
-    if((daysFromStart >= delayRecPlayDays) & (nPlayed < maxPlayBacks) & (t - playTime)/60 >= minPlayBackInterval){
-      if(minute != oldMinute){
-        oldDepth = depth;
-      }
-      if(simulateDepth){
-        if (minute != oldMinute){
-          oldMinute = minute;
-          depthIndex++;
-          if(depthIndex>=nDepths) depthIndex = 0;
-          depth = depthProfile[depthIndex];
-          
+    checkDepthCounter++;
+    if(checkDepthCounter >= checkDepthPeriod){
+      checkDepthCounter = 0;
+      daysFromStart = (float) (t - startUnixTime) / 86400.0;
+      // check if time to start record/playback sequence
+      if((daysFromStart >= delayRecPlayDays) & (nPlayed < maxPlayBacks) & (t - playTime)/60 >= minPlayBackInterval){
+        oldDepth = depth; // store oldDepth before update depth reading
+        if(simulateDepth){
+          if (minute != oldMinute){
+            oldMinute = minute;
+            depthIndex++;
+            if(depthIndex>=nDepths) depthIndex = 0;
+            depth = depthProfile[depthIndex];   
+            setClockPrescaler(clockprescaler);
+          }
+        }
+        else{
+          setClockPrescaler(0);
+          digitalWrite(BURN, HIGH); // power up IMU so can use I2C
+          delay(10);
+          kellerConvert(); // start new depth reading
+          delay(100);
+          kellerRead(); // read new depth value
+          digitalWrite(BURN, LOW); // power down IMU
           setClockPrescaler(clockprescaler);
         }
-      }
-      else{
         setClockPrescaler(0);
-        digitalWrite(BURN, HIGH); // power up IMU so can use I2C
+        Serial.print("Min since last play:");
+        Serial.println((t - playTime)/60);
+        //serialWriteSlowSensors();
+        Serial.print(" oldDepth:");Serial.print(oldDepth);
+        Serial.print(" Depth:"); Serial.print(depth);
+        float deltaDepth = oldDepth - depth;
+        Serial.print(" deltaDepth:"); Serial.print(deltaDepth);
+        Serial.print(" DepthT:");Serial.print(playBackDepthThreshold);
+        Serial.print(" ascentT:"); Serial.println(ascentDepthTrigger);
         delay(10);
-        kellerConvert(); // start new depth reading
-        delay(100);
-        kellerRead(); // read new depth value
-        digitalWrite(BURN, LOW); // power down IMU
         setClockPrescaler(clockprescaler);
-      }
-      setClockPrescaler(0);
-      Serial.print("Min since last play:");
-      Serial.println((t - playTime)/60);
-      serialWriteSlowSensors();
-      Serial.print(" oldDepth:");Serial.print(oldDepth);
-      Serial.print(" Depth:"); Serial.print(depth);
-      float deltaDepth = oldDepth - depth;
-      Serial.print(" deltaDepth:"); Serial.print(deltaDepth);
-      Serial.print(" DepthT:");Serial.print(playBackDepthThreshold);
-      Serial.print(" ascentT:"); Serial.println(ascentDepthTrigger);
-      delay(10);
-      setClockPrescaler(clockprescaler);
-
-      // check if depths satisfy playback sequence
-      
-      if((depth > playBackDepthThreshold) & (deltaDepth > ascentDepthTrigger)){
-        setClockPrescaler(0); // run full speed during data acquisition so have full bandwidth serial
-        digitalWrite(BURN, HIGH); // power on IMU
-        delay(100);
-        myICM.begin( Wire, 1 );
-        myICM.getAGMT();  // for some reason need this so when read from interrupt get good readings
-        loopMode = 1;
-        digitalWrite(REC_POW, HIGH); // turn on recorder
-        digitalWrite(REC_ST, HIGH);  // start recording
-        startInterruptTimer(speriod, 0);
-        recTime = t;
-        Serial.print("loopMode:"); Serial.println(loopMode);
+  
+        // check if depths satisfy playback sequence
+        
+        if((depth > playBackDepthThreshold) & (deltaDepth > ascentDepthTrigger)){
+          setClockPrescaler(0); // run full speed during data acquisition so have full bandwidth serial
+          digitalWrite(BURN, HIGH); // power on IMU
+          delay(100);
+          myICM.begin( Wire, 1 );
+          myICM.getAGMT();  // for some reason need this so when read from interrupt get good readings
+          loopMode = 1;
+          digitalWrite(REC_POW, HIGH); // turn on recorder
+          digitalWrite(REC_ST, HIGH);  // start recording
+          startInterruptTimer(speriod, 0);
+          recTime = t;
+          Serial.print("loopMode:"); Serial.println(loopMode);
+        }
       }
     }
   } // loopMode = 0
@@ -344,6 +348,7 @@ void loop() {
     PLAY_STATE = 2;
    }
 
+   // check if time to stop recording and reset flags and counters
    if ((t-recTime)/60 > recMinutes){
     stopTimer();
     digitalWrite(PLAY_POW, LOW); // power down playback
@@ -354,6 +359,8 @@ void loop() {
     loopMode = 0;    
     playTime = t; // reset playTime to when recording ended    
     PLAY_STATE = 0;
+    checkDepthCounter = 0;
+    oldDepth = 0;
     Serial.println("End Rec");
     Serial.print("loopMode:"); Serial.println(loopMode);
    }
