@@ -82,8 +82,8 @@ float pressureOffset_mbar;
 // float MS58xx_constant = 327680.0; // for 2 bar sensor; will switch to this if 30 bar fails to give good depth
 
 // Playback Settings
-float playBackDepthThreshold = 300.0; // tag must be deeper than this depth to start playback. Default 300.0
-float ascentDepthTrigger = 50.0; // tag must ascend this amount in 1 minute to trigger playback. Default 
+float playBackDepthThreshold = 5.0; // tag must be deeper than this depth to start playback. Default 300.0
+float ascentDepthTrigger = 1.0; // tag must ascend this amount in 1 minute to trigger playback. Default 
 int maxPlayBacks = 80; // maximum number of times to play. Default 80
 unsigned int minPlayBackInterval = 1; // minutes from end of one rec/playback session to start of next. Default: 540
 float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
@@ -98,7 +98,7 @@ unsigned int nPlayed = 0;
 byte PLAY_STATE;
 float daysFromStart;
 
-boolean simulateDepth = 1;
+boolean simulateDepth = 0;
 #define nDepths 10
 float depthProfile[] = {0.1, 10.0, 300.0, 500.0, 400.0, 300.0, 100.0, 0.0, 10.0, 20.0
                       }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
