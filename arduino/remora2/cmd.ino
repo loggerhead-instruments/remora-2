@@ -22,15 +22,6 @@ int ProcCmd(char *pCmd)
 
   switch(*pCV)
   {                     
-    
-//  // Accelerometer full scale
-//    case ('A' + ('G'<<8)):
-//    {
-//      sscanf(&pCmd[3],"%d",&lv1);
-//      accel_scale = lv1;
-//      break;
-//    }
-
     // Set Real Time Clock
     case ('T' + ('M'<<8)):
     {
@@ -47,25 +38,6 @@ int ProcCmd(char *pCmd)
  //        Serial.println(" set");
          break;
      }
-
-//    case ('B' + ('W'<<8)):
-//    {
-//         //set time
-//         sscanf(&pCmd[3],"%d-%d-%d %d:%d:%d",&tyear,&tmonth,&tday,&thour,&tmin,&tsec);
-//         burnTime = RTCToUNIXTime(tyear, tmonth, tday, thour, tmin, tsec);
-//         burnFlag = 1;
-//         break;
-//      }
-
-//     // Burn Minutes (burn set number of minutes after start)
-//      case ('B' + ('M'<<8)):
-//      {
-//           sscanf(&pCmd[3],"%d",&lv1);
-//           burnSeconds = lv1 * 60;
-//           burnFlag = 2;
-//           break;
-//      }
-
 
       case ('C' + ('P'<<8)):
       {
@@ -142,35 +114,22 @@ int ProcCmd(char *pCmd)
       break;
     }
 
-    //default playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold
+    //default playBackDepthThreshold = 275.0; // tag must be deeper than this depth to trigger threshold
     case ('P' + ('T'<<8)):
     {
       sscanf(&pCmd[3],"%d",&lv1);
       playBackDepthThreshold = lv1;
       break;
     }
-    //default ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
-    case ('P' + ('A'<<8)):
-    {
-      sscanf(&pCmd[3],"%d",&lv1);
-      ascentDepthTrigger = lv1;
-      break;
-    }
 
-    //default ascentDepthTrigger = 75.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
+    //default ascentDepthTrigger = 100.0; // tag must be rising faster than this rate per 3 minutes
     case ('R' + ('A'<<8)):
     {
       sscanf(&pCmd[3],"%d",&lv1);
-      ascentRecordTrigger = lv1;
+      ascentRateTrigger = lv1;
       break;
     }
-    //default playBackResetDepth = 10.0; // tag needs to come back above this depth before next playback can happen
-    case ('P' + ('R'<<8)):
-    {
-      sscanf(&pCmd[3],"%d",&lv1);
-      playBackResetDepth = lv1;
-      break;
-    }
+
     //default maxPlayBacks = 80;
     case ('P' + ('M'<<8)):
     {
@@ -192,25 +151,12 @@ int ProcCmd(char *pCmd)
       delayRecPlayDays = (float) lv1;
       break;
     }
-    //float maxPlayDays = 28.0; // maximum time window for playbacks from tag on; e.g. 28 days
-    case ('M' + ('D'<<8)):
-    {
-      sscanf(&pCmd[3],"%d",&lv1);
-      maxPlayDays = (float) lv1;
-      break;
-    }
-    //byte recMinutesAfterPlay = 2;
+
+    //byte recMinutes
     case ('R' + ('M'<<8)):
     {
       sscanf(&pCmd[3],"%d",&lv1);
-      recMinutesAfterPlay = lv1;
-      break;
-    }
-    
-   // enable Hall LED
-    case ('H' + ('L'<<8)):
-    {
-      HALL_LED_EN = 1;
+      recMinutes = lv1;
       break;
     }
   } 

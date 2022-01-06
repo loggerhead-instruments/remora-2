@@ -1,9 +1,10 @@
-// Copyright Loggerhead Instruments, 2020
+// Copyright Loggerhead Instruments, 2022
 // David Mann
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
 // ATMEGA328p: low-power motion datalogging
 // Dual Teensy 3.2: Audio playback and record
+// Ascent Rate trigger version
 
 // To Do
 // - Test record 80 minutes after playback
@@ -66,46 +67,47 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2021-12-02";
+char codeVer[12] = "2022-01-06";
 
 unsigned long recDur = 120; // minutes 1140 = 24 hours
 int recInt = 0;
 int LED_EN = 1; //enable green LEDs flash 1x per pressure read. Can be disabled from script.
-
-boolean HALL_EN = 0; 
-boolean HALL_LED_EN = 0; //flash red LED for Hall sensor
 boolean SD_INIT = 1;
 
-//#define pressAddress 0x76
-//float MS58xx_constant = 8192.0; // for 30 bar sensor
 float pressureOffset_mbar;
-// float MS58xx_constant = 327680.0; // for 2 bar sensor; will switch to this if 30 bar fails to give good depth
 
 // Playback Settings
-float playBackDepthThreshold = 400.0; // tag must go deeper than this depth to trigger threshold
-float ascentDepthTrigger = 100.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger playback
-float ascentRecordTrigger = 40.0; // after exceed playBackDepthThreshold, must ascend this amount to trigger record; Default 75
-float playBackResetDepth = 20.0; // tag needs to come back above this depth before next playback can happen
-int maxPlayBacks = 80; // maximum number of times to play
-unsigned int minPlayBackInterval = 10; // keep playbacks from being closer than x minutes; Default 540
-float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14.0
-float maxPlayDays = 42.0; // maximum time window for playbacks from tag on; Default 42.0
-byte recMinutesAfterPlay = 2; // Default 2
+int16_t playBackDepthThreshold = 275; // tag must be deeper than this depth to start playback. Default 275
+int16_t ascentRateTrigger = 100; // tag must ascend this amount in 3 minutes to trigger playback. Default 100
+int16_t maxPlayBacks = 80; // maximum number of times to play. Default 80
+uint16_t minPlayBackInterval = 1; // minutes from end of one rec/playback session to start of next. Default: 540
+float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
+
+byte recMinutes = 2; // record this many minutes after playback stops. Default 10
+byte playDelaySeconds = 30;  // seconds to start playback after start recording
+
 
 // Playback status
-float maxDepth;  
-volatile byte playState = 0;
-volatile byte playBackDepthExceeded = 0;
-volatile unsigned int nPlayed = 0;
-volatile boolean REC_STATE, PLAY_STATE;
+unsigned int nPlayed = 0;
+byte REC_STATE, PLAY_STATE = 0;
 float daysFromStart;
 
 boolean simulateDepth = 0;
-#define nDepths 10
-float depthProfile[] = {0.1, 500.0, 450.0, 420.0, 300.0, 200.0, 100.0, 50.0, 100.0, 200.0
-                      }; //simulated depth profile; one value per minute; max of 10 values because running out of memory
-byte depthIndex = 0;
-byte oldMinute;
+#define NDEPTHS 10
+int16_t depthProfile[] = {2, 2, 4, 0, 0, -2, -2, -4, 0, 0
+                      }; //delta depth per second, value changes once per minute
+byte simulateIndex = 0;
+byte simulateIndexCounter = 0;
+uint16_t oldDepth;
+// track depth for N_HISTORY seconds
+// this is used to calculate an ascent rate over an N_HISTORY period
+// e.g. N_HISTORY 180 will store 3 minutes of depth data in depthHistory[]
+#define N_HISTORY 18
+volatile byte depthHistoryIndex = 0;
+int16_t depthHistory[N_HISTORY];
+int16_t deltaDepth = 0;
+byte checkDepthCounter = 0;
+#define checkDepthCounterPeriod 10
 
 // pin assignments
 #define chipSelect  10
@@ -140,26 +142,9 @@ int sensorSrate = 1; // must divide into imuSrate
 int slowRateMultiple = imuSrate / sensorSrate;
 int speriod = 1000 / imuSrate;
 
-////Pressure and temp calibration coefficients
-//uint16_t PSENS; //pressure sensitivity
-//uint16_t POFF;  //Pressure offset
-//uint16_t TCSENS; //Temp coefficient of pressure sensitivity
-//uint16_t TCOFF; //Temp coefficient of pressure offset
-//uint16_t TREF;  //Ref temperature
-//uint16_t TEMPSENS; //Temperature sensitivity coefficient
-// byte Tbuff[3];
-// byte Pbuff[3];
+//Pressure and temp
 volatile float depth, temperature, pressure_mbar;
 boolean togglePress = 0; // flag to toggle conversion of temperature and pressure
-
-//int16_t accelX, accelY, accelZ;
-//int16_t magX, magY, magZ;
-//int16_t gyroX, gyroY, gyroZ;
-
-//int accel_scale = 16;
-
-// impeller spin counter
-volatile int spin;
 
 // System Modes and Status
 int mode = 0; //standby = 0; running = 1
@@ -173,9 +158,8 @@ volatile byte day = 1;
 volatile byte month = 1;
 volatile byte year = 17;
 
-volatile unsigned long t, endTime, startUnixTime, playTime;
+volatile unsigned long t, endTime, startUnixTime, playTime, recTime;
 volatile unsigned long startTime = 0;
-int burnFlag = 0;
 long burnSeconds;
 void setup() {
   Serial.begin(115200);
@@ -183,7 +167,6 @@ void setup() {
   pinMode(LED_RED, OUTPUT);
   pinMode(BURN, OUTPUT);  // used to control power to IMU board
   pinMode(BUTTON1, INPUT_PULLUP);
-  pinMode(HALL, INPUT);
   pinMode(BAT_VOLTAGE, INPUT); 
   pinMode(IMU_INT, INPUT_PULLUP); // PD7
   pinMode(PLAY_ST, OUTPUT); // trigger for Play Teensy
@@ -223,7 +206,7 @@ void setup() {
     delay(100);
   }
   startUnixTime = t; // time tag turned on
-  playTime = t; 
+  playTime = t; // set time last played to now
   if(SD_INIT) logFileWrite();
   digitalWrite(BURN, LOW); // power down IMU
 
@@ -237,11 +220,10 @@ void setup() {
 
   wdtInit();  // used to wake from sleep
   setClockPrescaler(clockprescaler); // set clockprescaler from script file
-  oldMinute = minute;
 }
 
 void loop() {
-  
+  // sleeping, waiting to start
   while(mode==0){
    // resetWdt();
    digitalWrite(BURN, HIGH); // power on IMU because may be messing with I2C
@@ -268,21 +250,79 @@ void loop() {
       delay(5);
       myICM.begin( Wire, 1 );
      // icmSetup();
-     // updateTemp();  // get first reading ready
       mode = 1;
       startInterruptTimer(speriod, clockprescaler);
-      if(HALL_EN) attachInterrupt(digitalPinToInterrupt(HALL), spinCount, RISING);
     }
   } // mode = 0
 
+  // recording
   while(mode==1){
-   // resetWdt();
+    // Check if should start playback
+
+    if(REC_STATE==0){
+      daysFromStart = (float) (t - startUnixTime) / 86400.0;
+      // check if time to start record/playback sequence
+      if((daysFromStart >= delayRecPlayDays) & (nPlayed < maxPlayBacks) & (t - playTime)/60 >= minPlayBackInterval){
+          byte tempIndex = depthHistoryIndex + 2; // looking 'ahead' 2 bins because depthHistoryIndex can change in interrupt
+          if(tempIndex > N_HISTORY - 1) tempIndex = tempIndex - N_HISTORY;
+          oldDepth = depthHistory[tempIndex];
+          deltaDepth = oldDepth - (uint16_t) depth;
+        
+//        Serial.print("Min since last play:");
+//        Serial.println((t - playTime)/60);
+//        Serial.print(" Depth:"); Serial.print(depth);
+//        
+//        Serial.print(" deltaDepth:"); Serial.print(deltaDepth);
+//        Serial.print(" DepthT:");Serial.print(playBackDepthThreshold);
+//        Serial.print(" ascentT:"); Serial.println(ascentRateTrigger);
+  
+        // check if depths satisfy playback sequence
+        if(((int16_t) depth > playBackDepthThreshold) & (deltaDepth > ascentRateTrigger)){
+          digitalWrite(REC_POW, HIGH); // turn on recorder
+          digitalWrite(REC_ST, HIGH);  // start recording
+          REC_STATE = 1;
+          recTime = t;
+        }
+      }
+    }
+
+    if(REC_STATE==1 & PLAY_STATE==0){
+        if(t-recTime > playDelaySeconds){
+          digitalWrite(PLAY_POW, HIGH);  // play will start automatically
+          PLAY_STATE = 1;
+          nPlayed++;
+        }
+    }
+
+    if(PLAY_STATE==1){
+       // stop playback after 1 minute
+       if ((t-recTime)/60 > (playDelaySeconds + 60)){
+        digitalWrite(PLAY_POW, LOW);  // stop playback
+        PLAY_STATE = 2;
+       }
+    }
+
+   // check if time to stop recording and reset flags and counters
+   if (((t-recTime)/60 > recMinutes) & (REC_STATE==1)){
+    digitalWrite(PLAY_POW, LOW); // power down playback
+    digitalWrite(REC_ST, LOW);  // stop recording
+    REC_STATE=2;
+   }
+   if(REC_STATE==2){
+    if(digitalRead(REC_STATUS)==0){
+      digitalWrite(REC_POW, LOW); // turn off recorder
+      playTime = t; // reset playTime to when recording ended    
+      PLAY_STATE = 0;
+      REC_STATE = 0;
+      Serial.println("End Rec");
+    }
+   }
+   
    if((t - startUnixTime) > 3600) LED_EN = 0; // disable green LED flashing after 3600 s
     // check if time to close
     if(t>=endTime){
       stopTimer();
       if(SD_INIT) dataFile.close(); // close file
-      
       if(recInt==0){  // no interval between files
         endTime += (recDur * 60);  // update end time
         if(SD_INIT)  fileInit();
@@ -308,46 +348,16 @@ void loop() {
         digitalWrite(LED_RED, LOW);
       }
     }
-  
-    daysFromStart = (float) (t - startUnixTime) / 86400.0;
-    if((daysFromStart >= delayRecPlayDays) & (daysFromStart < maxPlayDays)) {
-      if(simulateDepth){
-       if (minute != oldMinute){
-          oldMinute = minute;
-          depthIndex++;
-          if(depthIndex>=nDepths) depthIndex = 0;
-        }
-        depth = depthProfile[depthIndex];
-      }
-      checkPlay();
-    }
-    else{
-      // case where in middle of playback when exceed maxPlayDays
-      // stop playback and recording gracefully
-      if((daysFromStart >= maxPlayDays) & (playState>0)){
-        digitalWrite(REC_ST, LOW); // stop recording
-        delay(1000);
-        digitalWrite(PLAY_POW, LOW);
-        digitalWrite(REC_POW, LOW);
-        REC_STATE = 0;
-        playState = 0;
-      }
-    }
   } // mode = 1
 }
 
 boolean ledState;
-void spinCount(){
-  ledState = !ledState;
-  if(HALL_LED_EN) digitalWrite(LED_RED, ledState);
-  spin++;
-}
 
 void initSensors(){
   delay(2000);
   readVoltage();
-  Serial.print(voltage);
-  Serial.println("V");
+  //Serial.print(voltage);
+  //Serial.println("V");
 
   // Sends DT to Record Teensy
   readRTC();
@@ -388,7 +398,6 @@ void initSensors(){
         delay(20);
         kellerRead();
         delay(100);
-        
         pressureSum+= pressure_mbar;
         pressureOffset_mbar = pressureSum / n;
     }
@@ -421,22 +430,6 @@ void initSensors(){
   digitalWrite(REC_POW, LOW);
   digitalWrite(PLAY_POW, LOW);
 }
-
-//void calcImu(){
-//  accelX = (int16_t) ((int16_t)imuTempBuffer[0] << 8 | imuTempBuffer[1]);    
-//  accelY = (int16_t) ((int16_t)imuTempBuffer[2] << 8 | imuTempBuffer[3]);   
-//  accelZ = (int16_t) ((int16_t)imuTempBuffer[4] << 8 | imuTempBuffer[5]);    
-//  
-// // gyroTemp = (int16_t) (((int16_t)imuTempBuffer[6]) << 8 | imuTempBuffer[7]);   
-// 
-//  gyroX = (int16_t)  (((int16_t)imuTempBuffer[8] << 8) | imuTempBuffer[9]);   
-//  gyroY = (int16_t)  (((int16_t)imuTempBuffer[10] << 8) | imuTempBuffer[11]); 
-//  gyroZ = (int16_t)  (((int16_t)imuTempBuffer[12] << 8) | imuTempBuffer[13]);   
-//  
-//  magX = (int16_t)  (((int16_t)imuTempBuffer[14] << 8) | imuTempBuffer[15]);   
-//  magY = (int16_t)  (((int16_t)imuTempBuffer[16] << 8) | imuTempBuffer[17]);   
-//  magZ = (int16_t)  (((int16_t)imuTempBuffer[18] << 8) | imuTempBuffer[19]);  
-//}
 
 //void printImu(){
 //  Serial.print("a/m/g:\t");
@@ -484,13 +477,13 @@ void fileWriteSlowSensors(){
   dataFile.print(",");
   dataFile.print(pressure_mbar);
   dataFile.print(','); dataFile.print(depth);
+  dataFile.print(','); dataFile.print(oldDepth);
+  dataFile.print(','); dataFile.print(deltaDepth);
   dataFile.print(','); dataFile.print(temperature);
   dataFile.print(','); dataFile.print(voltage);
   dataFile.print(','); dataFile.print(REC_STATE);
   dataFile.print(','); dataFile.print(PLAY_STATE);
-  if(HALL_EN){
-      dataFile.print(','); dataFile.print(spin);
-  }
+
 }
 
 void logFileWrite()
@@ -535,8 +528,7 @@ void fileInit()
     delay(100);
    }
    digitalWrite(LED_RED, LOW);
-   dataFile.print("accelX,accelY,accelZ,magX,magY,magZ,gyroX,gyroY,gyroZ,date,mBar,depth,temp,V,rec,play");
-   if(HALL_EN) dataFile.print(",spin");
+   dataFile.print("accelX,accelY,accelZ,magX,magY,magZ,gyroX,gyroY,gyroZ,date,mBar,depth,OD,DD,temp,V,rec,play");
    dataFile.println();
    SdFile::dateTimeCallback(file_date_time);
   // Serial.println(filename);
@@ -552,30 +544,39 @@ void sampleSensors(void){
     myICM.getAGMT();
     if(SD_INIT) fileWriteImu();
 
-//  // MS58xx start temperature conversion half-way through
+  // Keller convert half-way through  
   if((ssCounter>=(0.5 * slowRateMultiple))  & togglePress){ 
-//    readPress();   
-//    updateTemp();
     togglePress = 0;
     if(simulateDepth==0) kellerConvert();
 }
     
   if(ssCounter>=slowRateMultiple){
-//    // MS58xx pressure and temperature
-//    readTemp();
-//    updatePress();  
     if(simulateDepth==0) kellerRead();
+    
     togglePress = 1;
     
     if(LED_EN) digitalWrite(LED_GRN, HIGH);
     readRTC();
-    //calcPressTemp(); // MS58xx pressure and temperature
     readVoltage();
     if(SD_INIT) fileWriteSlowSensors();
-    // checkPlay();
     ssCounter = 0;
-    spin = 0; //reset spin counter
     digitalWrite(LED_GRN, LOW);
+    if(simulateDepth) depth = depth + (float) depthProfile[simulateIndex]; // update simulated depth once per second
+    // update simulateIndex once per minute
+    simulateIndexCounter++;
+    if(simulateIndexCounter>=60) {
+      simulateIndexCounter=0;
+      simulateIndex++;
+      if(simulateIndex>=NDEPTHS) simulateIndex = 0;
+    }
+    // update depth history every checkDepthCounterPeriodSeonds (default 10)
+    checkDepthCounter++;
+    if(checkDepthCounter>=checkDepthCounterPeriod){
+      depthHistory[depthHistoryIndex] = (uint16_t) depth;
+      depthHistoryIndex++;
+      if(depthHistoryIndex>=N_HISTORY) depthHistoryIndex = 0;
+        checkDepthCounter = 0;
+      }
   }
   if(SD_INIT)  dataFile.println();
 }
