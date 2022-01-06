@@ -20,7 +20,7 @@
 // Modified by WMXZ 15-05-2018 for SdFS anf multiple sampling frequencies
 // Optionally uses SdFS from Bill Greiman https://github.com/greiman/SdFs; but has higher current draw in sleep
 
-char codeVersion[12] = "2022-01-02";
+char codeVersion[12] = "2022-01-03";
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics
 
 #define USE_SDFS 0  // to be used for exFAT but works also for FAT16/32
@@ -210,9 +210,9 @@ void setup() {
   digitalWrite(REC_STATUS, LOW);
   Serial1.begin(baud); // talk to Atmega
 
-  Serial.println(RTC_TSR);
-  Serial.println(RTC_TSR);
-  Serial.println(RTC_TSR);
+//  Serial.println(RTC_TSR);
+//  Serial.println(RTC_TSR);
+//  Serial.println(RTC_TSR);
 
   readEEPROM();
 
@@ -227,7 +227,7 @@ void setup() {
   
   Wire.begin();  
 
-    // Initialize the SD card
+  // Initialize the SD card
   SPI.setMOSI(7);
   SPI.setSCK(14);
   if (!(sd.begin(10))) {
@@ -263,9 +263,7 @@ void setup() {
     // display text from Atmega
     while(Serial1.available()>0){
       incomingText[i] = Serial1.read();
-      Serial.print(i); Serial.print(':'); Serial.println(incomingText[i]);
-//      Serial.write(incomingText);
-//      display.write(incomingText);
+      //Serial.print(incomingText[i]);
       if(incomingText[i] == '\r') {
         Serial.println(incomingText);
         display.print(incomingText);
@@ -368,7 +366,7 @@ void loop() {
       delay(1);
       if(digitalRead(REC_ST)==0){
         stopRecording();
-        mode = 2;
+        while(1);
       }
     }
   }
@@ -402,7 +400,7 @@ void continueRecording() {
       queue1.freeBuffer();
     }
     digitalWrite(ledGreen, LOW);  
-    if(frec.write(buffer, NREC*512)==-1) resetFunc(); //audio to .wav file
+    frec.write(buffer, NREC*512); //audio to .wav file
     buf_count += NREC;
   }
 }
@@ -450,7 +448,7 @@ void motionFileInit(){
   #else
     if(frecMotion = sd.open(motionFileName,  O_CREAT | O_APPEND | O_WRITE)){
   #endif
-    frecMotion.println("accelX,accelY,accelZ,magX,magY,magZ,gyroX,gyroY,gyroZ,date,mBar,depth,temp,V,rec,play");
+    frecMotion.println("accelX,accelY,accelZ,magX,magY,magZ,gyroX,gyroY,gyroZ,date,mBar,depth,temp,V,play");
    }
 }
 
@@ -495,7 +493,7 @@ void FileInit()
    }
    else{
     if(printDiags) Serial.print("Log open fail.");
-    resetFunc();
+    // resetFunc();
    }
 
     
