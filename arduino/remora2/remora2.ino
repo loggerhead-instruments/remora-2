@@ -78,9 +78,9 @@ float pressureOffset_mbar;
 int16_t playBackDepthThreshold = 275; // tag must be deeper than this depth to start playback. Default 275
 int16_t ascentRateTrigger = 100; // tag must ascend this amount in 3 minutes to trigger playback. Default 100
 int16_t maxPlayBacks = 80; // maximum number of times to play. Default 80
-uint16_t minPlayBackInterval = 1; // minutes from end of one rec/playback session to start of next. Default: 540
+uint16_t minPlayBackInterval = 60; // minutes from end of one rec/playback session to start of next. Default: 540
 float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
-byte recMinutes = 2; // record this many minutes Default 2
+byte recMinutes = 20; // record this many minutes Default 2
 byte playDelaySeconds = 30;  // seconds to start playback after start recording
 
 // Playback status
@@ -281,13 +281,13 @@ void loop() {
 
       //      Serial.print("Min since last play:");
       //      Serial.println((t - playTime)/60);
-      Serial.print(" oD:");Serial.print(oldDepth);
-      Serial.print(" D:"); Serial.print(depth);
-      Serial.print(" dd:"); Serial.print(deltaDepth);
-      Serial.print(" "); Serial.println(second);
+//      Serial.print(" oD:");Serial.print(oldDepth);
+//      Serial.print(" D:"); Serial.print(depth);
+//      Serial.print(" dd:"); Serial.print(deltaDepth);
+//      Serial.print(" "); Serial.println(second);
       //      Serial.print(" DepthT:");Serial.print(playBackDepthThreshold);
       //      Serial.print(" ascentT:"); Serial.println(ascentRateTrigger);
-      Serial.flush();
+//      Serial.flush();
     }
 
     daysFromStart = (float) (t - startUnixTime) / 86400.0;
@@ -307,7 +307,7 @@ void loop() {
         startInterruptTimer(speriod, 0);
         recTime = t;
         oldMinute = minute; // used to update simulate depth during playback
-        Serial.print("loopMode:"); Serial.println(loopMode);
+        // Serial.print("loopMode:"); Serial.println(loopMode);
         digitalWrite(LED_GRN, LOW);
         digitalWrite(LED_RED, LOW);
       }
