@@ -6,9 +6,6 @@
 // Dual Teensy 3.2: Audio playback and record
 // Ascent Rate trigger version
 
-// To Do
-// - Test record 80 minutes after playback
-
 // Operation
 // 1. Motion(ATMEGA328) controls power to playback and record Teensy booards.
 // 2. Record and playback start automatically when power is turned on to Play and Rec boards from Motion Atmega.
@@ -67,9 +64,9 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2022-01-06";
+char codeVer[12] = "2022-01-07";
 
-unsigned long recDur = 120; // minutes 1140 = 24 hours
+unsigned long recDur = 120; // motion file length; minutes 1140 = 24 hours
 int recInt = 0;
 int LED_EN = 1; //enable green LEDs flash 1x per pressure read. Can be disabled from script.
 boolean SD_INIT = 1;
@@ -82,7 +79,7 @@ int16_t ascentRateTrigger = 100; // tag must ascend this amount in 3 minutes to 
 int16_t maxPlayBacks = 80; // maximum number of times to play. Default 80
 uint16_t minPlayBackInterval = 540; // minutes from end of one rec/playback session to start of next. Default: 540
 float delayRecPlayDays = 14.0; // delay record/playback for x days. Default 14
-byte recMinutes = 20; // record this many minutes Default 20
+byte recMinutes = 2; // record this many minutes Default 2
 byte playDelaySeconds = 30;  // seconds to start playback after start recording
 
 // Playback status
@@ -294,10 +291,12 @@ void loop() {
     }
 
     if(PLAY_STATE==1){
-       // stop playback after 1 minute
-       if ((t-recTime)/60 > (playDelaySeconds + 60)){
-        digitalWrite(PLAY_POW, LOW);  // stop playback
-        PLAY_STATE = 2;
+       // check whether to stop playback 10s after starts
+       if (t-recTime > (playDelaySeconds + 10)){
+          if(analogRead(PLAY_STATUS) < 200){
+            digitalWrite(PLAY_POW, LOW);  // stop playback
+            PLAY_STATE = 2;
+          }
        }
     }
 
