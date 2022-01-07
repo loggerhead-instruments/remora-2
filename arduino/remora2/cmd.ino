@@ -106,7 +106,13 @@ int ProcCmd(char *pCmd)
     }
 
     // Playback
-    //default minPlayBackInterval = 480; // keep playbacks from being closer than x minutes
+    //int16_t playBackDepthThreshold = 275; // tag must be deeper than this depth to start playback. Default 275
+    //int16_t ascentRateTrigger = 100; // tag must ascend this amount in 3 minutes to trigger playback. Default 100
+    //int16_t maxPlayBacks = 80; // maximum number of times to play. Default 80
+    //uint16_t minPlayBackInterval = 1; // minutes from end of one rec/playback session to start of next. Default: 540
+    //float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
+    //byte recMinutes = 20; // record this many minutes Default 10
+    //default minPlayBackInterval = 540; // keep playbacks from being closer than x minutes
     case ('P' + ('I'<<8)):
     {
       sscanf(&pCmd[3],"%d",&lv1);

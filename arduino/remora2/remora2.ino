@@ -80,12 +80,10 @@ float pressureOffset_mbar;
 int16_t playBackDepthThreshold = 275; // tag must be deeper than this depth to start playback. Default 275
 int16_t ascentRateTrigger = 100; // tag must ascend this amount in 3 minutes to trigger playback. Default 100
 int16_t maxPlayBacks = 80; // maximum number of times to play. Default 80
-uint16_t minPlayBackInterval = 1; // minutes from end of one rec/playback session to start of next. Default: 540
-float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
-
-byte recMinutes = 2; // record this many minutes after playback stops. Default 10
+uint16_t minPlayBackInterval = 540; // minutes from end of one rec/playback session to start of next. Default: 540
+float delayRecPlayDays = 14.0; // delay record/playback for x days. Default 14
+byte recMinutes = 20; // record this many minutes Default 20
 byte playDelaySeconds = 30;  // seconds to start playback after start recording
-
 
 // Playback status
 unsigned int nPlayed = 0;
@@ -263,9 +261,10 @@ void loop() {
       daysFromStart = (float) (t - startUnixTime) / 86400.0;
       // check if time to start record/playback sequence
       if((daysFromStart >= delayRecPlayDays) & (nPlayed < maxPlayBacks) & (t - playTime)/60 >= minPlayBackInterval){
-          byte tempIndex = depthHistoryIndex + 2; // looking 'ahead' 2 bins because depthHistoryIndex can change in interrupt
-          if(tempIndex > N_HISTORY - 1) tempIndex = tempIndex - N_HISTORY;
-          oldDepth = depthHistory[tempIndex];
+//          byte tempIndex = depthHistoryIndex + 1; // looking 'ahead' 1 bin to get the value from 3 minutes ago
+//          if(tempIndex > N_HISTORY - 1) tempIndex = 0;
+          // depthHistoryIndex will be the next position that is updated, so it is the oldest value
+          oldDepth = depthHistory[depthHistoryIndex];
           deltaDepth = oldDepth - (uint16_t) depth;
         
 //        Serial.print("Min since last play:");
@@ -477,8 +476,8 @@ void fileWriteSlowSensors(){
   dataFile.print(",");
   dataFile.print(pressure_mbar);
   dataFile.print(','); dataFile.print(depth);
-  dataFile.print(','); dataFile.print(oldDepth);
-  dataFile.print(','); dataFile.print(deltaDepth);
+  dataFile.print(','); dataFile.print(depthHistory[depthHistoryIndex]);
+  dataFile.print(','); dataFile.print(depth - depthHistory[depthHistoryIndex]);
   dataFile.print(','); dataFile.print(temperature);
   dataFile.print(','); dataFile.print(voltage);
   dataFile.print(','); dataFile.print(REC_STATE);
@@ -562,7 +561,7 @@ void sampleSensors(void){
     ssCounter = 0;
     digitalWrite(LED_GRN, LOW);
     if(simulateDepth) depth = depth + (float) depthProfile[simulateIndex]; // update simulated depth once per second
-    // update simulateIndex once per minute
+    // update simulateIndex once per 60 seconds
     simulateIndexCounter++;
     if(simulateIndexCounter>=60) {
       simulateIndexCounter=0;
@@ -570,13 +569,14 @@ void sampleSensors(void){
       if(simulateIndex>=NDEPTHS) simulateIndex = 0;
     }
     // update depth history every checkDepthCounterPeriodSeonds (default 10)
-    checkDepthCounter++;
+    
     if(checkDepthCounter>=checkDepthCounterPeriod){
       depthHistory[depthHistoryIndex] = (uint16_t) depth;
       depthHistoryIndex++;
       if(depthHistoryIndex>=N_HISTORY) depthHistoryIndex = 0;
-        checkDepthCounter = 0;
-      }
+      checkDepthCounter = 0;
+    }
+    checkDepthCounter++;
   }
   if(SD_INIT)  dataFile.println();
 }
