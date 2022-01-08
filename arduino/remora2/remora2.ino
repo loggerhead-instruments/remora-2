@@ -66,7 +66,7 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2022-01-07";
+char codeVer[12] = "2022-01-08";
 
 unsigned long recDur = 120; // minutes 1140 = 24 hours
 int recInt = 0;
@@ -282,12 +282,12 @@ void loop() {
       //      Serial.print("Min since last play:");
       //      Serial.println((t - playTime)/60);
 //      Serial.print(" oD:");Serial.print(oldDepth);
-//      Serial.print(" D:"); Serial.print(depth);
-//      Serial.print(" dd:"); Serial.print(deltaDepth);
-//      Serial.print(" "); Serial.println(second);
+      Serial.print(" D:"); Serial.print(depth);
+      Serial.print(" dd:"); Serial.print(deltaDepth);
+      Serial.print(" "); Serial.println(second);
       //      Serial.print(" DepthT:");Serial.print(playBackDepthThreshold);
       //      Serial.print(" ascentT:"); Serial.println(ascentRateTrigger);
-//      Serial.flush();
+      Serial.flush();
     }
 
     daysFromStart = (float) (t - startUnixTime) / 86400.0;
@@ -315,7 +315,7 @@ void loop() {
   } // loopMode = 0
 
   //
-  // Send Motion Data Out Serial Port and Wait for Record to End
+  // loopMode 1: Send Motion Data Out Serial Port and Wait for Record to End
   //
   while(loopMode==1){
     if(simulateDepth){
@@ -359,7 +359,7 @@ void loop() {
     }
 
    // check if time to stop recording and reset flags and counters
-   if ((t-recTime)/60 > recMinutes){
+   if ((t-recTime)/60 >= recMinutes){
     stopTimer();
     digitalWrite(PLAY_POW, LOW); // power down playback
     digitalWrite(REC_ST, LOW);  // stop recording
