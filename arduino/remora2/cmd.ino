@@ -6,7 +6,6 @@ int ProcCmd(char *pCmd)
 {
   short *pCV;
   short n;
-  long lv1;
   char s[22];
   unsigned int tday;
   unsigned int tmonth;
@@ -39,71 +38,67 @@ int ProcCmd(char *pCmd)
          break;
      }
 
-      case ('C' + ('P'<<8)):
-      {
-         sscanf(&pCmd[3],"%d",&lv1);
-         clockprescaler=lv1;
-         break; 
-      }
+//      case ('C' + ('P'<<8)):
+//      {
+//         sscanf(&pCmd[3],"%d",&lv1);
+//         clockprescaler=lv1;
+//         break; 
+//      }
                 
-      case ('S' + ('T'<<8)):
-      {
-        //start time
-         sscanf(&pCmd[3],"%d-%d-%d %d:%d:%d",&tyear,&tmonth,&tday,&thour,&tmin,&tsec);
-         startTime = RTCToUNIXTime(tyear, tmonth, tday, thour, tmin, tsec);
-         break;
-      } 
+//      case ('S' + ('T'<<8)):
+//      {
+//        //start time
+//         sscanf(&pCmd[3],"%d-%d-%d %d:%d:%d",&tyear,&tmonth,&tday,&thour,&tmin,&tsec);
+//         startTime = RTCToUNIXTime(tyear, tmonth, tday, thour, tmin, tsec);
+//         break;
+//      } 
 
       case ('D' + ('D'<<8)):
       {
-        sscanf(&pCmd[3],"%d",&lv1);
-        long delaySeconds = lv1 * SECONDS_IN_DAY;
-        //start time
-        readRTC();
-        startTime = t + delaySeconds;
+        sscanf(&pCmd[3],"%d",&dd);
         break;
       } 
 
-    // RD: Record duration in minutes  
-    case ('R' + ('D'<<8)):
-    {
-      sscanf(&pCmd[3],"%d",&lv1);
-      recDur = lv1;
-//      Serial.print("Rec dur:");
-//      Serial.println(recDur);
-      break;
-    }
-
-    // RI: Record interval in seconds
-    case ('R' + ('I'<<8)):
-    {
-      sscanf(&pCmd[3],"%d",&lv1);
-      recInt = lv1;
-//      Serial.print("Rec int:");
-//      Serial.println(recInt);
-      break;
-    } 
-
-    case ('I' + ('S'<<8)):
-    {
-      sscanf(&pCmd[3],"%d",&lv1);
-      imuSrate = lv1;
-      break;
-    }
-
-    case ('P' + ('S'<<8)):
-    {
-      sscanf(&pCmd[3],"%d",&lv1);
-      sensorSrate = lv1;
-      break;
-    }
-
-    // disable LED
-    case ('L' + ('D'<<8)):
-    {
-      LED_EN = 0;
-      break;
-    }
+//    // RD: Record duration in minutes  
+//    case ('R' + ('D'<<8)):
+//    {
+//      sscanf(&pCmd[3],"%d",&lv1);
+//      recDur = lv1;
+////      Serial.print("Rec dur:");
+////      Serial.println(recDur);
+//      break;
+//    }
+//
+//    // RI: Record interval in seconds
+//    case ('R' + ('I'<<8)):
+//    {
+//      sscanf(&pCmd[3],"%d",&lv1);
+//      recInt = lv1;
+////      Serial.print("Rec int:");
+////      Serial.println(recInt);
+//      break;
+//    } 
+//
+//    case ('I' + ('S'<<8)):
+//    {
+//      sscanf(&pCmd[3],"%d",&lv1);
+//      imuSrate = lv1;
+//      break;
+//    }
+//
+//    case ('P' + ('S'<<8)):
+//    {
+//      sscanf(&pCmd[3],"%d",&lv1);
+//      sensorSrate = lv1;
+//      break;
+//    }
+//
+//    // disable LED
+//    case ('L' + ('D'<<8)):
+//    {
+//      LED_EN = 0;
+//      break;
+//    }
 
     // Playback
     //int16_t playBackDepthThreshold = 275; // tag must be deeper than this depth to start playback. Default 275
@@ -115,32 +110,28 @@ int ProcCmd(char *pCmd)
     //default minPlayBackInterval = 540; // keep playbacks from being closer than x minutes
     case ('P' + ('I'<<8)):
     {
-      sscanf(&pCmd[3],"%d",&lv1);
-      minPlayBackInterval = lv1;
+      sscanf(&pCmd[3],"%d",&minPlayBackInterval);
       break;
     }
 
     //default playBackDepthThreshold = 275.0; // tag must be deeper than this depth to trigger threshold
     case ('P' + ('T'<<8)):
     {
-      sscanf(&pCmd[3],"%d",&lv1);
-      playBackDepthThreshold = lv1;
+      sscanf(&pCmd[3],"%d",&playBackDepthThreshold);
       break;
     }
 
     //default ascentDepthTrigger = 100.0; // tag must be rising faster than this rate per 3 minutes
     case ('R' + ('A'<<8)):
     {
-      sscanf(&pCmd[3],"%d",&lv1);
-      ascentRateTrigger = lv1;
+      sscanf(&pCmd[3],"%d",&ascentRateTrigger);
       break;
     }
 
     //default maxPlayBacks = 80;
     case ('P' + ('M'<<8)):
     {
-      sscanf(&pCmd[3],"%d",&lv1);
-      maxPlayBacks = lv1;
+      sscanf(&pCmd[3],"%d",&maxPlayBacks);
       break;
     }
     // default simulateDepth = 0
@@ -150,19 +141,17 @@ int ProcCmd(char *pCmd)
       break;
     }
 
-    //float delayRecPlayDays = 0.0; // delay record/playback for x days.
+    //float delayRecPlayDays = 0; // delay record/playback for x days.
     case ('D' + ('P'<<8)):
     {
-      sscanf(&pCmd[3],"%d",&lv1);
-      delayRecPlayDays = (float) lv1;
+      sscanf(&pCmd[3],"%d",&delayRecPlayDays);
       break;
     }
 
     //byte recMinutes
     case ('R' + ('M'<<8)):
     {
-      sscanf(&pCmd[3],"%d",&lv1);
-      recMinutes = lv1;
+      sscanf(&pCmd[3],"%d",&recMinutes);
       break;
     }
   } 

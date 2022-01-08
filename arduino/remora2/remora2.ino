@@ -75,11 +75,12 @@ boolean SD_INIT = 1;
 float pressureOffset_mbar;
 
 // Playback Settings
+byte dd = 0; // days to delay start of recording
 int16_t playBackDepthThreshold = 275; // tag must be deeper than this depth to start playback. Default 275
 int16_t ascentRateTrigger = 100; // tag must ascend this amount in 3 minutes to trigger playback. Default 100
 int16_t maxPlayBacks = 80; // maximum number of times to play. Default 80
 uint16_t minPlayBackInterval = 540; // minutes from end of one rec/playback session to start of next. Default: 540
-float delayRecPlayDays = 14.0; // delay record/playback for x days. Default 14
+byte delayRecPlayDays = 14; // delay record/playback for x days. Default 14
 byte recMinutes = 2; // record this many minutes Default 2
 byte playDelaySeconds = 30;  // seconds to start playback after start recording
 
@@ -208,10 +209,12 @@ void setup() {
   digitalWrite(BURN, LOW); // power down IMU
 
 
-  if(startTime==0) startTime = t + 5;
-//  Serial.print("Time:"); Serial.println(t);
-//  Serial.print("Start Time:"); Serial.println(startTime);
-//  Serial.print("UT:"); Serial.println(startUnixTime);
+  if(dd==0 & startTime==0) startTime = t + 5;
+  if(dd>0) startTime = t + (dd * 86400);
+  Serial.print("Time:"); Serial.println(t);
+  Serial.print("ST:"); Serial.println(startTime);
+  // Serial.print("UT:"); Serial.println(startUnixTime);
+  Serial.print("dRP:"); Serial.println(delayRecPlayDays);
 //  Serial.println(simulateDepth);
   delay(10);
 
@@ -223,13 +226,13 @@ void loop() {
   // sleeping, waiting to start
   while(mode==0){
    // resetWdt();
-   digitalWrite(BURN, HIGH); // power on IMU because may be messing with I2C
+    digitalWrite(BURN, HIGH); // power on IMU because may be messing with I2C
     readRTC();
     digitalWrite(BURN, LOW); // power on IMU
     if((t - startUnixTime) > 3600){
       LED_EN = 0; // disable green LED flashing after 3600 s
     }
-   
+    
     if(LED_EN){
       digitalWrite(LED_GRN, HIGH);
       digitalWrite(LED_RED, HIGH);
@@ -238,7 +241,7 @@ void loop() {
     digitalWrite(LED_GRN, LOW);
     digitalWrite(LED_RED, LOW);
     enterSleep();
-
+    
     if(t >= startTime){
       endTime = startTime + (recDur * 60);
       startTime += (recDur * 60) + recInt;  // this will be next start time for interval record      mpuInit(1);
@@ -424,10 +427,11 @@ void initSensors(){
 //    delay(500);
 //  }
   digitalWrite(REC_ST, LOW); // stop recording
-  for(int i = 0; i<10; i++){
-   // Serial.print(digitalRead(REC_STATUS));
-    delay(500);
-  }
+  delay(5000);
+//  for(int i = 0; i<10; i++){
+//   // Serial.print(digitalRead(REC_STATUS));
+//    delay(500);
+//  }
   digitalWrite(REC_POW, LOW);
   digitalWrite(PLAY_POW, LOW);
 }
