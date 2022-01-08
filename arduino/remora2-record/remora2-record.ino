@@ -255,7 +255,6 @@ void setup() {
     // display text from Atmega
     while(Serial1.available()>0){
       incomingText[i] = Serial1.read();
-      Serial.print(i); Serial.print(':'); Serial.println(incomingText[i]);
 //      Serial.write(incomingText);
 //      display.write(incomingText);
       if(incomingText[i] == '\r') {
@@ -264,13 +263,13 @@ void setup() {
         display.display();
         i = 0;
         curLine += 1;
-        if(incomingText[1] == 'D' and incomingText[2] == 'T'){   
+        if(incomingText[0] == 'D' and incomingText[1] == 'T'){   
           time_t newTime ;
-          //incomingText[14] = '\0'; // null character
+          incomingText[14] = '\0'; // null character
           char str[10];
           sscanf(incomingText, "%s %u", str, &newTime);
           Serial.print("New Time: ");
-          Serial.print(str); 
+          //Serial.print(str); 
           Serial.println(newTime);
           Teensy3Clock.set(newTime); 
           displayClock(newTime, BOTTOM);

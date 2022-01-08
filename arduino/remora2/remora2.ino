@@ -47,6 +47,7 @@
 #include <prescaler.h>
 #include "ICM_20948.h"  // Click here to get the library: http://librarymanager/All#SparkFun_ICM_20948_IMU
 
+
 #define SDA_PORT PORTC
 #define SDA_PIN 4
 #define SCL_PORT PORTC
@@ -193,13 +194,14 @@ void setup() {
   slowRateMultiple = imuSrate / sensorSrate;
   speriod = 1000 / imuSrate;
 
-  initSensors();
-
   // this sometimes fails
   // critical to update time here
   while(readRTC()==0){ 
     delay(100);
   }
+  
+  initSensors();
+
   startUnixTime = t; // time tag turned on
   playTime = t; // set time last played to now
   if(SD_INIT) logFileWrite();
@@ -360,7 +362,8 @@ void initSensors(){
   // Sends DT to Record Teensy
   readRTC();
   Serial.print("DT "); Serial.println(t);
-  Serial.print("T "); Serial.print(hour); Serial.print(":");
+  Serial.print(year); Serial.print("-"); Serial.print(month); Serial.print("-");Serial.print(day);
+  Serial.print("T"); Serial.print(hour); Serial.print(":");
   Serial.print(minute); Serial.print(":");
   Serial.println(second);
   Serial.flush();

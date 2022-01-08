@@ -87,9 +87,17 @@ unsigned long RTCToUNIXTime(byte iyear, byte imonth, byte idate, byte ihour, byt
   unsigned long Ticks = 0;
 
   long yearsSince = iyear + 30; // Same as iyear + 2000 - 1970
-  long numLeaps = yearsSince >> 2; // yearsSince / 4 truncated
+  long numLeaps; // yearsSince / 4 truncated
+  if(iyear==22) numLeaps = 12;
+  if(iyear==23) numLeaps = 12;
+  if(iyear==24) numLeaps = 12;  // leap year
+  if(iyear==25) numLeaps = 13;
+  if(iyear==26) numLeaps = 13;
+  if(iyear==27) numLeaps = 13;
+  if(iyear==28) numLeaps = 13;
+  if(iyear==29) numLeaps = 14;
   
-  if((!(iyear%4)) && (imonth>2)) Ticks+=SECONDS_IN_DAY;  //dm 8/9/2012  If current year is leap, add one day
+  if((iyear%4==0) & (imonth>2)) Ticks+=SECONDS_IN_DAY;  //dm 8/9/2012  If current year is leap, add one day
 
   // Calculate Year Ticks
   Ticks += (yearsSince-numLeaps)*SECONDS_IN_YEAR;
