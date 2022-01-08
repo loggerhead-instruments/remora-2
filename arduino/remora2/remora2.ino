@@ -65,7 +65,7 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2022-01-07";
+char codeVer[12] = "2022-01-08";
 
 unsigned long recDur = 120; // motion file length; minutes 1140 = 24 hours
 int recInt = 0;
