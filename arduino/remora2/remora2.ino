@@ -303,7 +303,7 @@ void loop() {
     }
 
    // check if time to stop recording and reset flags and counters
-   if (((t-recTime)/60 > recMinutes) & (REC_STATE==1)){
+   if (((t-recTime)/60 >= recMinutes) & (REC_STATE==1)){
     digitalWrite(PLAY_POW, LOW); // power down playback
     digitalWrite(REC_ST, LOW);  // stop recording
     REC_STATE=2;
