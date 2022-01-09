@@ -70,12 +70,11 @@ char codeVer[12] = "2022-01-08";
 unsigned long recDur = 120; // motion file length; minutes 1140 = 24 hours
 int recInt = 0;
 int LED_EN = 1; //enable green LEDs flash 1x per pressure read. Can be disabled from script.
-boolean SD_INIT = 1;
 
 float pressureOffset_mbar;
 
 // Playback Settings
-byte dd = 14; // days to delay start of motion recording
+byte delayMotion = 14; // days to delay start of motion recording
 byte delayRecPlayDays = 14; // delay record/playback for x days. Default 14
 
 int16_t playBackDepthThreshold = 275; // tag must be deeper than this depth to start playback. Default 275
@@ -90,7 +89,7 @@ byte nPlayed = 0;
 byte REC_STATE, PLAY_STATE = 0;
 float daysFromStart;
 
-boolean calibrationMode = 0;
+
 boolean simulateDepth = 0;
 #define NDEPTHS 10
 int16_t depthProfile[] = {2, 2, 4, 0, 0, -2, -2, -4, 0, 0
@@ -184,20 +183,15 @@ void setup() {
 
   Wire.begin();
   Wire.setClock(400000);
-  if(!sd.begin(chipSelect, SPI_FULL_SPEED)){
+  while(!sd.begin(chipSelect, SPI_FULL_SPEED)){
     digitalWrite(LED_RED, HIGH);
     digitalWrite(LED_GRN, LOW);
-    delay(1000);
-    SD_INIT = 0;
+    delay(100);
+    digitalWrite(LED_RED, LOW);
+    delay(200);
   }
   
-  if (SD_INIT) loadScript(); // do this early to set time
-
-  if(calibrationMode){
-    delayRecPlayDays = 0;
-    dd = 0;
-    minPlayBackInterval = 2;
-  }
+  loadScript(); // do this early to set time
 
   // recalculate sample rates in case changed from script
   slowRateMultiple = imuSrate / sensorSrate;
@@ -213,12 +207,12 @@ void setup() {
 
   startUnixTime = t; // time tag turned on
   playTime = t; // set time last played to now
-  if(SD_INIT) logFileWrite();
+  logFileWrite();
   digitalWrite(BURN, LOW); // power down IMU
 
 
   startTime = t + 5;
-  if(dd>0) startTime = t + (dd * 86400);
+  if(delayMotion>0) startTime = t + (delayMotion * 86400);
 //  Serial.print("Time:"); Serial.println(t);
 //  Serial.print("ST:"); Serial.println(startTime);
 //  Serial.print("PI:"); Serial.println(minPlayBackInterval);
@@ -253,7 +247,7 @@ void loop() {
     if(t >= startTime){
       endTime = startTime + (recDur * 60);
       startTime += (recDur * 60) + recInt;  // this will be next start time for interval record      mpuInit(1);
-      if(SD_INIT) fileInit();
+      fileInit();
       digitalWrite(BURN, HIGH); // power on IMU
       delay(5);
       myICM.begin( Wire, 1 );
@@ -333,10 +327,10 @@ void loop() {
     // check if time to close
     if(t>=endTime){
       stopTimer();
-      if(SD_INIT) dataFile.close(); // close file
+      dataFile.close(); // close file
       if(recInt==0){  // no interval between files
         endTime += (recDur * 60);  // update end time
-        if(SD_INIT)  fileInit();
+        fileInit();
         startInterruptTimer(speriod, clockprescaler);
       }
       else{
@@ -355,7 +349,7 @@ void loop() {
         delay(30000);
         // wait 30 s to stop
         startInterruptTimer(speriod, clockprescaler);
-        if(SD_INIT) fileInit();
+        fileInit();
         digitalWrite(LED_RED, LOW);
       }
     }
@@ -555,7 +549,7 @@ void sampleSensors(void){
 
    // calcImu();
     myICM.getAGMT();
-    if(SD_INIT) fileWriteImu();
+    fileWriteImu();
 
   // Keller convert half-way through  
   if((ssCounter>=(0.5 * slowRateMultiple))  & togglePress){ 
@@ -571,7 +565,7 @@ void sampleSensors(void){
     if(LED_EN) digitalWrite(LED_GRN, HIGH);
     readRTC();
     readVoltage();
-    if(SD_INIT) fileWriteSlowSensors();
+    fileWriteSlowSensors();
     ssCounter = 0;
     digitalWrite(LED_GRN, LOW);
     if(simulateDepth) depth = depth + (float) depthProfile[simulateIndex]; // update simulated depth once per second
@@ -592,7 +586,7 @@ void sampleSensors(void){
     }
     checkDepthCounter++;
   }
-  if(SD_INIT)  dataFile.println();
+  dataFile.println();
 }
 
 //This function returns the date and time for SD card file access and modify time. One needs to call in setup() to register this callback function: SdFile::dateTimeCallback(file_date_time);
