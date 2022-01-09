@@ -75,20 +75,22 @@ boolean SD_INIT = 1;
 float pressureOffset_mbar;
 
 // Playback Settings
-byte dd = 0; // days to delay start of recording
+byte dd = 14; // days to delay start of motion recording
+byte delayRecPlayDays = 14; // delay record/playback for x days. Default 14
+
 int16_t playBackDepthThreshold = 275; // tag must be deeper than this depth to start playback. Default 275
 int16_t ascentRateTrigger = 100; // tag must ascend this amount in 3 minutes to trigger playback. Default 100
-int16_t maxPlayBacks = 80; // maximum number of times to play. Default 80
-uint16_t minPlayBackInterval = 540; // minutes from end of one rec/playback session to start of next. Default: 540
-byte delayRecPlayDays = 14; // delay record/playback for x days. Default 14
+byte maxPlayBacks = 80; // maximum number of times to play. Default 80
+int minPlayBackInterval = 540; // minutes from end of one rec/playback session to start of next. Default: 540
 byte recMinutes = 2; // record this many minutes Default 2
 byte playDelaySeconds = 30;  // seconds to start playback after start recording
 
 // Playback status
-unsigned int nPlayed = 0;
+byte nPlayed = 0;
 byte REC_STATE, PLAY_STATE = 0;
 float daysFromStart;
 
+boolean calibrationMode = 0;
 boolean simulateDepth = 0;
 #define NDEPTHS 10
 int16_t depthProfile[] = {2, 2, 4, 0, 0, -2, -2, -4, 0, 0
@@ -190,7 +192,13 @@ void setup() {
   }
   
   if (SD_INIT) loadScript(); // do this early to set time
-  
+
+  if(calibrationMode){
+    delayRecPlayDays = 0;
+    dd = 0;
+    minPlayBackInterval = 2;
+  }
+
   // recalculate sample rates in case changed from script
   slowRateMultiple = imuSrate / sensorSrate;
   speriod = 1000 / imuSrate;
@@ -209,14 +217,14 @@ void setup() {
   digitalWrite(BURN, LOW); // power down IMU
 
 
-  if(dd==0 & startTime==0) startTime = t + 5;
+  startTime = t + 5;
   if(dd>0) startTime = t + (dd * 86400);
-  Serial.print("Time:"); Serial.println(t);
-  Serial.print("ST:"); Serial.println(startTime);
-  // Serial.print("UT:"); Serial.println(startUnixTime);
-  Serial.print("dRP:"); Serial.println(delayRecPlayDays);
-//  Serial.println(simulateDepth);
-  delay(10);
+//  Serial.print("Time:"); Serial.println(t);
+//  Serial.print("ST:"); Serial.println(startTime);
+//  Serial.print("PI:"); Serial.println(minPlayBackInterval);
+//  Serial.print("dRP:"); Serial.println(delayRecPlayDays);
+//  Serial.flush();
+  //  Serial.println(simulateDepth);
 
   wdtInit();  // used to wake from sleep
   setClockPrescaler(clockprescaler); // set clockprescaler from script file

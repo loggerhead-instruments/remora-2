@@ -101,13 +101,6 @@ int ProcCmd(char *pCmd)
 //    }
 
     // Playback
-    //int16_t playBackDepthThreshold = 275; // tag must be deeper than this depth to start playback. Default 275
-    //int16_t ascentRateTrigger = 100; // tag must ascend this amount in 3 minutes to trigger playback. Default 100
-    //int16_t maxPlayBacks = 80; // maximum number of times to play. Default 80
-    //uint16_t minPlayBackInterval = 1; // minutes from end of one rec/playback session to start of next. Default: 540
-    //float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
-    //byte recMinutes = 20; // record this many minutes Default 10
-    //default minPlayBackInterval = 540; // keep playbacks from being closer than x minutes
     case ('P' + ('I'<<8)):
     {
       sscanf(&pCmd[3],"%d",&minPlayBackInterval);
@@ -141,19 +134,25 @@ int ProcCmd(char *pCmd)
       break;
     }
 
-    //float delayRecPlayDays = 0; // delay record/playback for x days.
+    case ('C' + ('C'<<8)):
+    {
+      calibrationMode = 1;
+      break;
+    }
+
+    // delay record/playback for x days.
     case ('D' + ('P'<<8)):
     {
       sscanf(&pCmd[3],"%d",&delayRecPlayDays);
       break;
     }
-
-    //byte recMinutes
-    case ('R' + ('M'<<8)):
-    {
-      sscanf(&pCmd[3],"%d",&recMinutes);
-      break;
-    }
+//
+//    //byte recMinutes
+//    case ('R' + ('M'<<8)):
+//    {
+//      sscanf(&pCmd[3],"%d",&recMinutes);
+//      break;
+//    }
   } 
   return TRUE;
 }
