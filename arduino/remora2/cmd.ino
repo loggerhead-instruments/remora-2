@@ -65,8 +65,8 @@ int ProcCmd(char *pCmd)
       // settings 2
       case ('S' + ('2'<<8)):
       {
-        delayMotion = 14;
-        delayRecPlayDays = 21;
+        delayMotion = 21;
+        delayRecPlayDays = 23;
         break;
       } 
 

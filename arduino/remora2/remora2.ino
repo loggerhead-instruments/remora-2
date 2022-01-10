@@ -65,7 +65,7 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2022-01-08";
+char codeVer[12] = "2022-01-09";
 
 unsigned long recDur = 120; // motion file length; minutes 1140 = 24 hours
 int recInt = 0;
@@ -74,8 +74,8 @@ int LED_EN = 1; //enable green LEDs flash 1x per pressure read. Can be disabled 
 float pressureOffset_mbar;
 
 // Playback Settings
-byte delayMotion = 14; // days to delay start of motion recording
-byte delayRecPlayDays = 14; // delay record/playback for x days. Default 14
+byte delayMotion = 18; // days to delay start of motion recording
+byte delayRecPlayDays = 20; // delay record/playback for x days. Default 20
 
 int16_t playBackDepthThreshold = 275; // tag must be deeper than this depth to start playback. Default 275
 int16_t ascentRateTrigger = 100; // tag must ascend this amount in 3 minutes to trigger playback. Default 100
