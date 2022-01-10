@@ -2,10 +2,6 @@
 // David Mann
 
 // This version does not record to microSD, it will transmit data over serial
-// To do:
-// - set to defaults
-// -SD off
-
 
 // Remora2 is an underwater motion datalogger with audio recording and playback
 // ATMEGA328p: low-power motion datalogging
@@ -88,7 +84,7 @@ unsigned int nPlayed = 0;
 byte PLAY_STATE, REC_STATE = 0;
 float daysFromStart;
 
-boolean simulateDepth = 1;
+boolean simulateDepth = 0;
 #define nDepths 10
 int16_t depthProfile[] = {2, 2, 4, 0, 0, -2, -2, -4, 0, 0
                       }; //delta depth per second, value changes once per minutebyte depthIndex = 0;
