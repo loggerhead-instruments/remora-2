@@ -66,7 +66,7 @@ ICM_20948_I2C myICM;  // Otherwise create an ICM_20948_I2C object
 //
 // DEV SETTINGS
 //
-char codeVer[12] = "2022-01-08";
+char codeVer[12] = "2022-01-09";
 
 unsigned long recDur = 120; // minutes 1140 = 24 hours
 int recInt = 0;
@@ -79,7 +79,7 @@ int16_t playBackDepthThreshold = 275; // tag must be deeper than this depth to s
 int16_t ascentRateTrigger = 100; // tag must ascend this amount in 3 minutes to trigger playback. Default 100
 int16_t maxPlayBacks = 80; // maximum number of times to play. Default 80
 uint16_t minPlayBackInterval = 540; // minutes from end of one rec/playback session to start of next. Default: 540
-float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 14
+float delayRecPlayDays = 20.0; // delay record/playback for x days. Default 20
 byte recMinutes = 20; // record this many minutes Default 2
 byte playDelaySeconds = 30;  // seconds to start playback after start recording
 
