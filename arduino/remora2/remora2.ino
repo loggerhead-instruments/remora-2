@@ -74,17 +74,17 @@ float pressureOffset_mbar;
 int16_t playBackDepthThreshold = 275; // tag must be deeper than this depth to start playback. Default 275
 int16_t ascentRateTrigger = 100; // tag must ascend this amount in 3 minutes to trigger playback. Default 100
 int16_t maxPlayBacks = 80; // maximum number of times to play. Default 80
-uint16_t minPlayBackInterval = 5; // minutes from end of one rec/playback session to start of next. Default: 540
-float delayRecPlayDays = 0.0; // delay record/playback for x days. Default 20
-byte recMinutes = 2; // record this many minutes Default 20
-byte playDelaySeconds = 30;  // seconds to start playback after start recording
+uint16_t minPlayBackInterval = 540; // minutes from end of one rec/playback session to start of next. Default: 540
+float delayRecPlayDays = 20.0; // delay record/playback for x days. Default 20
+byte recMinutes = 20; // record this many minutes Default 20
+byte playDelaySeconds = 30;  // seconds to start playback after start recording. Default 30
 
 // Playback status
 unsigned int nPlayed = 0;
 byte PLAY_STATE, REC_STATE = 0;
 float daysFromStart;
 
-boolean simulateDepth = 1;
+boolean simulateDepth = 0;
 #define nDepths 10
 int16_t depthProfile[] = {2, 2, 4, 0, 0, -2, -2, -4, 0, 0
                       }; //delta depth per second, value changes once per minutebyte depthIndex = 0;
