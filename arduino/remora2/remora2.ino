@@ -71,7 +71,7 @@ int LED_EN = 1; //enable green LEDs flash 1x per pressure read. Can be disabled 
 float pressureOffset_mbar;
 
 // Playback Settings
-int16_t playBackDepthThreshold = 275; // tag must be deeper than this depth to start playback. Default 275
+int16_t playBackDepthThreshold = 250; // tag must be deeper than this depth to start playback. Default 275
 int16_t ascentRateTrigger = 90; // tag must ascend this amount in 3 minutes to trigger playback. Default 90 (decreased because ticking slower)
 int16_t maxPlayBacks = 80; // maximum number of times to play. Default 80
 uint16_t minPlayBackInterval = 540; // minutes from end of one rec/playback session to start of next. Default: 540
