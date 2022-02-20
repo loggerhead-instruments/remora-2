@@ -76,8 +76,6 @@ boolean readRTC()
       return 1;
   }
   else return 0;
-
-  
 }
 
 // Calculates Accurate UNIX Time Based on RTC Timestamp
