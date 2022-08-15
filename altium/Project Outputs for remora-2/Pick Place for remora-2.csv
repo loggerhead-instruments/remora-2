@@ -1,129 +1,154 @@
-Designator,Comment,Layer,Footprint,Center-X(mm),X,Center-Y(mm),Rotation,Description
-*1,8MHz,BottomLayer,XTAL-ABM3,30.352,-30.352,4.1558,0,
-C1,0.1uF,BottomLayer,402,105.6884,-105.6884,-24.9526,90,Ceramic Chip Capacitor - Standard
-C17,0.1uF,BottomLayer,402,107.1362,-107.1362,-3.9976,90,Ceramic Chip Capacitor - Standard
-C19,1.0uF,BottomLayer,402,101.837,-101.837,1.7428,180,Ceramic Chip Capacitor - Standard
-C2,1.0uF,BottomLayer,402,116.1278,-116.1278,-29.9818,180,Ceramic Chip Capacitor - Standard
-C20,1uF,BottomLayer,402,108.06,-108.06,1.3618,270,Ceramic Chip Capacitor - Standard
-C21,0.01uF,BottomLayer,402,101.837,-101.837,-0.2892,180,Ceramic Chip Capacitor - Standard
-C22,0.1uF,BottomLayer,402,110.6,-110.6,-1.3052,180,Ceramic Chip Capacitor - Standard
-C24,1.0uF,BottomLayer,402,115.68,-115.68,-15.6562,90,Ceramic Chip Capacitor - Standard
-C25,1uF,BottomLayer,402,115.807,-115.807,-22.2452,270,Ceramic Chip Capacitor - Standard
-C26,0.1uF,BottomLayer,402,111.87,-111.87,-9.4332,0,Ceramic Chip Capacitor - Standard
-C27,0.01uF,BottomLayer,402,113.775,-113.775,-15.6562,90,Ceramic Chip Capacitor - Standard
-C28,0.1uF,BottomLayer,402,114.791,-114.791,-3.5912,90,Ceramic Chip Capacitor - Standard
-C29,10uF,BottomLayer,Tant0805,67.8932,-67.8932,-27.7974,180,
-C3,1.0uF,BottomLayer,402,117.1438,-117.1438,-26.3242,270,Ceramic Chip Capacitor - Standard
-C30,1.0uF,BottomLayer,402,15.35,-15.35,1.9968,0,Ceramic Chip Capacitor - Standard
-C31,1.0uF,BottomLayer,402,107.044,-107.044,-11.3382,180,Ceramic Chip Capacitor - Standard
-C32,1uF,BottomLayer,402,114.41,-114.41,-11.3382,0,Ceramic Chip Capacitor - Standard
-C33,0.01uF,BottomLayer,402,107.171,-107.171,-13.3702,180,Ceramic Chip Capacitor - Standard
-C34,1uF,BottomLayer,Tant0805,6.73,-6.73,-6.8932,180,
-C35,1uF,BottomLayer,Tant0805,-0.144,0.144,-7.5282,90,
-C36,1.0uF,BottomLayer,402,116.823,-116.823,-11.3382,90,Ceramic Chip Capacitor - Standard
-C37,1.0uF,BottomLayer,402,103.615,-103.615,-2.8292,0,Ceramic Chip Capacitor - Standard
-C38,1.0uF,BottomLayer,402,102.5642,-102.5642,-7.4774,180,Ceramic Chip Capacitor - Standard
-C4,0.1uF,BottomLayer,402,109.584,-109.584,-22.2602,180,Ceramic Chip Capacitor - Standard
-C41,1.0uF,BottomLayer,402,116.5088,-116.5088,-4.8612,270,Ceramic Chip Capacitor - Standard
-C43,0.01uF,BottomLayer,402,16.62,-16.62,-4.3532,90,Ceramic Chip Capacitor - Standard
-C47,1.ouF,BottomLayer,402,14.604,-14.604,-4.2262,270,Ceramic Chip Capacitor - Standard
-C5,0.1uF,BottomLayer,402,104.774,-104.774,-30.8962,180,Ceramic Chip Capacitor - Standard
-C51,0.1uF,BottomLayer,402,31.225,-31.225,-22.5396,0,Ceramic Chip Capacitor - Standard
-C6,0.1uF,BottomLayer,402,114.2736,-114.2736,-24.1652,90,Ceramic Chip Capacitor - Standard
-C62,0.1uF,BottomLayer,402,-1.1346,1.1346,5.3496,180,Ceramic Chip Capacitor - Standard
-C63,100pF,BottomLayer,402,25.779,-25.779,4.2828,270,Ceramic Chip Capacitor - Standard
-C64,100pF,BottomLayer,402,34.924,-34.924,4.2828,270,Ceramic Chip Capacitor - Standard
-C65,0.1uF,BottomLayer,402,29.955,-29.955,-6.7662,270,Ceramic Chip Capacitor - Standard
-C7,10uF,BottomLayer,Tant0805,99.6432,-99.6432,-28.5086,90,
-P1,Teensy Surface,BottomLayer,TEENSY3.2_surface_mount,85.962,-85.962,-15.2752,180,
-P10,Teensy Surface,BottomLayer,TEENSY3.2_surface_mount,52.561,-52.561,-15.2752,180,
-Q1,DMN5L06TK-7,BottomLayer,SOT-523,70.611,-70.611,-0.0352,90,Ultra-low leakage Enhanced MOSFET
-Q2,DMN5L06TK-7,BottomLayer,SOT-523,-3.573,3.573,-29.8802,90,Ultra-low leakage Enhanced MOSFET
-R12,2k,BottomLayer,3-0603,6.984,-6.984,-9.1792,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R13,330,BottomLayer,3-0603,-3.4206,3.4206,-17.2056,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R14,4.7k,BottomLayer,3-0603,67.039,-67.039,-9.1792,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R15,4.7k,BottomLayer,3-0603,69.452,-69.452,-9.1792,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R18,33k,BottomLayer,3-0603,22.0208,-22.0208,-15.3514,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R19,100k,BottomLayer,3-0603,22.0208,-22.0208,-16.7484,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R20,33k,BottomLayer,3-0603,30.098,-30.098,-8.9252,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R21,100k,BottomLayer,3-0603,28.304,-28.304,-10.4492,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R22,4.7k,BottomLayer,3-0603,35.1366,-35.1366,-26.7814,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R24,10k,BottomLayer,3-0603,-0.8044,0.8044,4.0796,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R25,20k,BottomLayer,3-0603,114.537,-114.537,-13.4972,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R26,4.7k,BottomLayer,3-0603,14.207,-14.207,5.248,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R28,4.7k,BottomLayer,3-0603,13.588,-13.588,-7.2742,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-U1,SGTL5000,BottomLayer,QFN32,109.711,-109.711,-26.3242,270,SGTL5000
-U12,LP3985IM5-3.3,BottomLayer,MF05A_N,15.604,-15.604,-0.7972,270,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-U15,DS3231,BottomLayer,DS3231,28.1402,-28.1402,-29.3722,180,
-U20,ATmega8-16AC,BottomLayer,32M1-A_M,29.447,-29.447,-1.5592,270,8-Bit AVR Microcontroller with 8K Bytes of In-System Programmable Flash Memory
-U4,LP3985IM5-3.3,BottomLayer,MF05A_N,105.393,-105.393,0.7268,180,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-U5,SGTL5000,BottomLayer,QFN32,110.854,-110.854,-5.5402,270,SGTL5000
-U6,LP3985IM5-3.3,BottomLayer,MF05A_N,114.791,-114.791,-19.2122,90,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-U7,LP3985IM5-3.3,BottomLayer,MF05A_N,110.727,-110.727,-12.3542,180,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-U8,MCP73831T-2DCI/OT,BottomLayer,SOT-23-OT5_N,3.285,-3.285,-8.1632,0,"Miniature Single-Cell, Fully Integrated Li-Ion, Li-Polymer Charge Management Controller, 4.2V, 5-Pin SOT-23, Industrial Temperature, Tape and Reel"
-U9,TLV70018DCKR,BottomLayer,TI-DCK5_V,103.869,-103.869,-5.2422,270,"Single Output LDO, 200 mA, Fixed 1.8 V Output, 2 to 5.5 V Input, with Low IQ, 5-pin SC70 (DCK), -40 to 125 degC, Green (RoHS & no Sb/Br)"
-C10,0.1uF,TopLayer,402,114.156,-114.156,-29.7532,90,Ceramic Chip Capacitor - Standard
-C11,.47uF,TopLayer,402,112.759,-112.759,-23.7842,180,Ceramic Chip Capacitor - Standard
-C12,0.47uF,TopLayer,402,109.203,-109.203,-23.6572,0,Ceramic Chip Capacitor - Standard
-C13,1uF,TopLayer,402,78.723,-78.723,-26.3242,90,Ceramic Chip Capacitor - Standard
-C14,1uF,TopLayer,402,78.723,-78.723,-33.9442,270,Ceramic Chip Capacitor - Standard
-C15,0.01uF,TopLayer,402,76.691,-76.691,-33.9442,270,Ceramic Chip Capacitor - Standard
-C16,C0603,TopLayer,603,106.5774,-106.5774,-33.2584,0,Ceramic Chip Capacitor - Standard
-C39,1uF,TopLayer,402,40.512,-40.512,-31.0232,180,Ceramic Chip Capacitor - Standard
-C40,1uF,TopLayer,402,47.624,-47.624,-31.0072,0,Ceramic Chip Capacitor - Standard
-C42,.01uF,TopLayer,402,47.624,-47.624,-33.0392,180,Ceramic Chip Capacitor - Standard
-C53,0.1uF,TopLayer,402,16.509,-16.509,-2.3212,0,Ceramic Chip Capacitor - Standard
-C8,C0603,TopLayer,603,115.172,-115.172,-31.9122,180,Ceramic Chip Capacitor - Standard
-C9,C0603,TopLayer,603,115.68,-115.68,-29.4992,270,Ceramic Chip Capacitor - Standard
-D1,LED_0603,TopLayer,Diode0603,82.8792,-82.8792,3.6224,180,
-D2,LED_0603,TopLayer,Diode0603,0.237,-0.237,-18.5518,180,
-D3,LED_0603,TopLayer,Diode0603,49.513,-49.513,3.6478,0,
-D4,LED_0603,TopLayer,Diode0603,23.9606,-23.9606,5.1718,0,
-D5,LED_0603,TopLayer,Diode0603,23.9098,-23.9098,3.1652,180,
-P11,GND Tie,TopLayer,HDR1X2,99.932,-99.932,4.1558,180,"Header, 2-Pin"
-P12,HYDROPHONE,TopLayer,HDR1X3,118.982,-118.982,-11.9732,90,"Header, 3-Pin"
-P13,microUSB-vert,TopLayer,MICROUSB-VERT,68.754,-68.754,-16.4482,270,Molex 105133-0011
-P14,HYDROPHONE,TopLayer,HDR1X3,118.982,-118.982,-3.8452,90,"Header, 3-Pin"
-P15,USB,TopLayer,HDR_2x1_2mm,53.696,-53.696,-34.9602,270,Charging Connector
-P16,Display,TopLayer,HDR1X4,115.172,-115.172,1.6158,0,"Header, 4-Pin"
-P17,microSD-Molex,TopLayer,microSD_Molex_hinged,59.165,-59.165,-16.4182,90,
-P18,Battery,TopLayer,HDR1X2,73.151,-73.151,2.8858,180,"Header, 2-Pin"
-P19,DIP1,TopLayer,DIP1,28.701,-28.701,-7.0202,0,
-P2,HYDROPHONE,TopLayer,HDR1X3,118.982,-118.982,-30.0072,90,"Header, 3-Pin"
-P20,Header 6,TopLayer,HDR1X6,8.0602,-8.0602,-35.4428,180,"Header, 6-Pin"
-P21,Battery,TopLayer,HDR1X2,-3.811,3.811,-12.6082,270,"Header, 2-Pin"
-P22,Header 3,TopLayer,HDR1X3,113.775,-113.775,5.5528,180,"Header, 3-Pin"
-P24,Header 4,TopLayer,HDR1X4,6.206,-6.206,5.0448,0,"Header, 4-Pin"
-P25,microSD-Molex,TopLayer,microSD_Molex_hinged,27.7104,-27.7104,-16.6722,90,
-P26,Tactile,TopLayer,Tactile-B3U-1000,19.557,-19.557,-16.5198,90,
-P27,AVR SPI,TopLayer,HDR2X3,39.496,-39.496,3.7748,0,"Header, 3-Pin, Dual row"
-P28,Custom program 2x5,TopLayer,Header_2x5_50mil,37.3878,-37.3878,-16.0626,180,
-P29,Header 5,TopLayer,HDR1X5,-3.827,3.827,-0.9242,90,"Header, 5-Pin"
-P3,HYDROPHONE,TopLayer,HDR1X3,118.982,-118.982,-21.7522,90,"Header, 3-Pin"
-P30,Header 2,TopLayer,HDR1X2,-3.6238,3.6238,-25.0796,90,"Header, 2-Pin"
-P4,Tactile,TopLayer,Tactile-B3U-1000,93.0646,-93.0646,-6.7662,0,
-P5,PIEZO,TopLayer,HDR_2x1_2mm,102.9532,-102.9532,-34.7316,90,Charging Connector
-P6,microUSB-vert,TopLayer,MICROUSB-VERT,101.139,-101.139,-15.4322,270,Molex 105133-0011
-P7,USB,TopLayer,HDR_2x1_2mm,87.097,-87.097,-34.9602,270,Charging Connector
-P8,microSD-Molex,TopLayer,microSD_Molex_hinged,91.296,-91.296,-15.6562,90,
-P9,Tactile,TopLayer,Tactile-B3U-1000,60.832,-60.832,-7.5028,180,
-R1,20k,TopLayer,3-0603,115.172,-115.172,-33.1822,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R10,4.7k,TopLayer,3-0603,95.233,-95.233,-33.9442,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R11,330,TopLayer,3-0603,86.9432,-86.9432,3.5208,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R16,20k,TopLayer,3-0603,40.512,-40.512,-32.9122,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R17,330,TopLayer,3-0603,46.735,-46.735,1.4888,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R2,10X,TopLayer,3-0603,105.7646,-105.7646,-31.836,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R27,330,TopLayer,3-0603,21.3952,-21.3952,4.3082,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R29,330,TopLayer,3-0603,23.24,-23.24,1.6158,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R3,10K,TopLayer,3-0603,112.775,-112.775,-27.137,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R4,10K,TopLayer,3-0603,112.648,-112.648,-25.1558,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R5,10K,TopLayer,3-0603,109.457,-109.457,-25.3082,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R6,10K,TopLayer,3-0603,109.457,-109.457,-26.7052,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R7,100K,TopLayer,3-0603,106.917,-106.917,-25.6892,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R8,4.7k,TopLayer,3-0603,93.582,-93.582,-33.995,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R9,20k,TopLayer,3-0603,76.691,-76.691,-26.1972,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-U10,LP3985IM5-3.3,TopLayer,MF05A_N,44.195,-44.195,-32.0232,0,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-U14,Keller7LD,TopLayer,Keller7LD,5.19,-5.19,-2.5752,180,Keller Pressure/Temp
-U16,MS5837,TopLayer,MS5837,16.985,-16.985,1.4728,90,Pressure/Temp
-U2,MAX9788,TopLayer,MAX9788,110.346,-110.346,-30.8962,180,audio amp
-U3,LP3985IM5-3.3,TopLayer,MF05A_N,77.683,-77.683,-30.0032,270,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+Designator,Comment,Layer,Footprint,Center-X(mm),Center-Y(mm),Rotation,Description
+1,BSN20BKR,BottomLayer,BSN20_215,8.6614,-14.3764,180,N-Channel 60V 265mA (Ta) 310mW (Ta) Surface Mount TO-236AB
+2,BSN20BKR,BottomLayer,BSN20_215,2.6924,-13.335,270,N-Channel 60V 265mA (Ta) 310mW (Ta) Surface Mount TO-236AB
+*1,8MHz,BottomLayer,XTAL-ABM3,30.352,4.1558,0,
+C1,0.1uF,BottomLayer,402,105.6884,-24.9526,90,Ceramic Chip Capacitor - Standard
+C10,0.1uF,TopLayer,402,114.156,-29.7532,90,Ceramic Chip Capacitor - Standard
+C11,.47uF,TopLayer,402,112.759,-23.7842,180,Ceramic Chip Capacitor - Standard
+C12,0.47uF,TopLayer,402,109.203,-23.6572,0,Ceramic Chip Capacitor - Standard
+C13,1uF,TopLayer,402,78.723,-26.3242,90,Ceramic Chip Capacitor - Standard
+C14,1uF,TopLayer,402,78.723,-33.9442,270,Ceramic Chip Capacitor - Standard
+C15,0.01uF,TopLayer,402,76.691,-33.9442,270,Ceramic Chip Capacitor - Standard
+C16,C0603,TopLayer,603,106.5774,-33.2584,0,Ceramic Chip Capacitor - Standard
+C17,0.1uF,BottomLayer,402,107.1362,-3.9976,90,Ceramic Chip Capacitor - Standard
+C18,0.1uF,BottomLayer,402,9.4742,-21.6408,180,Ceramic Chip Capacitor - Standard
+C19,1.0uF,BottomLayer,402,101.837,1.7428,180,Ceramic Chip Capacitor - Standard
+C2,1.0uF,BottomLayer,402,116.1278,-29.9818,180,Ceramic Chip Capacitor - Standard
+C20,1uF,BottomLayer,402,108.06,1.3618,270,Ceramic Chip Capacitor - Standard
+C21,0.01uF,BottomLayer,402,101.837,-0.2892,180,Ceramic Chip Capacitor - Standard
+C22,0.1uF,BottomLayer,402,110.6,-1.3052,180,Ceramic Chip Capacitor - Standard
+C23,1.0uF,BottomLayer,402,9.4742,-22.7584,180,Ceramic Chip Capacitor - Standard
+C24,1.0uF,BottomLayer,402,115.68,-15.6562,90,Ceramic Chip Capacitor - Standard
+C25,1uF,BottomLayer,402,115.807,-22.2452,270,Ceramic Chip Capacitor - Standard
+C26,0.1uF,BottomLayer,402,111.87,-9.4332,0,Ceramic Chip Capacitor - Standard
+C27,0.01uF,BottomLayer,402,113.775,-15.6562,90,Ceramic Chip Capacitor - Standard
+C28,0.1uF,BottomLayer,402,114.791,-3.5912,90,Ceramic Chip Capacitor - Standard
+C29,10uF,BottomLayer,Tant0805,67.8932,-27.7974,180,
+C3,1.0uF,BottomLayer,402,117.1438,-26.3242,270,Ceramic Chip Capacitor - Standard
+C30,1.0uF,BottomLayer,402,15.35,1.9968,0,Ceramic Chip Capacitor - Standard
+C31,1.0uF,BottomLayer,402,107.044,-11.3382,180,Ceramic Chip Capacitor - Standard
+C32,1uF,BottomLayer,402,114.41,-11.3382,0,Ceramic Chip Capacitor - Standard
+C33,0.01uF,BottomLayer,402,107.171,-13.3702,180,Ceramic Chip Capacitor - Standard
+C34,1uF,BottomLayer,Tant0805,6.73,-6.8932,180,
+C35,1uF,BottomLayer,Tant0805,-0.144,-7.5282,90,
+C36,1.0uF,BottomLayer,402,116.823,-11.3382,90,Ceramic Chip Capacitor - Standard
+C37,1.0uF,BottomLayer,402,103.615,-2.8292,0,Ceramic Chip Capacitor - Standard
+C38,1.0uF,BottomLayer,402,102.5642,-7.4774,180,Ceramic Chip Capacitor - Standard
+C39,1uF,TopLayer,402,40.512,-31.0232,180,Ceramic Chip Capacitor - Standard
+C4,0.1uF,BottomLayer,402,109.584,-22.2602,180,Ceramic Chip Capacitor - Standard
+C40,1uF,TopLayer,402,47.624,-31.0072,0,Ceramic Chip Capacitor - Standard
+C41,1.0uF,BottomLayer,402,116.5088,-4.8612,270,Ceramic Chip Capacitor - Standard
+C42,.01uF,TopLayer,402,47.624,-33.0392,180,Ceramic Chip Capacitor - Standard
+C43,0.01uF,BottomLayer,402,16.62,-4.3532,90,Ceramic Chip Capacitor - Standard
+C44,0.1uF,BottomLayer,402,6.1468,-22.7584,90,Ceramic Chip Capacitor - Standard
+C45,10uF,BottomLayer,Tant0805,8.636,-24.2824,180,
+C46,1uF,BottomLayer,402,6.4262,-29.2354,180,Ceramic Chip Capacitor - Standard
+C47,1.ouF,BottomLayer,402,14.604,-4.2262,270,Ceramic Chip Capacitor - Standard
+C5,0.1uF,BottomLayer,402,104.774,-30.8962,180,Ceramic Chip Capacitor - Standard
+C51,0.1uF,BottomLayer,402,31.225,-22.5396,0,Ceramic Chip Capacitor - Standard
+C53,0.1uF,TopLayer,402,16.509,-2.3212,0,Ceramic Chip Capacitor - Standard
+C6,0.1uF,BottomLayer,402,114.2736,-24.1652,90,Ceramic Chip Capacitor - Standard
+C62,0.1uF,BottomLayer,402,-1.1346,5.3496,180,Ceramic Chip Capacitor - Standard
+C63,100pF,BottomLayer,402,25.779,4.2828,270,Ceramic Chip Capacitor - Standard
+C64,100pF,BottomLayer,402,34.924,4.2828,270,Ceramic Chip Capacitor - Standard
+C65,0.1uF,BottomLayer,402,29.955,-6.7662,270,Ceramic Chip Capacitor - Standard
+C7,10uF,BottomLayer,Tant0805,99.6432,-28.5086,90,
+C8,C0603,TopLayer,603,115.172,-31.9122,180,Ceramic Chip Capacitor - Standard
+C9,C0603,TopLayer,603,115.68,-29.4992,270,Ceramic Chip Capacitor - Standard
+D1,LED_0603,TopLayer,Diode0603,82.8792,3.6224,180,
+D2,LED_0603,TopLayer,Diode0603,0.237,-18.5518,180,
+D3,LED_0603,TopLayer,Diode0603,49.513,3.6478,0,
+D4,LED_0603,TopLayer,Diode0603,23.9606,5.1718,0,
+D5,LED_0603,TopLayer,Diode0603,23.9098,3.1652,180,
+P1,Teensy Surface,BottomLayer,TEENSY3.2_surface_mount,85.962,-15.2752,180,
+P10,Teensy Surface,BottomLayer,TEENSY3.2_surface_mount,52.561,-15.2752,180,
+P11,GND Tie,TopLayer,HDR1X2,99.932,4.1558,180,"Header, 2-Pin"
+P12,HYDROPHONE,TopLayer,HDR1X3,118.982,-11.9732,90,"Header, 3-Pin"
+P13,microUSB-vert,TopLayer,MICROUSB-VERT,68.754,-16.4482,270,Molex 105133-0011
+P14,HYDROPHONE,TopLayer,HDR1X3,118.982,-3.8452,90,"Header, 3-Pin"
+P15,USB,TopLayer,HDR_2x1_2mm,53.696,-34.9602,270,Charging Connector
+P16,Display,TopLayer,HDR1X4,115.172,1.6158,0,"Header, 4-Pin"
+P17,microSD-Molex,TopLayer,microSD_Molex_hinged,59.165,-16.4182,90,
+P18,Battery,TopLayer,HDR1X2,73.151,2.8858,180,"Header, 2-Pin"
+P19,DIP1,TopLayer,DIP1,28.701,-7.0202,0,
+P2,HYDROPHONE,TopLayer,HDR1X3,118.982,-30.0072,90,"Header, 3-Pin"
+P20,Header 6,TopLayer,HDR1X6,8.0602,-35.4428,180,"Header, 6-Pin"
+P21,Battery,TopLayer,HDR1X2,-3.811,-12.6082,270,"Header, 2-Pin"
+P22,Header 3,TopLayer,HDR1X3,113.775,5.5528,180,"Header, 3-Pin"
+P24,Header 4,TopLayer,HDR1X4,6.206,5.0448,0,"Header, 4-Pin"
+P25,microSD-Molex,TopLayer,microSD_Molex_hinged,27.7104,-16.6722,90,
+P26,Tactile,TopLayer,Tactile-B3U-1000,19.557,-16.5198,90,
+P27,AVR SPI,TopLayer,HDR2X3,39.496,3.7748,0,"Header, 3-Pin, Dual row"
+P28,Custom program 2x5,TopLayer,Header_2x5_50mil,37.3878,-16.0626,180,
+P29,Header 5,TopLayer,HDR1X5,-3.827,-0.9242,90,"Header, 5-Pin"
+P3,HYDROPHONE,TopLayer,HDR1X3,118.982,-21.7522,90,"Header, 3-Pin"
+P4,Tactile,TopLayer,Tactile-B3U-1000,93.0646,-6.7662,0,
+P5,PIEZO,TopLayer,HDR_2x1_2mm,102.9532,-34.7316,90,Charging Connector
+P6,microUSB-vert,TopLayer,MICROUSB-VERT,101.139,-15.4322,270,Molex 105133-0011
+P7,USB,TopLayer,HDR_2x1_2mm,87.097,-34.9602,270,Charging Connector
+P8,microSD-Molex,TopLayer,microSD_Molex_hinged,91.296,-15.6562,90,
+P9,Tactile,TopLayer,Tactile-B3U-1000,60.832,-7.5028,180,
+Q1,DMN5L06TK-7,BottomLayer,SOT-523,70.611,-0.0352,90,Ultra-low leakage Enhanced MOSFET
+Q2,DMN5L06TK-7,BottomLayer,SOT-523,-3.573,-29.8802,90,Ultra-low leakage Enhanced MOSFET
+R1,20k,TopLayer,3-0603,115.172,-33.1822,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R10,4.7k,TopLayer,3-0603,95.233,-33.9442,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R11,330,TopLayer,3-0603,86.9432,3.5208,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R12,2k,BottomLayer,3-0603,6.9088,-9.144,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R13,330,BottomLayer,3-0603,-3.4206,-17.2056,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R14,4.7k,BottomLayer,3-0603,67.039,-9.1792,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R15,4.7k,BottomLayer,3-0603,69.452,-9.1792,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R16,20k,TopLayer,3-0603,40.512,-32.9122,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R17,330,TopLayer,3-0603,46.735,1.4888,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R18,33k,BottomLayer,3-0603,22.0208,-15.3514,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R19,100k,BottomLayer,3-0603,22.0208,-16.7484,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R2,10X,TopLayer,3-0603,105.7646,-31.836,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R20,33k,BottomLayer,3-0603,30.098,-8.9252,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R21,100k,BottomLayer,3-0603,30.1752,-10.4648,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R22,4.7k,BottomLayer,3-0603,35.1366,-26.7814,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R23,2.2k,BottomLayer,3-0603,5.3086,-13.4112,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R24,10k,BottomLayer,3-0603,-0.8044,4.0796,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R25,20k,BottomLayer,3-0603,114.537,-13.4972,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R26,4.7k,BottomLayer,3-0603,14.207,5.248,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R27,330,TopLayer,3-0603,21.3952,4.3082,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R28,4.7k,BottomLayer,3-0603,13.588,-7.2742,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R29,330,TopLayer,3-0603,23.24,1.6158,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R3,10K,TopLayer,3-0603,112.775,-27.137,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R30,2.2k,BottomLayer,3-0603,1.1938,-11.303,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R31,2.2k,BottomLayer,3-0603,6.6548,-12.4714,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R32,2.2k,BottomLayer,3-0603,12.5476,-24.6888,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R4,10K,TopLayer,3-0603,112.648,-25.1558,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R5,10K,TopLayer,3-0603,109.457,-25.3082,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R6,10K,TopLayer,3-0603,109.457,-26.7052,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R7,100K,TopLayer,3-0603,106.917,-25.6892,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R8,4.7k,TopLayer,3-0603,93.582,-33.995,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R9,20k,TopLayer,3-0603,76.691,-26.1972,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+U1,SGTL5000,BottomLayer,QFN32,109.711,-26.3242,270,SGTL5000
+U10,LP3985IM5-3.3,TopLayer,MF05A_N,44.195,-32.0232,0,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U11,ICM-20948,BottomLayer,QFN24-3X3-ICM-20948,6.4008,-19.2024,180,
+U12,LP3985IM5-3.3,BottomLayer,MF05A_N,15.604,-0.7972,270,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U13,MCP1700T-1802E/TT,BottomLayer,SOT-23-TT3_N,7.1374,-26.8986,270,"Low Quiescent Current LDO, 3-Pin SOT-23, Extended Temperature, Tape and Reel"
+U14,Keller7LD,TopLayer,Keller7LD,5.19,-2.5752,180,Keller Pressure/Temp
+U15,DS3231,BottomLayer,DS3231,28.1402,-29.3722,180,
+U16,MS5837,TopLayer,MS5837,16.985,1.4728,90,Pressure/Temp
+U2,MAX9788,TopLayer,MAX9788,110.346,-30.8962,180,audio amp
+U20,ATmega8-16AC,BottomLayer,32M1-A_M,29.447,-1.5592,270,8-Bit AVR Microcontroller with 8K Bytes of In-System Programmable Flash Memory
+U3,LP3985IM5-3.3,TopLayer,MF05A_N,77.683,-30.0032,270,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U4,LP3985IM5-3.3,BottomLayer,MF05A_N,105.393,0.7268,180,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U5,SGTL5000,BottomLayer,QFN32,110.854,-5.5402,270,SGTL5000
+U6,LP3985IM5-3.3,BottomLayer,MF05A_N,114.791,-19.2122,90,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U7,LP3985IM5-3.3,BottomLayer,MF05A_N,110.727,-12.3542,180,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U8,MCP73831T-2DCI/OT,BottomLayer,SOT-23-OT5_N,3.285,-8.1632,0,"Miniature Single-Cell, Fully Integrated Li-Ion, Li-Polymer Charge Management Controller, 4.2V, 5-Pin SOT-23, Industrial Temperature, Tape and Reel"
+U9,TLV70018DCKR,BottomLayer,TI-DCK5_V,103.869,-5.2422,270,"Single Output LDO, 200 mA, Fixed 1.8 V Output, 2 to 5.5 V Input, with Low IQ, 5-pin SC70 (DCK), -40 to 125 degC, Green (RoHS & no Sb/Br)"
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,

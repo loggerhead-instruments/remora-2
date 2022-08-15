@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------------------------------------------------
-NCDrill File Report For: remora-2.PcbDoc   9/13/2021  12:49:38 PM
+NCDrill File Report For: remora-2.PcbDoc   7/29/2022  5:16:33 PM
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
@@ -8,15 +8,15 @@ ASCII RoundHoles File : remora-2.TXT
 Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
 ----------------------------------------------------------------------------------------------------------------------------------
 T1      8mil (0.2mm)                                              Round             4         PTH        0.13inch (3.30mm)
-T2      10mil (0.254mm)                                           Round             141       PTH        32.70inch (830.61mm)
-T3      15mil (0.381mm)                                           Round             6         PTH        1.25inch (31.72mm)
+T2      10mil (0.254mm)                                           Round             144       PTH        30.22inch (767.68mm)
+T3      15mil (0.381mm)                                           Round             6         PTH        1.26inch (31.91mm)
 T4      20mil (0.5mm)                                             Round             5         PTH        0.31inch (7.84mm)
 T5      26mil (0.65mm)                                            Round             10        PTH        0.45inch (11.43mm)
 T6      28mil (0.711mm)                                           Round             1         PTH        0.00inch (0.00mm)
-T7      35mil (0.9mm)                                             Round             54        PTH        14.92inch (378.91mm)
+T7      35mil (0.9mm)                                             Round             52        PTH        14.89inch (378.16mm)
 T8      37mil (0.95mm)                                            Round             4         PTH        1.72inch (43.60mm)
 T9      51mil (1.3mm)                                             Round             2         PTH        1.28inch (32.40mm)
 ----------------------------------------------------------------------------------------------------------------------------------
-Totals                                                                              227
+Totals                                                                              228
 
-Total Processing Time (hh:mm:ss) : 00:00:00
+Total Processing Time (hh:mm:ss) : 00:00:01
